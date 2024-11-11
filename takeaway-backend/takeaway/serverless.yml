@@ -10,11 +10,13 @@ provider:
   runtime: nodejs20.x
   region: eu-north-1
   deploymentMethod: direct
+  iam:
+    role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
 
 functions:
   hello:
-    handler: handler.hello
+    handler: functions/PostMeny/index  ?
     events:
       - httpApi:
           path: /
-          method: get
+          method: post
