@@ -15,5 +15,3 @@ exports.handler = async () => {
         return sendError(500, { message: error.message });
     }
 }
-
-
