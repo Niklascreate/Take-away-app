@@ -13,6 +13,7 @@ provider:
   iam:
     role: arn:aws:iam::050451366469:role/lambda-full-access-dynamodb
 
+
 functions:
   PostMeny:
     handler: functions/PostMeny/index.handler
@@ -26,6 +27,13 @@ functions:
       - httpApi:
           path: /get/meny
           method: get
+
+  adminUpdate:
+    handler: functions/adminUpdate/index.handler
+    events:
+      - httpApi:
+          path: /update/{id}
+          method: PUT       
 
 
 resources:
