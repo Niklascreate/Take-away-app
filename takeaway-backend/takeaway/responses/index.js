@@ -21,5 +21,5 @@ function sendError(status, data) {
 module.exports = { sendResponse, sendError };
 
 
-// Niklas & Rindert
+// Författare: Niklas, Rindert, Jonas
 //Responses

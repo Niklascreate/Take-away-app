@@ -42,9 +42,12 @@ exports.handler = async (event) => {
         console.error(`Fel vid behandling av maträtt ${item.dish}:`, innerError);
       }
     }
-    return sendResponse(201, { message: 'Meny tillagd!', confirmations });
+    return sendResponse(201, { message: 'Meny tillagd!' });
   } catch (error) {
     console.error('Fel vid sparande av meny till DynamoDB:', error);
     return sendError(500, { message: 'Kunde inte spara menyn', error: error.message });
   }
 };
+
+
+// Författare: Niklas, Rindert, Jonas
