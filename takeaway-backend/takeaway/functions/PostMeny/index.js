@@ -1,84 +1,99 @@
 const { db } = require('../../services/index');
-const { v4: uuid } = require('uuid');
 const { sendResponse, sendError } = require('../../responses/index');
-const AWS = require('aws-sdk');
+const { v4: uuid } = require('uuid');
 
-const s3 = new AWS.S3();
-const BUCKET_NAME = 'herringimgbucket'; 
+async function getDishDetails(id) {
+    try {
+        const result = await db.get({
+            TableName: 'HerringDB',
+            Key: { id }
+        });
 
-
-async function uploadImageToS3(fileBuffer, fileName) {
-  const params = {
-    Bucket: BUCKET_NAME,
-    Key: fileName, 
-    Body: fileBuffer,
-    ContentType: 'image/jpeg' 
-  };
-
-  try {
-    const result = await s3.upload(params).promise();
-    return result.Location; 
-  } catch (error) {
-    console.error('Fel vid uppladdning av bild till S3:', error);
-    throw new Error('Kunde inte ladda upp bilden till S3');
-  }
+        if (!result.Item) {
+            console.error(`Maträtt med ID ${id} hittades inte`);
+            return null;
+        }
+        return result.Item;
+    } catch (error) {
+        console.error(`Fel vid hämtning av maträtt ${id}:`, error);
+        return null;
+    }
 }
 
 exports.handler = async (event) => {
-  try {
-    if (!event.body) {
-      return sendError(400, 'Ingen data skickades');
-    }
-
-    const menuItems = JSON.parse(event.body);
-    if (!Array.isArray(menuItems)) {
-      return sendError(400, 'Dataformatet är felaktigt. Förväntad en lista med maträtter.');
-    }
-
-    const confirmations = [];
-
-    for (const item of menuItems) {
-      try {
-        const dish = {
-          ...item,
-          id: uuid(),
-          createdAt: new Date().toISOString(),
-        };
-
-        if (item.image && item.image.buffer) {
-          const fileName = `dish-images/${uuid()}-${item.image.name}`;
-          const imageUrl = await uploadImageToS3(item.image.buffer, fileName); 
-          dish.imageUrl = imageUrl; 
+    try {
+        if (!event.body) {
+            return sendError(400, 'Ingen data skickades');
         }
 
-        await db.put({
-          TableName: 'HerringDB',
-          Item: dish,
+        const orders = JSON.parse(event.body);
+
+        if (!Array.isArray(orders) || orders.length === 0) {
+            return sendError(400, 'Förväntar en lista med beställningar');
+        }
+
+        const confirmations = [];
+
+        for (const orderData of orders) {
+            const { id, customerName, email, quantity, specialRequests } = orderData;
+
+            if (!id || !customerName || !email || !quantity) {
+                console.error('Saknar nödvändig information:', orderData);
+                continue;
+            }
+
+            const dishDetails = await getDishDetails(id);
+
+            if (!dishDetails) {
+                console.error(`Maträtt med ID ${id} kunde inte hittas`);
+                continue;
+            }
+
+            const order = {
+                orderId: uuid(),
+                dishId: id,
+                dishName: dishDetails.dish,
+                category: dishDetails.category,
+                description: dishDetails.description,
+                price: dishDetails.price,
+                customerName,
+                email,
+                quantity,
+                specialRequests: specialRequests || '',
+                createdAt: new Date().toISOString(),
+            };
+
+            await db.put({
+                TableName: 'HerringBooking',
+                Item: order,
+            }).promise();
+
+            confirmations.push({
+                orderId: order.orderId,
+                dishName: order.dishName,
+                category: order.category,
+                description: order.description,
+                price: order.price,
+                customerName: order.customerName,
+                email: order.email,
+                quantity: order.quantity,
+                specialRequests: order.specialRequests,
+                createdAt: order.createdAt,
+            });
+        }
+
+        if (confirmations.length === 0) {
+            console.error('Inga giltiga beställningar kunde behandlas');
+            return sendError(400, 'Inga giltiga beställningar kunde behandlas');
+        }
+
+        return sendResponse(201, {
+            message: 'Beställningar mottagna!',
+            data: confirmations,
         });
 
-        confirmations.push({
-          id: dish.id,
-          dish: dish.dish,
-          category: dish.category,
-          price: dish.price,
-          description: dish.description,
-          ingredients: dish.ingredients,
-          available: dish.available,
-          createdAt: dish.createdAt,
-          imageUrl: dish.imageUrl || null, 
-        });
-      } catch (innerError) {
-        console.error(`Fel vid behandling av maträtt ${item.dish}:`, innerError);
-      }
+    } catch (error) {
+        console.error('Fel vid hantering av beställningar:', error);
+        return sendError(500, { message: 'Kunde inte bearbeta beställningarna', error: error.message });
     }
-
-    return sendResponse(201, { message: 'Meny tillagd!', data: confirmations });
-  } catch (error) {
-    console.error('Fel vid sparande av meny till DynamoDB:', error);
-    return sendError(500, { message: 'Kunde inte spara menyn', error: error.message });
-  }
 };
-
-
-// Författare: Niklas, Rindert, Jonas
-// Denna funktion sparar en lista med maträtter till en DynamoDB-databas på AWS. Varje maträtt får ett unikt ID och en tidsstämpel.
