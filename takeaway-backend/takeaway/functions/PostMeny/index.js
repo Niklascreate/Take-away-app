@@ -51,3 +51,4 @@ exports.handler = async (event) => {
 
 
 // Författare: Niklas, Rindert, Jonas
+// Denna funktion sparar en lista med maträtter till en DynamoDB-databas på AWS. Varje maträtt får ett unikt ID och en tidsstämpel.
