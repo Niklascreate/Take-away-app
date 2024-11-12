@@ -78,3 +78,7 @@ exports.handler = async (event) => {
     return sendError(500, { message: 'Kunde inte spara menyn', error: error.message });
   }
 };
+
+
+// Författare: Niklas, Rindert, Jonas
+// Denna funktion sparar en lista med maträtter till en DynamoDB-databas på AWS. Varje maträtt får ett unikt ID och en tidsstämpel.
