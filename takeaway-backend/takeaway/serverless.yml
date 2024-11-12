@@ -14,9 +14,24 @@ provider:
     role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
 
 functions:
-  hello:
-    handler: functions/PostMeny/index  ?
+  PostMeny:
+    handler: functions/PostMeny/index.handler
     events:
       - httpApi:
-          path: /
+          path: /post/meny
           method: post
+
+
+resources:
+  Resources:
+    HerringTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: 'HerringDB'
+        AttributeDefinitions:
+          - AttributeName: 'id'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'id'
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

@@ -5,5 +5,5 @@ const db = DynamoDBDocument.from(client);
 
 module.exports = { db };
 
-//Niklas & Rindert
+// Författare: Niklas, Rindert, Jonas
 //Skapar en instans av DynamoDB-klienten och ett DynamoDB Document-klientobjekt från AWS SDK.
