@@ -1,19 +1,16 @@
 const { db } = require('../../services/index');
+const { v4: uuid } = require('uuid');
 const { sendResponse, sendError } = require('../../responses/index');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const BUCKET_NAME = 'herringimgbucket';
-
-function generateId() {
-  return (Math.floor(Math.random() * 100000)).toString();
-}
 
 async function uploadImageToS3(fileBuffer, fileName) {
   const params = {
     Bucket: BUCKET_NAME,
     Key: fileName,
     Body: fileBuffer,
-    ContentType: 'image/jpeg',
+    ContentType: 'image/png',
   };
 
   try {
@@ -32,17 +29,16 @@ exports.handler = async (event) => {
 
     for (const item of items) {
       const dish = {
-        id: generateId(),
-        name: item.dish,
+        id: uuid().slice(0, 4),
+        name: item.name,
         description: item.description,
         ingredients: item.ingredients,
         available: item.available,
-        price: item.price,
         createdAt: new Date().toISOString(),
       };
 
       if (item.image && item.image.buffer) {
-        const fileName = `dish-images/${generateId()}-${item.image.name}`;
+        const fileName = `dish-images/${uuid()}-${item.image.name}`;
         const imageUrl = await uploadImageToS3(item.image.buffer, fileName);
         dish.imageUrl = imageUrl;
       }
@@ -59,7 +55,6 @@ exports.handler = async (event) => {
           description: dish.description,
           ingredients: dish.ingredients,
           available: dish.available,
-          price: dish.price,
           createdAt: dish.createdAt,
           imageUrl: dish.imageUrl || null,
         });
@@ -68,9 +63,11 @@ exports.handler = async (event) => {
       }
     }
 
-    return sendResponse(201, { message: 'Meny tillagd!', dishes: confirmations });
+    return sendResponse(201, { message: 'Meny tillagd!', data: confirmations });
   } catch (error) {
     console.error('Fel vid sparande av meny till DynamoDB:', error);
     return sendError(500, { message: 'Kunde inte spara menyn', error: error.message });
   }
 };
+
+// Författare: Niklas, Rindert, Jonas
