@@ -23,7 +23,7 @@ functions:
           method: post
 
   getDishes:
-    handler: functions/Getdishes/index.handler
+    handler: functions/getDishes/index.handler
     events:
       - httpApi:
           path: /get/meny
@@ -36,8 +36,8 @@ functions:
           path: /update/{id}
           method: put
 
-  orderFood:
-    handler: functions/orderFood/index.handler
+  OrderFood:
+    handler: functions/OrderFood/index.handler
     events:
       - httpApi:
           path: /order/food
