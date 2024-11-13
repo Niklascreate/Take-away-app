@@ -42,6 +42,12 @@ functions:
       - httpApi:
           path: /order/food
           method: post
+  getOrder:
+    handler: functions/getOrder/index.handler
+    events:
+      - httpApi:
+          path: /order
+          method: get
 
 resources:
   Resources:
