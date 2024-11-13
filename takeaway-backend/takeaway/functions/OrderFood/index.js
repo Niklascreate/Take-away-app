@@ -2,18 +2,22 @@ const { db } = require('../../services/index');
 const { sendResponse, sendError } = require('../../responses/index');
 const { v4: uuid } = require('uuid');
 
-// Funktion för att hämta maträttens detaljer från HerringDB
 async function getDishDetails(dishId) {
     try {
         const result = await db.get({
             TableName: 'HerringDB',
             Key: { id: dishId }
-        }).promise();
+        });
         return result.Item;
     } catch (error) {
         console.error(`Fel vid hämtning av maträtt ${dishId}:`, error);
         return null;
     }
+}
+
+function validatePhoneNumber(phoneNumber) {
+    const phoneNmbr = /^\d{10}$/;
+    return phoneNmbr.test(phoneNumber);
 }
 
 exports.handler = async (event) => {
@@ -24,24 +28,26 @@ exports.handler = async (event) => {
 
         const orders = JSON.parse(event.body);
 
-        // Kontrollera att vi fått en lista (array) av beställningar
         if (!Array.isArray(orders) || orders.length === 0) {
             return sendError(400, 'Förväntar en lista med beställningar');
         }
 
         const confirmations = [];
+        let totalPrice = 0;
 
-        // Loopar igenom varje beställning och behandlar den
         for (const orderData of orders) {
-            const { dishId, customerName, email, quantity, specialRequests } = orderData;
+            const { dishId, customerName, email, phoneNumber, quantity, specialRequests } = orderData;
 
-            // Validera att nödvändiga fält finns
-            if (!dishId || !customerName || !email || !quantity) {
+            if (!dishId || !customerName || !email || !phoneNumber || !quantity) {
                 console.error('Saknar nödvändig information:', orderData);
                 continue;
             }
 
-            // Hämta maträttens detaljer från HerringDB
+
+            if (!validatePhoneNumber(phoneNumber)) {
+                return sendError(400, 'Ogiltigt mobilnummer. Vänligen ange exakt 10 siffror.');
+            }
+
             const dishDetails = await getDishDetails(dishId);
 
             if (!dishDetails) {
@@ -49,7 +55,9 @@ exports.handler = async (event) => {
                 continue;
             }
 
-            // Skapa en ny beställning
+            const orderPrice = dishDetails.price * quantity;
+            totalPrice += orderPrice;
+
             const order = {
                 orderId: uuid(),
                 dishId,
@@ -59,18 +67,18 @@ exports.handler = async (event) => {
                 price: dishDetails.price,
                 customerName,
                 email,
+                phoneNumber,
                 quantity,
                 specialRequests: specialRequests || '',
+                orderPrice,
                 createdAt: new Date().toISOString(),
             };
 
-            // Spara beställningen i HerringBooking-tabellen
             await db.put({
-                TableName: 'HerringBooking',
+                TableName: 'HerringOrder',
                 Item: order,
-            }).promise();
+            });
 
-            // Lägg till i bekräftelselistan
             confirmations.push({
                 orderId: order.orderId,
                 dishName: order.dishName,
@@ -79,8 +87,10 @@ exports.handler = async (event) => {
                 price: order.price,
                 customerName: order.customerName,
                 email: order.email,
+                phoneNumber: order.phoneNumber,
                 quantity: order.quantity,
                 specialRequests: order.specialRequests,
+                orderPrice: order.orderPrice,
                 createdAt: order.createdAt,
             });
         }
@@ -91,6 +101,7 @@ exports.handler = async (event) => {
 
         return sendResponse(201, {
             message: 'Beställningar mottagna!',
+            totalPrice,
             data: confirmations,
         });
 
@@ -99,3 +110,7 @@ exports.handler = async (event) => {
         return sendError(500, { message: 'Kunde inte bearbeta beställningarna', error: error.message });
     }
 };
+
+//Niklas
+//Sammanfattningsvis tar denna Lambda-funktion emot en lista med beställningar.
+//Validerar mobilnumret, hämtar maträttsinformation från en databas, beräknar totalpriset och sparar beställningarna i en annan databas, innan den returnerar en bekräftelse.
