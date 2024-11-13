@@ -21,6 +21,7 @@ functions:
       - httpApi:
           path: /post/meny
           method: post
+
   getDishes:
     handler: functions/getDishes/index.handler
     events:
@@ -35,6 +36,13 @@ functions:
           path: /update/{id}
           method: put
 
+  orderFood:
+    handler: functions/orderFood/index.handler
+    events:
+      - httpApi:
+          path: /order/food
+          method: post
+
 resources:
   Resources:
     HerringTable:
@@ -48,3 +56,15 @@ resources:
           - AttributeName: 'id'
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
+
+    HerringOrderTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: 'HerringOrder'
+          AttributeDefinitions:
+            - AttributeName: 'orderId'
+              AttributeType: 'S'
+          KeySchema:
+            - AttributeName: 'orderId'
+              KeyType: HASH
+          BillingMode: PAY_PER_REQUEST
