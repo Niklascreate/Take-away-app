@@ -16,7 +16,7 @@ provider:
 
 functions:
   postMeny:
-    handler: functions/PostMeny/index.handler
+    handler: functions/postMeny/index.handler
     events:
       - httpApi:
           path: /post/meny
@@ -36,8 +36,8 @@ functions:
           path: /update/{id}
           method: put
 
-  OrderFood:
-    handler: functions/OrderFood/index.handler
+  orderFood:
+    handler: functions/orderFood/index.handler
     events:
       - httpApi:
           path: /order/food
