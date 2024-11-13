@@ -59,7 +59,7 @@ exports.handler = async (event) => {
             totalPrice += orderPrice;
 
             const order = {
-                orderId: uuid(),
+                orderId: uuid().substring(0, 4),
                 dishId,
                 dishName: dishDetails.dish,
                 category: dishDetails.category,

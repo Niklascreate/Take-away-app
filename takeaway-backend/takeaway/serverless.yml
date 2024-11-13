@@ -23,7 +23,7 @@ functions:
           method: post
 
   getDishes:
-    handler: functions/Getdishes/index.handler
+    handler: functions/getDishes/index.handler
     events:
       - httpApi:
           path: /get/meny
