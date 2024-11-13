@@ -29,7 +29,7 @@ exports.handler = async (event) => {
 
     for (const item of items) {
       const dish = {
-        id: uuid(),
+        id: uuid().slice(0, 4),
         name: item.name,
         description: item.description,
         ingredients: item.ingredients,
