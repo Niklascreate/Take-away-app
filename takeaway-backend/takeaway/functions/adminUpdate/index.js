@@ -48,16 +48,21 @@ exports.handler = async (event) => {
 
         const updateExpression = `set ${updateFields.join(', ')}`;
 
+        // Uppdateringsanropet med ConditionExpression för att säkerställa att id redan finns
         await db.update({
             TableName: 'HerringDB',
             Key: { id: itemId },
             UpdateExpression: updateExpression,
-            ExpressionAttributeValues: expressionAttributeValues
+            ExpressionAttributeValues: expressionAttributeValues,
+            ConditionExpression: 'attribute_exists(id)'  // Uppdatera endast om ID:t redan finns
         });
 
         return sendResponse(200, { message: 'Maträtt uppdaterad!', id: itemId });
 
     } catch (error) {
+        if (error.code === 'ConditionalCheckFailedException') {
+            return sendError(404, { message: 'Maträtt med angivet ID hittades inte.' });
+        }
         console.error('Fel vid uppdatering av maträtt:', error);
         return sendError(500, { message: 'Kunde inte uppdatera maträtten', error: error.message });
     }
