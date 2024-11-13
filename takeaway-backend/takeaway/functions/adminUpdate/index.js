@@ -48,13 +48,12 @@ exports.handler = async (event) => {
 
         const updateExpression = `set ${updateFields.join(', ')}`;
 
-        // Uppdateringsanropet med ConditionExpression för att säkerställa att id redan finns
         await db.update({
             TableName: 'HerringDB',
             Key: { id: itemId },
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
-            ConditionExpression: 'attribute_exists(id)'  // Uppdatera endast om ID:t redan finns
+            ConditionExpression: 'attribute_exists(id)' 
         });
 
         return sendResponse(200, { message: 'Maträtt uppdaterad!', id: itemId });
