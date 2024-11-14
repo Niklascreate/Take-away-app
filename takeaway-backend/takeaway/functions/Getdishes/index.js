@@ -15,3 +15,6 @@ exports.handler = async () => {
         return sendError(500, { message: error.message });
     }
 }
+
+//Niklas
+//Denna funktion hämtar menyn från databasen.

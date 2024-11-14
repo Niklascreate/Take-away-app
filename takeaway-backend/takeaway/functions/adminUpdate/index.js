@@ -67,4 +67,5 @@ exports.handler = async (event) => {
     }
 };
 
-// Författare: Jonas, funktion gör så att admin kan göra ändringar i menyn
+// Författare: Jonas.
+// Funktion gör så att admin kan göra ändringar i menyn

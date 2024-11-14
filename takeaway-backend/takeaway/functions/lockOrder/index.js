@@ -9,14 +9,13 @@ exports.handler = async (event) => {
         const { orderId } = JSON.parse(event.body || '{}');
         if (!orderId) return sendError(400, 'OrderId krävs');
 
-        // Uppdatera fältet isLocked till true i ett enda steg
         const result = await db.send(new UpdateItemCommand({
             TableName: 'HerringOrder',
             Key: { orderId: { S: orderId } },
             UpdateExpression: 'SET #isLocked = :isLocked',
             ExpressionAttributeNames: { '#isLocked': 'isLocked' },
             ExpressionAttributeValues: { ':isLocked': { BOOL: true } },
-            ConditionExpression: 'attribute_not_exists(isLocked) OR isLocked = :false', // Förhindra uppdatering om redan låst
+            ConditionExpression: 'attribute_not_exists(isLocked) OR isLocked = :false',
             ExpressionAttributeValues: { ':isLocked': { BOOL: true }, ':false': { BOOL: false } },
         }));
 
@@ -29,3 +28,7 @@ exports.handler = async (event) => {
         return sendError(500, 'Kunde inte låsa beställningen');
     }
 };
+
+
+//Rindert
+//Den här koden låser en order i DynamoDB om den inte redan är låst. Om ordern redan är låst får användaren ett felmeddelande om detta.

@@ -44,3 +44,10 @@ exports.handler = async (event) => {
     return sendError(500, { message: 'Kunde inte spara menyn', error: error.message });
   }
 };
+
+
+//Författare: Niklas
+//En funktion som skapar en databas innehållandes en meny på DynamoDb.
+
+//Bugfix: Jonas
+//Lagt till stöd för bild-URL från en S3-bucket, vilket gör det möjligt att spara bilder direkt från en bucket.

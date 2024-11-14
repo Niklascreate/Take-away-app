@@ -1,5 +1,5 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: stenelind
+org: niklasnilsson
 # "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: takeawayapp
 # "service" is the name of this project. This will also be added to your AWS resource names.
@@ -11,7 +11,7 @@ provider:
   region: eu-north-1
   deploymentMethod: direct
   iam:
-    role: arn:aws:iam::711387100461:role/LambdaDynamoDBFull
+    role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
 
 
 functions:
@@ -53,15 +53,21 @@ functions:
     handler: functions/adminOrderKlar/index.handler
     events:
       - httpApi:
-          path: /admin/order-klar
+          path: /admin/order/klar
           method: put
 
   lockOrder:
     handler: functions/lockOrder/index.handler
     events:
-      - http:
-          path: order/lock
+      - httpApi:
+          path: /order/lock
           method: post
+  getKeys:
+    handler: functions/getKeys/index.handler
+    events:
+      - httpApi:
+          path: /keys
+          method: get
          
           
 

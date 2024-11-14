@@ -17,3 +17,6 @@ exports.handler = async () => {
         return sendError(500, { message: `Fel vid hämtning av ordrar: ${error.message}` });
     }
 };
+
+//Niklas
+//Denna funktion hämtar alla ordrar från tabellen 'HerringOrder' och hanterar eventuella fel.
