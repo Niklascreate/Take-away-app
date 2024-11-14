@@ -1,10 +1,14 @@
-import './App.css'
-import LandingPage from './pages/landingpage/LandingPage'
+import Header from './Components/header/Header'
+import './index.css'
+import LandingPage from './Pages/landingPage/LandingPage'
 
 function App() {
 
   return (
+    <>
+    <Header />
     <LandingPage />
+    </>
   )
 }
 
