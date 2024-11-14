@@ -1,26 +1,6 @@
 const { db } = require('../../services/index');
 const { v4: uuid } = require('uuid');
 const { sendResponse, sendError } = require('../../responses/index');
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
-const BUCKET_NAME = 'herringimgbucket';
-
-async function uploadImageToS3(fileBuffer, fileName) {
-  const params = {
-    Bucket: BUCKET_NAME,
-    Key: fileName,
-    Body: fileBuffer,
-    ContentType: 'image/png',
-  };
-
-  try {
-    const result = await s3.upload(params).promise();
-    return result.Location;
-  } catch (error) {
-    console.error('Fel vid uppladdning av bild till S3:', error);
-    throw new Error('Kunde inte ladda upp bilden till S3');
-  }
-}
 
 exports.handler = async (event) => {
   try {
@@ -35,13 +15,8 @@ exports.handler = async (event) => {
         ingredients: item.ingredients,
         available: item.available,
         createdAt: new Date().toISOString(),
+        imageUrl: item.imageUrl || null,  
       };
-
-      if (item.image && item.image.buffer) {
-        const fileName = `dish-images/${uuid()}-${item.image.name}`;
-        const imageUrl = await uploadImageToS3(item.image.buffer, fileName);
-        dish.imageUrl = imageUrl;
-      }
 
       try {
         await db.put({
@@ -56,10 +31,10 @@ exports.handler = async (event) => {
           ingredients: dish.ingredients,
           available: dish.available,
           createdAt: dish.createdAt,
-          imageUrl: dish.imageUrl || null,
+          imageUrl: dish.imageUrl,
         });
       } catch (innerError) {
-        console.error(`Fel vid behandling av maträtt ${item.dish}:`, innerError);
+        console.error(`Fel vid behandling av maträtt ${item.name}:`, innerError);
       }
     }
 
@@ -69,5 +44,3 @@ exports.handler = async (event) => {
     return sendError(500, { message: 'Kunde inte spara menyn', error: error.message });
   }
 };
-
-// Författare: Niklas, Rindert, Jonas
