@@ -8,8 +8,8 @@
 }
 
 :root {
-  --red-dark: #C62E2E;
-  --red-light: #F95454;
+  --background: #C62E2E;
+  --header: #F95454;
   --yellow: #FAB703;
   --white: #FFFFFF;
   --black: #000000;
