@@ -1,0 +1,17 @@
+.nav_container {
+    max-width: 375px;
+    background-color: var(--background);
+}
+
+.nav_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.nav_icon {
+    width: 50px;
+    height: 50px;
+    margin: .7rem;
+}
