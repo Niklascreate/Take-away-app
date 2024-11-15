@@ -1,11 +1,10 @@
-const { DynamoDBClient, UpdateItemCommand } = require('@aws-sdk/client-dynamodb');
-const { sendResponse, sendError } = require('../../responses/index');
+import { DynamoDBClient, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
+import { sendResponse, sendError } from '../../responses/index.mjs';
 
 const db = new DynamoDBClient({ region: 'eu-north-1' });
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     try {
-        
         const { orderId } = JSON.parse(event.body || '{}');
         if (!orderId) return sendError(400, 'OrderId krävs');
 
@@ -28,7 +27,6 @@ exports.handler = async (event) => {
         return sendError(500, 'Kunde inte låsa beställningen');
     }
 };
-
 
 //Rindert
 //Den här koden låser en order i DynamoDB om den inte redan är låst. Om ordern redan är låst får användaren ett felmeddelande om detta.

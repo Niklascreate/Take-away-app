@@ -1,7 +1,7 @@
-const { db } = require('../../services/index');
-const { sendResponse, sendError } = require('../../responses/index');
+import { db } from '../../services/index.mjs';
+import { sendResponse, sendError } from '../../responses/index.mjs';
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     try {
         if (!event.body) {
             return sendError(400, { message: 'Ingen data skickades' });
@@ -66,6 +66,3 @@ exports.handler = async (event) => {
         return sendError(500, { message: 'Kunde inte uppdatera maträtten', error: error.message });
     }
 };
-
-// Författare: Jonas.
-// Funktion gör så att admin kan göra ändringar i menyn

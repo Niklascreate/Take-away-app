@@ -1,7 +1,7 @@
-const { db } = require('../../services/index');
-const { sendResponse, sendError } = require('../../responses/index');
+import { db } from '../../services/index.mjs';
+import { sendResponse, sendError } from '../../responses/index.mjs';
 
-exports.handler = async () => {
+export const handler = async () => {
     try {
         const result = await db.scan({
             TableName: 'HerringOrder',

@@ -1,6 +1,6 @@
-const { db } = require('../../services/index');
-const { sendResponse, sendError } = require('../../responses/index');
-const { v4: uuid } = require('uuid');
+import { db }  from '../../services/index.mjs';
+import { sendResponse, sendError } from '../../responses/index.mjs';
+import { v4 as uuid } from 'uuid';
 
 async function getDishDetails(dishId) {
     try {
@@ -20,7 +20,7 @@ function validatePhoneNumber(phoneNumber) {
     return phoneNmbr.test(phoneNumber);
 }
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     try {
         if (!event.body) {
             return sendError(400, 'Ingen data skickades');
@@ -42,7 +42,6 @@ exports.handler = async (event) => {
                 console.error('Saknar nödvändig information:', orderData);
                 continue;
             }
-
 
             if (!validatePhoneNumber(phoneNumber)) {
                 return sendError(400, 'Ogiltigt mobilnummer. Vänligen ange exakt 10 siffror.');

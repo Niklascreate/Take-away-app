@@ -12,7 +12,7 @@ provider:
 
 package:
   include:
-    - data/keys.js
+    - data/keys.mjs
 
 functions:
   postMenu:

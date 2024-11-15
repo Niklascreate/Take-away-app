@@ -1,4 +1,4 @@
-const keys = [
+export const keys = [
     'key-1A2B3',
     'key-A1B2C',
     'key-D4E5F',
@@ -10,5 +10,3 @@ const keys = [
     'key-V7W8X',
     'key-Y9Z0A'
 ];
-
-module.exports = keys;

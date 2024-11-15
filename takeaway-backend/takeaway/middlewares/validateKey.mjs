@@ -1,6 +1,6 @@
-const { keys } = require('../../data/keys');
+import { keys } from '../data/keys.mjs';
 
-exports.handler = () => ({
+export const validateKey = () => ({
   before: (handler) => {
     const { key } = handler.event.queryStringParameters;
 
