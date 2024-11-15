@@ -16,7 +16,7 @@ exports.handler = async (event) => {
     const params = {
       TableName: 'HerringOrder',
       Key: { orderId },
-      ConditionExpression: 'attribute_not_exists(isLocked)', // Radera endast om beställningen inte är låst
+      ConditionExpression: 'attribute_not_exists(isLocked)', 
     };
 
     // Utför raderingen
