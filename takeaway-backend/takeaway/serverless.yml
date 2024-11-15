@@ -1,8 +1,5 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: niklasnilsson
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: takeawayapp
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: takeaway
 
 provider:
@@ -13,20 +10,23 @@ provider:
   iam:
     role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
 
+package:
+  include:
+    - data/keys.js
 
 functions:
-  postMeny:
-    handler: functions/postMeny/index.handler
+  postMenu:
+    handler: functions/postMenu/index.handler
     events:
       - httpApi:
-          path: /post/meny
+          path: /post/menu
           method: post
 
-  getDishes:
-    handler: functions/getDishes/index.handler
+  getMenu:
+    handler: functions/getMenu/index.handler
     events:
       - httpApi:
-          path: /get/meny
+          path: /get/menu
           method: get
 
   adminUpdate:
@@ -68,8 +68,6 @@ functions:
       - httpApi:
           path: /keys
           method: get
-         
-          
 
 resources:
   Resources:
