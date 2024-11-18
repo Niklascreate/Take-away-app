@@ -1,17 +1,23 @@
-import Header from './Components/header/Header'
-import Nav from './Components/nav/Nav'
-import './index.css'
-import LandingPage from './Pages/landingPage/LandingPage'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Header from './Components/header/Header';
+import Nav from './Components/nav/Nav';
+import InfoPage from './Pages/infoPage/InfoPage';
+import LandingPage from './Pages/landingPage/LandingPage';
+import './index.css';
 
 function App() {
-
   return (
-    <>
-    <Header />
-    <LandingPage /> 
-    <Nav />
-    </>
-  )
+    <Router>
+      <Header />
+     
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/info" element={<InfoPage />} />
+      </Routes>
+
+      <Nav />
+    </Router>
+  );
 }
 
-export default App
+export default App;
