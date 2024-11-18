@@ -1,0 +1,28 @@
+.menu_adressContainer {
+    display: flex;
+    gap: .9rem;
+    padding: .8rem;
+}
+
+.menu_adressHeader {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: .2rem;
+    color: var(--yellow);
+}
+
+.menu_adressText {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: .7rem;
+    color: var(--yellow);
+}
+
+.menu_hero {
+    width: 100%;
+}
+
+.menu_adress {
+    background-color: var(--background);
+}
