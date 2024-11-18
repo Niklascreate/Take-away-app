@@ -1,25 +1,19 @@
-const { DynamoDBClient, GetItemCommand, UpdateItemCommand } = require('@aws-sdk/client-dynamodb');
-const { sendResponse, sendError } = require('../../responses/index');
+import { DynamoDBClient, GetItemCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
+import { sendResponse, sendError } from '../../responses/index.mjs';
 
-// DynamoDB-klient
 const db = new DynamoDBClient({ region: 'eu-north-1' });
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
     try {
-        // Hämta och validera body-data
         const { orderId, status } = JSON.parse(event.body || '{}');
         if (!orderId || !status) return sendError(400, 'OrderId och status krävs');
 
-        // Hämta beställningen från DynamoDB
         const { Item } = await db.send(new GetItemCommand({
             TableName: 'HerringOrder',
             Key: { orderId: { S: orderId } },
         }));
-
-        // Kontrollera om beställningen finns
         if (!Item) return sendError(404, 'Beställning ej hittad');
 
-        // Uppdatera statusen
         await db.send(new UpdateItemCommand({
             TableName: 'HerringOrder',
             Key: { orderId: { S: orderId } },
@@ -35,7 +29,3 @@ exports.handler = async (event) => {
         return sendError(500, 'Kunde inte uppdatera status');
     }
 };
-
-//Rindert
-//Kocken kan ta en Order och markera den som klar.
-

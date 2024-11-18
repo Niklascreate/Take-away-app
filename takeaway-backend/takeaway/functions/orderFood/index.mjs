@@ -1,6 +1,6 @@
-const { db } = require('../../services/index');
-const { sendResponse, sendError } = require('../../responses/index');
-const { v4: uuid } = require('uuid');
+import { db } from '../../services/index.mjs';
+import { sendResponse, sendError } from '../../responses/index.mjs';
+import { v4 as uuid } from 'uuid';
 
 async function getDishDetails(dishId) {
     try {
@@ -15,12 +15,28 @@ async function getDishDetails(dishId) {
     }
 }
 
+function generateOrderId() {
+    return uuid().replace(/-/g, '').substring(0, 4);
+}
+
 function validatePhoneNumber(phoneNumber) {
     const phoneNmbr = /^\d{10}$/;
     return phoneNmbr.test(phoneNumber);
 }
 
-exports.handler = async (event) => {
+function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+function validatePrice(price) {
+    if (isNaN(price) || price <= 0) {
+        return false;
+    }
+    return true;
+}
+
+export const handler = async (event) => {
     try {
         if (!event.body) {
             return sendError(400, 'Ingen data skickades');
@@ -37,29 +53,41 @@ exports.handler = async (event) => {
 
         for (const orderData of orders) {
             const { dishId, customerName, email, phoneNumber, quantity, specialRequests } = orderData;
-
+        
             if (!dishId || !customerName || !email || !phoneNumber || !quantity) {
                 console.error('Saknar nödvändig information:', orderData);
                 continue;
             }
 
-
             if (!validatePhoneNumber(phoneNumber)) {
                 return sendError(400, 'Ogiltigt mobilnummer. Vänligen ange exakt 10 siffror.');
             }
 
+            if (!validateEmail(email)) {
+                return sendError(400, 'Ogiltig e-postadress.');
+            }
+        
+            if (!Number.isInteger(quantity) || quantity <= 0) {
+                return sendError(400, 'Kvantiteten måste vara ett positivt heltal.');
+            }
+        
             const dishDetails = await getDishDetails(dishId);
-
+        
             if (!dishDetails) {
                 console.error(`Maträtt med ID ${dishId} kunde inte hittas`);
                 continue;
             }
 
+            if (!validatePrice(dishDetails.price)) {
+                console.error(`Ogiltigt pris för maträtt med ID ${dishId}: ${dishDetails.price}`);
+                return sendError(400, `Ogiltigt pris för maträtt med ID ${dishId}`);
+            }
+        
             const orderPrice = dishDetails.price * quantity;
             totalPrice += orderPrice;
-
+        
             const order = {
-                orderId: uuid().substring(0, 4),
+                orderId: generateOrderId(),
                 dishId,
                 dishName: dishDetails.dish,
                 category: dishDetails.category,
@@ -74,11 +102,16 @@ exports.handler = async (event) => {
                 createdAt: new Date().toISOString(),
             };
 
-            await db.put({
-                TableName: 'HerringOrder',
-                Item: order,
-            });
-
+            try {
+                await db.put({
+                    TableName: 'HerringOrder',
+                    Item: order,
+                });
+            } catch (dbError) {
+                console.error(`Fel vid sparande av beställning för maträtt med ID ${dishId}:`, dbError);
+                return sendError(500, `Kunde inte spara beställning för maträtt med ID ${dishId}`);
+            }
+        
             confirmations.push({
                 orderId: order.orderId,
                 dishName: order.dishName,
@@ -110,6 +143,8 @@ exports.handler = async (event) => {
         return sendError(500, { message: 'Kunde inte bearbeta beställningarna', error: error.message });
     }
 };
+
+
 
 //Niklas
 //Sammanfattningsvis tar denna Lambda-funktion emot en lista med beställningar.

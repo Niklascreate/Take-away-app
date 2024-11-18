@@ -1,7 +1,7 @@
-const { db } = require('../../services/index');
-const { sendResponse, sendError } = require('../../responses/index');
+import { db } from '../../services/index.mjs';
+import { sendResponse, sendError } from '../../responses/index.mjs';
 
-exports.handler = async () => {
+export const handler = async () => {
     try {
         const result = await db.scan({
             TableName: 'HerringOrder',
@@ -17,3 +17,6 @@ exports.handler = async () => {
         return sendError(500, { message: `Fel vid hämtning av ordrar: ${error.message}` });
     }
 };
+
+//Niklas
+//Denna funktion hämtar alla ordrar från tabellen 'HerringOrder' och hanterar eventuella fel.

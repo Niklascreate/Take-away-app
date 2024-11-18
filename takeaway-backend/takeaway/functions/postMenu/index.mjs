@@ -1,8 +1,8 @@
-const { db } = require('../../services/index');
-const { v4: uuid } = require('uuid');
-const { sendResponse, sendError } = require('../../responses/index');
+import { db }  from '../../services/index.mjs';
+import { v4 as uuid } from 'uuid';
+import { sendResponse, sendError } from '../../responses/index.mjs';
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   try {
     const items = JSON.parse(event.body);
     const confirmations = [];
@@ -10,12 +10,12 @@ exports.handler = async (event) => {
     for (const item of items) {
       const dish = {
         id: uuid().slice(0, 4),
-        name: item.name,
+        name: item.dish,
         description: item.description,
         ingredients: item.ingredients,
         available: item.available,
         createdAt: new Date().toISOString(),
-        imageUrl: item.imageUrl || null,  
+        imageUrl: item.imageUrl || null,
       };
 
       try {
@@ -44,3 +44,9 @@ exports.handler = async (event) => {
     return sendError(500, { message: 'Kunde inte spara menyn', error: error.message });
   }
 };
+
+//Författare: Niklas
+//En funktion som skapar en databas innehållandes en meny på DynamoDb.
+
+//Bugfix: Jonas
+//Lagt till stöd för bild-URL från en S3-bucket, vilket gör det möjligt att spara bilder direkt från en bucket.

@@ -1,4 +1,4 @@
-function sendResponse(status, data) {
+export function sendResponse(status, data) {
     return {
         statusCode: status,
         headers : {
@@ -8,7 +8,7 @@ function sendResponse(status, data) {
     };
 }
 
-function sendError(status, data) {
+export function sendError(status, data) {
     return {
         statusCode: status,
         headers : {
@@ -17,9 +17,6 @@ function sendError(status, data) {
         body: JSON.stringify(data)
     };
 }
-
-module.exports = { sendResponse, sendError };
-
 
 // Författare: Niklas, Rindert, Jonas
-//Responses
+// Responses
