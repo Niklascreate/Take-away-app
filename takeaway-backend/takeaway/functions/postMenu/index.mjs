@@ -10,12 +10,12 @@ export const handler = async (event) => {
     for (const item of items) {
       const dish = {
         id: uuid().slice(0, 4),
-        name: item.name,
+        name: item.dish,
         description: item.description,
         ingredients: item.ingredients,
         available: item.available,
         createdAt: new Date().toISOString(),
-        imageUrl: item.imageUrl || null,  
+        imageUrl: item.imageUrl || null,
       };
 
       try {

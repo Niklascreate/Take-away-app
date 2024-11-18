@@ -1,7 +1,6 @@
-import { DynamoDBClient, DeleteCommand } from '@aws-sdk/lib-dynamodb';
+import { DeleteCommand } from '@aws-sdk/lib-dynamodb';
+import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
-
-const db = new DynamoDBClient({ region: 'eu-north-1' });
 
 export const handler = async (event) => {
   try {
@@ -13,8 +12,8 @@ export const handler = async (event) => {
 
     const params = {
       TableName: 'HerringOrder',
-      Key: { orderId },
-      ConditionExpression: 'attribute_not_exists(isLocked)', 
+      Key: { orderId: { S: orderId } },
+      ConditionExpression: 'attribute_not_exists(isLocked)',
     };
 
     await db.send(new DeleteCommand(params));
@@ -22,6 +21,7 @@ export const handler = async (event) => {
     return sendResponse(200, { message: 'Beställningen har tagits bort' });
   } catch (error) {
     console.error('Fel vid radering av beställning:', error);
+
 
     if (error.name === 'ConditionalCheckFailedException') {
       return sendError(403, { message: 'Beställningen är låst och kan inte tas bort' });

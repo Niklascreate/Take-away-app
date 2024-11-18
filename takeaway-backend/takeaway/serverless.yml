@@ -42,6 +42,7 @@ functions:
       - httpApi:
           path: /order/food
           method: post
+
   getOrder:
     handler: functions/getOrder/index.handler
     events:
@@ -53,27 +54,36 @@ functions:
     handler: functions/adminOrderKlar/index.handler
     events:
       - httpApi:
-          path: /order/klar
+          path: /admin/order/klar
           method: put
 
   lockOrder:
     handler: functions/lockOrder/index.handler
     events:
       - httpApi:
-          path: /order/lock
+          path: /admin/order/lock
           method: post
+
   getKeys:
     handler: functions/getKeys/index.handler
     events:
       - httpApi:
           path: /keys
           method: get
+
   adminKommentar:
-      handler: functions/adminKommentar/index.handler
-      events:
-        - http:
-            path: admin/kommentar
-            method: post
+    handler: functions/adminKommentar/index.handler
+    events:
+      - httpApi:
+          path: /admin/kommentar
+          method: post
+
+  deleteOrder:
+    handler: functions/deleteOrder/index.handler
+    events:
+      - httpApi:
+          path: /admin/delete/order/{id}
+          method: delete
 
 resources:
   Resources:
@@ -90,13 +100,13 @@ resources:
         BillingMode: PAY_PER_REQUEST
 
     HerringOrderTable:
-        Type: AWS::DynamoDB::Table
-        Properties:
-          TableName: 'HerringOrder'
-          AttributeDefinitions:
-            - AttributeName: 'orderId'
-              AttributeType: 'S'
-          KeySchema:
-            - AttributeName: 'orderId'
-              KeyType: HASH
-          BillingMode: PAY_PER_REQUEST
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: 'HerringOrder'
+        AttributeDefinitions:
+          - AttributeName: 'orderId'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'orderId'
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
