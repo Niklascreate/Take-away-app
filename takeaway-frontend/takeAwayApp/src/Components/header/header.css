@@ -2,6 +2,7 @@
     display: flex;
     max-width: 375px;
     background-color: var(--header);
+    margin: 0 auto;
 }
 
 .header_heading__container {

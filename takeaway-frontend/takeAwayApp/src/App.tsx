@@ -1,17 +1,13 @@
-import Header from './Components/header/Header'
-import Nav from './Components/nav/Nav'
 import './index.css'
-import LandingPage from './Pages/landingPage/LandingPage'
+import MenyPage from './Pages/menyPage/MenyPage'
+
 
 function App() {
 
   return (
-    <>
-    <Header />
-    <LandingPage /> 
-    <Nav />
-    </>
+    <MenyPage />
   )
 }
+
 
 export default App

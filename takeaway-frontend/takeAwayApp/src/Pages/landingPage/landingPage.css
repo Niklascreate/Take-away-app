@@ -17,7 +17,6 @@
   object-fit: contain;
   cursor: pointer;
   position: relative;
-  margin-bottom: 1.5rem;
 }
 
 .landingpage-title {
@@ -40,6 +39,5 @@
   color: var(--yellow);
   font-size: 0.8rem;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-  margin-top: 1.5rem;
 }
 
