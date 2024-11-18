@@ -1,3 +1,4 @@
+
 org: niklasnilsson
 app: takeawayapp
 service: takeaway
@@ -9,7 +10,7 @@ provider:
   deploymentMethod: direct
   iam:
     role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
-
+    
 package:
   include:
     - data/keys.mjs

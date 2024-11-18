@@ -1,0 +1,34 @@
+.header_container {
+    display: flex;
+    max-width: 375px;
+    background-color: var(--header);
+    margin: 0 auto;
+}
+
+.header_heading__container {
+    margin: 1rem;
+}
+
+.header_img {
+    width: 50px;
+    height: 50px;
+    margin: 1rem 0 1rem 1rem;
+}
+
+.header_heading {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.3rem;
+    color: var(--yellow);
+    margin-bottom: .2rem;
+    text-transform: uppercase;
+}
+
+.header_smallHeading {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: .8rem;
+    color: var(--yellow);
+}
