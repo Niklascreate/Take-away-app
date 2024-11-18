@@ -68,6 +68,12 @@ functions:
       - httpApi:
           path: /keys
           method: get
+  adminKommentar:
+      handler: functions/adminKommentar/index.handler
+      events:
+        - http:
+            path: admin/kommentar
+            method: post
 
 resources:
   Resources:
