@@ -60,3 +60,6 @@ function OverlayMenyInfo({ stängOverlay, rätt }: OverlayMenyInfoProps) {
 }
 
 export default OverlayMenyInfo;
+
+// Rindert
+// Overlay i meny, visar info om matträtten, och lägger i varukorg
