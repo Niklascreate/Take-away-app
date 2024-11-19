@@ -1,7 +1,5 @@
-import { DynamoDBClient, GetItemCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
+import { db }  from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
-
-const db = new DynamoDBClient({ region: 'eu-north-1' });
 
 export const handler = async (event) => {
     try {
