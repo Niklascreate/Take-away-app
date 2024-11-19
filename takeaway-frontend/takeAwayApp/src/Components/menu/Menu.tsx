@@ -35,7 +35,7 @@ const Menu = () => {
           <section className="menu_descText">
             <h2 className="menu_dish">{dish.name}</h2>
             <p className="menu_desc">{dish.description}</p>
-            <p className="menu_price">119 sek</p>
+            <p className="menu_price">{dish.price} sek</p>
           </section>
         </section>
       ))}
