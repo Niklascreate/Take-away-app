@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './overlayMenyInfo.css';
+import './overlaymenyInfo.css';
 import { Dish } from '../../../interface/interface';
 
 interface OverlayMenyInfoProps {
@@ -60,3 +60,6 @@ function OverlayMenyInfo({ stängOverlay, rätt }: OverlayMenyInfoProps) {
 }
 
 export default OverlayMenyInfo;
+
+// Rindert
+// Overlay i meny, visar info om matträtten, och lägger i varukorg
