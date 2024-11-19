@@ -10,9 +10,9 @@ interface OverlayMenyInfoProps {
 function OverlayMenyInfo({ stängOverlay, rätt }: OverlayMenyInfoProps) {
     const [antal, setAntal] = useState<number>(1);
 
-    const ökaAntal = () => setAntal(antal + 1);
+    const ökaAntal = () => setAntal((prevAntal) => prevAntal + 1);
     const minskaAntal = () => {
-        if (antal > 1) setAntal(antal - 1);
+        if (antal > 1) setAntal((prevAntal) => prevAntal - 1);
     };
 
     const totaltPris = rätt.price * antal;
@@ -20,7 +20,13 @@ function OverlayMenyInfo({ stängOverlay, rätt }: OverlayMenyInfoProps) {
     return (
         <section className="overlay">
             <section className="overlayInnehåll">
-                <button className="stängKnapp" onClick={stängOverlay}>Stäng</button>
+                {/* Koppla onClick-händelsen här */}
+                <img 
+                    src="src/assets/stängKnapp.png" 
+                    alt="Stäng" 
+                    className="stängKnapp" 
+                    onClick={stängOverlay} 
+                />
                 <section className="bildContainer">
                     <img src={rätt.imageUrl} alt={rätt.name} className="rättBild" />
                 </section>

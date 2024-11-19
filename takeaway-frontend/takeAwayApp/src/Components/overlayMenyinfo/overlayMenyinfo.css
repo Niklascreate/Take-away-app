@@ -31,6 +31,7 @@
     height: auto;
     border: 3px solid #000;
     border-radius: 8px;
+    margin-top: 1.3rem;
 }
 
 .stängKnapp {
@@ -38,11 +39,10 @@
     top: 0;
     right: 0;
     background: none;
-    border: none;
-    font-size: 18px;
-    color: #000;
-    padding-right: 5px;
+    width: 42px; 
+    height: 42px;
     cursor: pointer;
+    background-color: #FAB703;
 }
 
 .rättTitel {
