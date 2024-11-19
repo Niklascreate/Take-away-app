@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './overlayMenyInfo.css';
+import './overlaymenyInfo.css';
 import { Dish } from '../../../interface/interface';
 
 interface OverlayMenyInfoProps {

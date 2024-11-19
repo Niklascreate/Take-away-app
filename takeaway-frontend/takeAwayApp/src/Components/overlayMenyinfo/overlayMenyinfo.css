@@ -19,7 +19,9 @@
     max-width: 600px;
     padding: 20px;
     position: relative;
-    border: 1px solid #000000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 
+    0 6px 3px rgba(0, 0, 0, 0.15);
+
 }
 
 .bildContainer {
@@ -29,9 +31,10 @@
 .rättBild {
     width: 100%;
     height: auto;
-    border: 3px solid #000;
     border-radius: 8px;
     margin-top: 1.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+    0 10px 5px rgba(0, 0, 0, 0.2);
 }
 
 .stängKnapp {
@@ -120,5 +123,7 @@
     flex-direction: row; 
     justify-content: center;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 
+            0 6px 3px rgba(0, 0, 0, 0.15);
 }
 

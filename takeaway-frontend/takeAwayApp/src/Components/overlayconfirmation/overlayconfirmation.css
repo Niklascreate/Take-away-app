@@ -1,0 +1,154 @@
+.overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    padding: 20px;
+}
+
+.overlay-box {
+    background-color: #FAB703;
+    color: #000;
+    border-radius: 0.5rem;
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    position: relative;
+    height: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+              0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.close-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    background-color: #FAB703;
+}
+
+.confirmation-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.box-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box-position {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+.box-img__two {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.box-img__three {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.box-img {
+    margin-top: 2rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.box-img__two, .box-img__three {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box-img__three {
+    margin-top: 1rem;
+}
+
+.pickUp {
+    margin-top: 0.2rem;
+    font-weight: bold;
+}
+
+.pickUp-adress {
+    margin-top: 0.2rem;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.box-img__two p,
+.box-img__three p {
+    font-size: 10px;
+}
+
+/* Beställda maträtter */
+.box-order {
+    height: auto;
+}
+
+
+.your-order__title {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.order-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-total {
+    margin-top: 1.5rem;
+}
+
+.change-order {
+    margin-top: 2rem;
+}
+
+.countdown-title {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+}
+
+.countdown-number {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-style: bold;
+    text-align: center;
+}
+
+.countdown-info {
+    font-size: 0.6rem;
+    text-align: center;
+    font-style: italic;
+    margin-top: 4rem;
+}
