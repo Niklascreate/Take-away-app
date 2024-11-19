@@ -1,0 +1,124 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.overlayInnehåll {
+    background-color: #FAB703;
+    color: #000;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    position: relative;
+    border: 1px solid #000000;
+}
+
+.bildContainer {
+    position: relative;
+}
+
+.rättBild {
+    width: 100%;
+    height: auto;
+    border: 3px solid #000;
+    border-radius: 8px;
+    margin-top: 1.3rem;
+}
+
+.stängKnapp {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    width: 42px; 
+    height: 42px;
+    cursor: pointer;
+    background-color: #FAB703;
+}
+
+.rättTitel {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.rättBeskrivning {
+    font-size: 16px;
+    color: #000000;
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.meddelandeInput {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: none;
+    border: 1px solid #000;
+}
+
+.åtgärderContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.räknare {
+    display: flex;
+    align-items: center;
+}
+
+.knappRäknare {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.knappBild {
+    width: 25px;
+    height: 25px;
+}
+
+.antal {
+    font-size: 23px;
+    font-weight: bold;
+    color: #ffffff; 
+    background-color: #000; 
+    border-radius: 50%; 
+    padding: 5px 10px; 
+    display: inline-block;
+    text-align: center; 
+    line-height: 1; 
+}
+
+
+.läggTillKnapp {
+    background-color: #000000;
+    color: white;
+    font-size: 14px; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+}
+
