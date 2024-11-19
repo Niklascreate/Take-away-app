@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 org: rindert
+=======
+org: stenelind
+>>>>>>> 7b8e7905e6fea978a1fcbded91a4b49f2309ebbb
 app: takeawayapp
 service: takeaway
 
@@ -9,7 +13,11 @@ provider:
   region: eu-north-1
   deploymentMethod: direct
   iam:
+<<<<<<< HEAD
     role: arn:aws:iam::050451366469:role/lambda-full-access-dynamodb
+=======
+    role: arn:aws:iam::711387100461:role/LambdaDynamoDBFull
+>>>>>>> 7b8e7905e6fea978a1fcbded91a4b49f2309ebbb
     
 package:
   include:

@@ -1,16 +1,10 @@
 import { useState } from 'react';
 import './overlayMenyInfo.css';
-
-interface Rätt {
-    image: string;
-    title: string;
-    description: string;
-    price: number; 
-}
+import { Dish } from '../../../interface/interface';
 
 interface OverlayMenyInfoProps {
     stängOverlay: () => void;
-    rätt: Rätt;
+    rätt: Dish;
 }
 
 function OverlayMenyInfo({ stängOverlay, rätt }: OverlayMenyInfoProps) {
@@ -21,17 +15,17 @@ function OverlayMenyInfo({ stängOverlay, rätt }: OverlayMenyInfoProps) {
         if (antal > 1) setAntal(antal - 1);
     };
 
-    const totaltPris = rätt.price * antal; 
+    const totaltPris = rätt.price * antal;
 
     return (
         <section className="overlay">
             <section className="overlayInnehåll">
-            <button className="stängKnapp" onClick={stängOverlay}>Stäng</button>
+                <button className="stängKnapp" onClick={stängOverlay}>Stäng</button>
                 <section className="bildContainer">
-                    <img src={rätt.image} alt={rätt.title} className="rättBild" />
+                    <img src={rätt.imageUrl} alt={rätt.name} className="rättBild" />
                 </section>
 
-                <h1 className="rättTitel">{rätt.title}</h1>
+                <h1 className="rättTitel">{rätt.name}</h1>
                 <p className="rättBeskrivning">{rätt.description}</p>
 
                 <textarea
