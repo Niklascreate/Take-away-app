@@ -1,5 +1,5 @@
 import './menu.css'
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchMenu } from '../../../api/api';
 import { Dish } from '../../../interface/interface';
 
