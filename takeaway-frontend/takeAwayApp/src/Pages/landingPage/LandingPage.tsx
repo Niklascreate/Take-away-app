@@ -7,7 +7,7 @@ function LandingPage() {
       <h1 className='landingpage-title'>STRÖMMING PÅ SPRÅNG</h1>
       <motion.img 
         className='landingpage-img' 
-        src="src/assets/FishBone.svg" 
+        src="src/assets/fishbone.svg" 
         alt="Fish Bone" 
         initial={{ x: '-100vw', opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}

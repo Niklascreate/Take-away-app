@@ -35,21 +35,21 @@
     display: flex;
     flex-direction: column; 
     gap: 0.5rem; 
-    max-height: 100px;
+    height: 120px;
 }
 
 .menu_dish {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     color: var(--yellow);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin: 0; 
 }
 
 .menu_desc {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
-    font-size: .9rem;
+    font-size: .8rem;
     margin: 0;
 }
 
@@ -57,6 +57,5 @@
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-size: 1rem;
-    margin: 0; 
-
+    margin-top: auto;
 }
