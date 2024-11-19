@@ -1,4 +1,4 @@
-import { db }  from '../../services/index.mjs';
+import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 
 export const handler = async (event) => {
@@ -6,19 +6,20 @@ export const handler = async (event) => {
         const { orderId, status } = JSON.parse(event.body || '{}');
         if (!orderId || !status) return sendError(400, 'OrderId och status krävs');
 
-        const { Item } = await db.send(new GetItemCommand({
+        const item = await db.get({
             TableName: 'HerringOrder',
-            Key: { orderId: { S: orderId } },
-        }));
-        if (!Item) return sendError(404, 'Beställning ej hittad');
+            Key: { orderId },
+        });
 
-        await db.send(new UpdateItemCommand({
+        if (!item.Item) return sendError(404, 'Beställning ej hittad');
+
+        await db.update({
             TableName: 'HerringOrder',
-            Key: { orderId: { S: orderId } },
+            Key: { orderId },
             UpdateExpression: 'SET #status = :status',
             ExpressionAttributeNames: { '#status': 'status' },
-            ExpressionAttributeValues: { ':status': { S: status } },
-        }));
+            ExpressionAttributeValues: { ':status': status },
+        });
 
         return sendResponse(200, { message: 'Status uppdaterad', orderId, status });
 
