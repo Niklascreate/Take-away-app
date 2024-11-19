@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './menu.css';
 import { fetchMenu } from '../../../api/api';
 import { Dish } from '../../../interface/interface';

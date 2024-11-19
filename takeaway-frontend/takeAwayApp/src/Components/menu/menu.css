@@ -21,7 +21,19 @@
     display: flex;
     gap: 1rem; 
     align-items: flex-start; 
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--header);
+    padding: 1rem; 
+    border-radius: 4px; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #fa7878; 
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 8px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .menu_img {
