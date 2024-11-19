@@ -1,4 +1,4 @@
-import './infoPage.css';
+import './infopage.css';
 import { motion } from 'framer-motion';
 
 function InfoPage() {
