@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './nav.css';
 import { Link } from 'react-router-dom';
-import OverlayInlog from '../overlayInlog/OverlayInlog'; // Importera OverlayInlog-komponenten
+import OverlayInlog from '../overlayInlog/OverlayInlog'; 
 
 export default function Nav() {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -18,13 +18,11 @@ export default function Nav() {
         <li>
           <img src="src/assets/cart.svg" alt="Cart" className="nav_icon" />
         </li>
-        {/* När användaren klickar på profilikonen ska overlay visas */}
         <li onClick={() => setOverlayVisible(true)}>
           <img src="src/assets/avatar.svg" alt="Profil" className="nav_icon" />
         </li>
       </ul>
 
-      {/* Visa OverlayInlog när isOverlayVisible är true */}
       {isOverlayVisible && <OverlayInlog onClose={() => setOverlayVisible(false)} />}
     </section>
   );
