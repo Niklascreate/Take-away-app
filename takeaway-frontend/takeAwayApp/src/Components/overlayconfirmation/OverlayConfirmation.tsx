@@ -11,12 +11,7 @@ function OverlayConfirmation() {
                 </article>
 
                 <section className="box-wrapper">
-                <article className="box-img__two">
-                    <img className="box-img" src="src/assets/ShoppingBag.svg" alt="" />
-                    <p className="pickUp">Avhämtning</p>
-                </article>
-
-                <article className="box-img__three">
+                    <article className="box-img__three">
                         <img className="box-img box-position" src="src/assets/plats.svg" alt="" />
                         <p className="pickUp-adress">Surströmmingsvägen 1</p>
                         <p className="pickUp-adress">113 51 Norrland</p>
@@ -41,7 +36,6 @@ function OverlayConfirmation() {
                 </article>
                 <ChangeOrderBtn />
                 <h2 className="countdown-title">Din order skickas strax...</h2>
-                <p className="countdown-number">1 minuter kvar</p>
                 <p className="countdown-info">Du blir automatiskt omdirigerad när ordern skickas.</p>
             </section>
         </section>

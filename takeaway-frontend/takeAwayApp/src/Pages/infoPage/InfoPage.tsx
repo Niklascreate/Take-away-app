@@ -1,9 +1,11 @@
+import OverlayConfirmation from '../../components/overlayconfirmation/OverlayConfirmation';
 import './infopage.css';
 import { motion } from 'framer-motion';
 
 function InfoPage() {
     return (
         <section className="infoPageWrapper">
+            <OverlayConfirmation />
             <motion.section
                 className="historia"
                 initial={{ x: '-100vw', opacity: 0 }}

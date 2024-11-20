@@ -14,14 +14,12 @@
 .overlayInnehåll {
     background-color: #FAB703;
     color: #000;
-    border-radius: 8px;
     width: 80%;
     max-width: 600px;
     padding: 20px;
     position: relative;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 
     0 6px 3px rgba(0, 0, 0, 0.15);
-
 }
 
 .bildContainer {
