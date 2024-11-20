@@ -1,18 +1,13 @@
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
-import { sendResponse } from '../responses/index.mjs';
 
 export const generateJWT = (user) => {
     const payload = {
-        user : user.username, 
-        isAdmin : true
+        user: user.username, 
+        isAdmin: true
     };
 
-    const token = jwt.sign(payload, process.env.SECRET_ACCESS_KEY, { expiresIn : '1h' });
+    const token = jwt.sign(payload, process.env.SECRET_ACCESS_KEY, { expiresIn: '24h' });
 
     return token;
-};
-
-export const verifyJWT = (token) => {
-
 };

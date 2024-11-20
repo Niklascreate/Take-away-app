@@ -9,7 +9,7 @@ export const handler = async (req) => {
     const token = jwt.sign(
       { username: adminUser.username, role: adminUser.role }, 
       process.env.SECRET_ACCESS_KEY,
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
 
     return sendResponse(200, { message: 'Inloggning lyckades som admin', token });
