@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState } from "react";
 import './nav.css';
 import { Link } from 'react-router-dom';
-import OverlayInlog from '../overlayInlog/OverlayInlog';
 import OverlayOrder from '../overlayOrder/OverlayOrder';
+import OverlayInlog from '../overlayInlog/OverlayInlog';
 
 export default function Nav() {
-  const [isLoginOverlayVisible, setLoginOverlayVisible] = useState(false); // Hantera login overlay
-  const [isOrderOverlayVisible, setOrderOverlayVisible] = useState(false); // Hantera order overlay
+  const [isOrderOverlayVisible, setOrderOverlayVisible] = useState(false); 
+  const [isLoginOverlayVisible, setLoginOverlayVisible] = useState(false); 
 
   return (
     <section className="nav_container">
@@ -17,22 +17,20 @@ export default function Nav() {
         <Link to="/info">
           <img src="src/assets/info.svg" alt="Info" className="nav_icon" />
         </Link>
-        <li onClick={() => setOrderOverlayVisible(true)}> {/* Visa order overlay */}
+        <li onClick={() => setOrderOverlayVisible(true)}>
           <img src="src/assets/cart.svg" alt="Cart" className="nav_icon" />
         </li>
-        <li onClick={() => setLoginOverlayVisible(true)}> {/* Visa login overlay */}
-          <img src="src/assets/avatar.svg" alt="Profil" className="nav_icon" />
+        <li onClick={() => setLoginOverlayVisible(true)}>
+          <img src="src/assets/avatar.svg" alt="Login" className="nav_icon" />
         </li>
       </ul>
 
-      {/* Visa OverlayInlog om isLoginOverlayVisible är true */}
-      {isLoginOverlayVisible && (
-        <OverlayInlog onClose={() => setLoginOverlayVisible(false)} />
-      )}
-
-      {/* Visa OverlayOrder om isOrderOverlayVisible är true */}
       {isOrderOverlayVisible && (
         <OverlayOrder onClose={() => setOrderOverlayVisible(false)} />
+      )}
+
+      {isLoginOverlayVisible && (
+        <OverlayInlog onClose={() => setLoginOverlayVisible(false)} />
       )}
     </section>
   );
