@@ -1,7 +1,9 @@
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
+import { validateAdmin } from '../../middlewares/validateAdmin.mjs';
+import middy from '@middy/core';
 
-export const handler = async (event) => {
+export const handler = middy(async (event) => {
     try {
         if (!event.body) {
             return sendError(400, { message: 'Ingen data skickades' });
@@ -65,4 +67,4 @@ export const handler = async (event) => {
         console.error('Fel vid uppdatering av maträtt:', error);
         return sendError(500, { message: 'Kunde inte uppdatera maträtten', error: error.message });
     }
-};
+}).use(validateAdmin());

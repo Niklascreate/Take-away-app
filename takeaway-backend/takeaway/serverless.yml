@@ -100,6 +100,13 @@ functions:
             path: /get/drink/menu
             method: get
 
+  loginAdmin:
+      handler: functions/loginAdmin/index.handler
+      events:
+        - httpApi:
+            path: /admin/login
+            method: post
+
 resources:
   Resources:
     HerringTable:
