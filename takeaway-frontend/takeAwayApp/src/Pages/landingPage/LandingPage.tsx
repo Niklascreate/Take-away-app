@@ -1,9 +1,16 @@
 import './landingpage.css';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
+  const navigate = useNavigate();
+
+  const handlePageClick = () => {
+    navigate('/meny'); 
+  };
+
   return (
-    <div className='landingpage-container'>
+    <div className='landingpage-container' onClick={handlePageClick}>
       <h1 className='landingpage-title'>STRÖMMING PÅ SPRÅNG</h1>
       <motion.img 
         className='landingpage-img' 
