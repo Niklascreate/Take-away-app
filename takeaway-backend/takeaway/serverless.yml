@@ -34,7 +34,7 @@ functions:
     handler: functions/adminUpdate/index.handler
     events:
       - httpApi:
-          path: /update/{id}
+          path: /menu/update/{id}
           method: put
 
   orderFood:
