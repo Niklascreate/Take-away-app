@@ -5,7 +5,7 @@ export const generateJWT = (user) => {
     const payload = {
         user: user.admin,
         role: user.role, 
-        isAdmin: true
+        isAdmin: true //boolean
     };
 
     const token = jwt.sign(payload, process.env.SECRET_ACCESS_KEY, { expiresIn: '24h' });

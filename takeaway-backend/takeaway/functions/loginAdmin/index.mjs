@@ -14,3 +14,6 @@ export const handler = middy(async (event) => {
   }, token);
 }).use(validateToken())
 .use(validateAdmin());
+
+
+//lägg till en validateLogin

@@ -10,7 +10,7 @@ export const validateToken = () => ({
 
         if(!decodedToken) {
             throw new Error('Invalid token!');
-        }
+        } //else if 
         return;
     }
 });
