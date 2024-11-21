@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 import './nav.css';
 import { Link } from 'react-router-dom';
-import OverlayInlog from '../overlayInlog/OverlayInlog'; 
+import OverlayOrder from '../overlayOrder/OverlayOrder';
+import OverlayInlog from '../overlayInlog/OverlayInlog';
 
 export default function Nav() {
-  const [isOverlayVisible, setOverlayVisible] = useState(false);
+  const [isOrderOverlayVisible, setOrderOverlayVisible] = useState(false); 
+  const [isLoginOverlayVisible, setLoginOverlayVisible] = useState(false); 
+  const [cart, setCart] = useState<any[]>([]);
+
+  useEffect(() => {
+    const savedCart = sessionStorage.getItem("cart");
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
 
   return (
     <section className="nav_container">
@@ -15,15 +25,23 @@ export default function Nav() {
         <Link to="/info">
           <img src="src/assets/info.svg" alt="Info" className="nav_icon" />
         </Link>
-        <li>
+        <li className="nav_cart" onClick={() => setOrderOverlayVisible(true)}>
           <img src="src/assets/cart.svg" alt="Cart" className="nav_icon" />
+          {cart.length > 0 && <span className="cart_count">{cart.length}</span>}
         </li>
-        <li onClick={() => setOverlayVisible(true)}>
-          <img src="src/assets/avatar.svg" alt="Profil" className="nav_icon" />
+        <li onClick={() => setLoginOverlayVisible(true)}>
+          <img src="src/assets/avatar.svg" alt="Login" className="nav_icon" />
         </li>
       </ul>
 
-      {isOverlayVisible && <OverlayInlog onClose={() => setOverlayVisible(false)} />}
+      {isOrderOverlayVisible && (
+        <OverlayOrder cart={cart} onClose={() => setOrderOverlayVisible(false)} />
+      )}
+
+      {isLoginOverlayVisible && (
+        <OverlayInlog onClose={() => setLoginOverlayVisible(false)} />
+      )}
     </section>
   );
 }
+

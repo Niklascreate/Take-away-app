@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import InfoPage from './Pages/infoPage/InfoPage';
-import MenyPage from './Pages/menyPage/MenyPage';
-import LandingPage from './Pages/landingPage/LandingPage';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; 
+import MenyPage from './pages/menypage/MenyPage';
+import InfoPage from './pages/infopage/InfoPage';
+import LandingPage from './pages/landingpage/LandingPage';
+
 import './index.css';
 import OverlayOrder from './Components/overlayorder/OverlayOrder';
 import OverlayConfirmation from './Components/overlayconfirmation/OverlayConfirmation';

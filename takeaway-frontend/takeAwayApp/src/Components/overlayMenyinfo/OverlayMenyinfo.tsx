@@ -1,65 +1,76 @@
-import { useState } from 'react';
-import './overlaymenyInfo.css';
-import { Dish } from '../../../interface/interface';
+import { useState } from "react";
+import "./overlayMenyInfo.css";
+import { Dish } from "../../../interface/interface";
 
 interface OverlayMenyInfoProps {
-    stängOverlay: () => void;
-    rätt: Dish;
+  closeOverlay: () => void;
+  dish: Dish;
 }
 
-function OverlayMenyInfo({ stängOverlay, rätt }: OverlayMenyInfoProps) {
-    const [antal, setAntal] = useState<number>(1);
+function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
+  const [quantity, setQuantity] = useState<number>(1);
 
-    const ökaAntal = () => setAntal((prevAntal) => prevAntal + 1);
-    const minskaAntal = () => {
-        if (antal > 1) setAntal((prevAntal) => prevAntal - 1);
+  const increaseQuantity = () => setQuantity((prevQuantity) => prevQuantity + 1);
+  const decreaseQuantity = () => {
+    if (quantity > 1) setQuantity((prevQuantity) => prevQuantity - 1);
+  };
+
+  const totalPrice = dish.price * quantity;
+
+  const handleAddToCart = () => {
+    const item = {
+      name: dish.name,
+      price: dish.price,
+      quantity: quantity,
     };
 
-    const totaltPris = rätt.price * antal;
+    const currentCart = sessionStorage.getItem("cart");
+    let cart = currentCart ? JSON.parse(currentCart) : [];
 
-    return (
-        <section className="overlay">
-            <section className="overlayInnehåll">
-                {/* Koppla onClick-händelsen här */}
-                <img 
-                    src="src/assets/stängKnapp.png" 
-                    alt="Stäng" 
-                    className="stängKnapp" 
-                    onClick={stängOverlay} 
-                />
-                <section className="bildContainer">
-                    <img src={rätt.imageUrl} alt={rätt.name} className="rättBild" />
-                </section>
+    cart.push(item);
+    
+    sessionStorage.setItem("cart", JSON.stringify(cart));
 
-                <h1 className="rättTitel">{rätt.name}</h1>
-                <p className="rättBeskrivning">{rätt.description}</p>
+    closeOverlay();
+  };
 
-                <textarea
-                    className="meddelandeInput"
-                    placeholder="Skicka ett meddelande till kocken..."
-                    rows={4}
-                />
-
-                <section className="åtgärderContainer">
-                    <section className="räknare">
-                        <button className="knappRäknare" onClick={minskaAntal}>
-                            <img src="src/assets/minus.png" alt="Minus" className="knappBild" />
-                        </button>
-                        <span className="antal">{antal}</span>
-                        <button className="knappRäknare" onClick={ökaAntal}>
-                            <img src="src/assets/plus.png" alt="Plus" className="knappBild" />
-                        </button>
-                    </section>
-                    <button className="läggTillKnapp">
-                        Lägg i varukorg <span>{totaltPris} SEK</span>
-                    </button>
-                </section>
-            </section>
+  return (
+    <section className="overlay">
+      <section className="overlayContent">
+        <img
+          src="src/assets/stängKnapp.png"
+          alt="Stäng"
+          className="closeButton"
+          onClick={closeOverlay}
+        />
+        <section className="imageContainer">
+          <img src={dish.imageUrl} alt={dish.name} className="dishImage" />
         </section>
-    );
+
+        <h1 className="dishTitle">{dish.name}</h1>
+        <p className="dishDescription">{dish.description}</p>
+
+        <section className="actionContainer">
+          <section className="quantitySelector">
+            <button className="quantityButton" onClick={decreaseQuantity}>
+              <img src="src/assets/minus.png" alt="Minus" className="quantityIcon" />
+            </button>
+            <span className="quantity">{quantity}</span>
+            <button className="quantityButton" onClick={increaseQuantity}>
+              <img src="src/assets/plus.png" alt="Plus" className="quantityIcon" />
+            </button>
+          </section>
+          <button className="addToCartButton" onClick={handleAddToCart}>
+            Lägg i varukorg <span>{totalPrice} SEK</span>
+          </button>
+        </section>
+      </section>
+    </section>
+  );
 }
 
 export default OverlayMenyInfo;
+
 
 // Rindert
 // Overlay i meny, visar info om matträtten, och lägger i varukorg
