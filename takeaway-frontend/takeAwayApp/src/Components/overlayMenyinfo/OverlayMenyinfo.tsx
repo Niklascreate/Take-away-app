@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./overlayMenyInfo.css";
 import { Dish } from "../../../interface/interface";
-import { useCart } from "../../context/CartContext";
 
 interface OverlayMenyInfoProps {
   closeOverlay: () => void;
@@ -10,7 +9,6 @@ interface OverlayMenyInfoProps {
 
 function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
   const [quantity, setQuantity] = useState<number>(1);
-  const { addToCart } = useCart();
 
   const increaseQuantity = () => setQuantity((prevQuantity) => prevQuantity + 1);
   const decreaseQuantity = () => {
@@ -25,7 +23,14 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
       price: dish.price,
       quantity: quantity,
     };
-    addToCart(item);
+
+    const currentCart = sessionStorage.getItem("cart");
+    let cart = currentCart ? JSON.parse(currentCart) : [];
+
+    cart.push(item);
+    
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+
     closeOverlay();
   };
 

@@ -1,14 +1,22 @@
-import { useCart } from "../../context/CartContext"; 
+import { useState, useEffect } from "react";
 import './overlayorder.css';
 
 interface OverlayOrderProps {
+  cart: any[];
   onClose: () => void;
 }
 
-function OverlayOrder({ onClose }: OverlayOrderProps) {
-  const { cart } = useCart(); // Hämta cart från CartContext
+function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
+  const [cartItems, setCartItems] = useState<any[]>(cart);
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  useEffect(() => {
+    const savedCart = sessionStorage.getItem("cart");
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, [cart]);
+
+  const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <section className="orderOverlay_container">
@@ -23,8 +31,8 @@ function OverlayOrder({ onClose }: OverlayOrderProps) {
       </section>
 
       <section className="center_container">
-        {cart.length > 0 ? (
-          cart.map((item, index) => (
+        {cartItems.length > 0 ? (
+          cartItems.map((item, index) => (
             <section key={index} className="orderOverlay_order">
               <p className="orderOverlay_text">{item.quantity}</p>
               <p className="orderOverlay_text">{item.name}</p>
@@ -54,3 +62,6 @@ function OverlayOrder({ onClose }: OverlayOrderProps) {
 }
 
 export default OverlayOrder;
+
+// Rindert
+// hämtar det som ligger i sessionStorage/Varukorgen
