@@ -1,7 +1,8 @@
 import { sendResponse, sendError } from '../../responses/index.mjs';
-import { validateToken } from '../../middlewares/validateToken.mjs';
 import { db } from '../../services/index.mjs';
 import middy from '@middy/core';
+import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
+
 
 
 export const handler = middy(async (event) => {
@@ -14,11 +15,6 @@ export const handler = middy(async (event) => {
 
     if (!orderId || !comment) {
       return sendError(400, { message: 'OrderId och kommentar måste anges' });
-    }
-
-    const user = event.requestContext.authorizer;
-    if (!user || user.role !== 'admin') {
-      return sendError(403, { message: 'Behörighet nekad: Du måste vara en admin' });
     }
 
     const params = {
@@ -41,7 +37,7 @@ export const handler = middy(async (event) => {
     console.error('Fel vid uppdatering av beställning:', error);
     return sendError(500, { message: 'Intern serverfel', error: error.message });
   }
-}).use(validateToken());
+});
 
 // Rindert
 // lägga till en kommentar till kocken för varje beställning, t.ex. om allergier eller specialönskemål.

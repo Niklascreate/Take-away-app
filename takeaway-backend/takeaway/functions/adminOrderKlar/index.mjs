@@ -1,7 +1,6 @@
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 import middy from '@middy/core';
-import { validateToken } from '../../middlewares/validateToken.mjs';
 
 export const handler = middy(async (event) => {
     try {
@@ -29,4 +28,4 @@ export const handler = middy(async (event) => {
         console.error('Fel vid uppdatering:', error);
         return sendError(500, 'Kunde inte uppdatera status');
     }
-}).use(validateToken());
+});

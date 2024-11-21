@@ -2,7 +2,6 @@ import { UpdateItemCommand } from '@aws-sdk/client-dynamodb';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 import { db } from '../../services/index.mjs';
 import middy from '@middy/core';
-import { validateToken } from '../../middlewares/validateToken.mjs';
 
 export const handler = middy(async (event) => {
     try {
@@ -27,7 +26,7 @@ export const handler = middy(async (event) => {
         console.error('Fel vid låsning av beställning:', error);
         return sendError(500, 'Kunde inte låsa beställningen');
     }
-}).use(validateToken());
+});
 
 //Rindert
 //Den här koden låser en order i DynamoDB om den inte redan är låst. Om ordern redan är låst får användaren ett felmeddelande om detta.
