@@ -1,19 +1,30 @@
 .orderOverlay_container {
     background-color: var(--yellow);
     height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1000;
 }
 
 .orderOverlay_header {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: .8rem;
+    width: 90%;
+    padding: 1rem;
+    border-bottom: 2px solid black;
 }
 
-.orderOverlay_header {
+.orderOverlay_header h1 {
     font-family: "Roboto", sans-serif;
     font-weight: 700;
+    font-size: 1.5rem;
     text-transform: uppercase;
 }
 
@@ -26,42 +37,28 @@
 .center_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    height: 50vh; 
-    width: 100%
+    width: 90%;
+    flex-grow: 1;
+    margin-top: 2rem;
+    border-bottom: 1px solid black;
 }
 
 .orderOverlay_order {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    width: 80%;
-    margin: 0 auto;
-}
-
-.orderOverlay_delete__container {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    width: 80%;
-    gap: .5rem;
-    margin: 2rem 0 1rem auto;
-}
-
-.orderOverlay_change {
-    cursor: pointer;
-}
-
-.orderOverlay_delete {
-    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100%;
+    margin: 1rem 0;
 }
 
 .orderOverlay_text {
     font-family: "Roboto", sans-serif;
     font-weight: 700;
+    margin-right: 1rem;
+
 }
 
 .orderOverlay_price {
@@ -69,43 +66,37 @@
     font-weight: 400;
 }
 
-.orderOvelay_totalPrice {
+.inputFields_container {
+    width: 90%;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 2rem; 
+    height: 100vh; 
+    flex-direction: column; 
+}
+
+.orderOverlay_totalPrice {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 90%;
-    font-family: "Roboto", sans-serif;
     padding: 1rem;
-    position: fixed;
-    bottom: 4rem;
-    left: 50%;
-    transform: translateX(-50%);
-    border-bottom: solid black 5px;
-}
-
-.orderOvelay_totalPrice__total {
-    font-weight: 700;
-}
-
-.orderOverlay_totalPrice__price {
-    font-weight: 400;
+    border-top: 2px solid black;
 }
 
 .orderOverlay_orderButton {
     font-family: "Roboto", sans-serif;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.3rem;
+    padding: 15px 10px;
     border-radius: 4px;
     color: white;
     background-color: black;
-    width: 10rem;
-    height: 2.5rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
     margin-bottom: 1rem;
 }

@@ -5,7 +5,7 @@ export interface Dish {
     description: string; 
     ingredients: string[]; 
     id: string; 
-    name: string;
-    price: number; 
+    name: string; 
+    price: number;
   }
 

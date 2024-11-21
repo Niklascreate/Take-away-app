@@ -1,5 +1,5 @@
 
-org: stenelind
+org: niklasnilsson
 app: takeawayapp
 service: takeaway
 
@@ -9,7 +9,7 @@ provider:
   region: eu-north-1
   deploymentMethod: direct
   iam:
-    role: arn:aws:iam::711387100461:role/LambdaDynamoDBFull
+    role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
     
 package:
   include:
@@ -86,6 +86,20 @@ functions:
           path: /admin/delete/order/{id}
           method: delete
 
+  postDrinkMenu:
+    handler: functions/postDrinkMenu/index.handler
+    events:
+      - httpApi:
+          path: /post/drink/menu
+          method: post
+
+  getDrinkMenu:
+      handler: functions/getDrinkMenu/index.handler
+      events:
+        - httpApi:
+            path: /get/drink/menu
+            method: get
+
 resources:
   Resources:
     HerringTable:
@@ -109,5 +123,17 @@ resources:
             AttributeType: 'S'
         KeySchema:
           - AttributeName: 'orderId'
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    HerringDrinktable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: 'HerringDrinkDB'
+        AttributeDefinitions:
+          - AttributeName: 'id'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'id'
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
