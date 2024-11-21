@@ -89,7 +89,7 @@ export const handler = async (event) => {
             const order = {
                 orderId: generateOrderId(),
                 dishId,
-                dishName: dishDetails.dish,
+                dishName: dishDetails.name,
                 category: dishDetails.category,
                 description: dishDetails.description,
                 price: dishDetails.price,
