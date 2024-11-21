@@ -20,7 +20,6 @@ export default function Nav() {
       setCart(JSON.parse(savedCart));
     }
 
-    // Lägg till eventlistener för att lyssna på uppdateringar i sessionStorage
     const handleStorageChange = () => {
       const updatedCart = sessionStorage.getItem("cart");
       if (updatedCart) {
