@@ -2,15 +2,27 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
 export const validateToken = () => ({
-    before : (handler) => {
+    before: (handler) => {
         const token = handler.event.headers.authorization && handler.event.headers.authorization.split(' ')[1];
         console.log('validate', token);
 
-        const decodedToken = jwt.verify(token, process.env.SECRET_ACCESS_KEY);
+        if (!token) {
+            throw new Error('Token not provided!');
+        }
 
-        if(!decodedToken) {
-            throw new Error('Invalid token!');
-        } //else if 
-        return;
+        try {
+            const decodedToken = jwt.verify(token, process.env.SECRET_ACCESS_KEY);
+            console.log('Decoded Token:', decodedToken);
+
+            if (decodedToken.isadmin !== true) {
+                throw new Error('Unauthorized: Not an admin');
+            }
+
+            return;
+
+        } catch (error) {
+            console.error('Token validation error:', error.message);
+            throw new Error('Invalid or expired token!');
+        }
     }
 });

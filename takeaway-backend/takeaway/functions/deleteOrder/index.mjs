@@ -1,7 +1,7 @@
 import { DeleteCommand } from '@aws-sdk/lib-dynamodb';
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
-import { validateAdmin } from '../../middlewares/validateAdmin.mjs';
+import { validateToken } from '../../middlewares/validateToken.mjs';
 import middy from '@middy/core';
 
 export const handler = middy(async (event) => {
@@ -31,4 +31,4 @@ export const handler = middy(async (event) => {
 
     return sendError(500, { message: 'Intern serverfel', error: error.message });
   }
-}).use(validateAdmin());
+}).use(validateToken());

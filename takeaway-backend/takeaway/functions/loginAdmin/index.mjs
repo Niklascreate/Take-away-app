@@ -1,7 +1,6 @@
 import { sendResponseWithHeaders } from '../../responses/index.mjs';
-import { validateAdmin } from '../../middlewares/validateAdmin.mjs';
+import { validateLogin } from '../../middlewares/validateLogin.mjs';
 import { generateJWT } from '../../utils/index.mjs';
-import { validateToken } from '../../middlewares/validateToken.mjs';
 import 'dotenv/config';
 import middy from '@middy/core';
 
@@ -12,8 +11,5 @@ export const handler = middy(async (event) => {
   return sendResponseWithHeaders(201, { 
     message: 'Login successful' 
   }, token);
-}).use(validateToken())
-.use(validateAdmin());
-
-
-//lägg till en validateLogin
+})
+.use(validateLogin());
