@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Dish } from '../interface/interface';
+import { Dish } from '../interface/Interface';
 
 export const fetchMenu = async (): Promise<Dish[]> => {
   const response = await axios.get<Dish[]>(

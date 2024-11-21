@@ -12,7 +12,7 @@ export default function Menuhero() {
         Kom för maten, stanna för andan - eller håll den!
     </p>
     </section>
-    <img src="src/assets/sourHerring.svg" alt="Surströmming" className="menu_hero" />
+    <img src="/sourHerring.svg" alt="Surströmming" className="menu_hero" />
 </section>
   )
 }

@@ -22,7 +22,7 @@ function OverlayOrderKlar() {
           }}
         >
           <motion.img
-            src="src/assets/dödFisk.svg"
+            src="/dödFisk.svg"
             alt="Surströmmingsfisk"
             className="fishImage"
             style={{ rotate: '45deg' }}
@@ -32,7 +32,7 @@ function OverlayOrderKlar() {
       </div>
 
       <div className="footerText">
-        <img src="src/assets/Location.svg" alt="Location Icon" className="locationIcon" />
+        <img src="/Location.svg" alt="Location Icon" className="locationIcon" />
         <div className="footerTextContent">
           <p>Hämta din mat här:</p>
           <p>Surströmmingsvägen 1</p>

@@ -17,7 +17,7 @@ function OverlayConfirmation() {
                 </article>
 
                 <article className="box-img__three">
-                        <img className="box-img box-position" src="src/assets/plats.svg" alt="" />
+                        <img className="box-img box-position" src="/plats.svg" alt="" />
                         <p className="pickUp-adress">Surströmmingsvägen 1</p>
                         <p className="pickUp-adress">113 51 Norrland</p>
                     </article>
