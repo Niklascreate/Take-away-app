@@ -36,4 +36,4 @@ export function sendError(status, data) {
 // Responses
 
 //Niklas
-//
+//Lagt till sendResponseWithHeaders
