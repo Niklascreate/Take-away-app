@@ -1,4 +1,4 @@
-import Nav from '../../Components/nav/Nav'
+import Nav from '../../components/nav/Nav'
 import './adminconfirmation.css'
 
 function AdminConfirmation() {

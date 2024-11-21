@@ -10,7 +10,7 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
     <div className="overlay">
       <div className="loginOverlayContent">
       <button className="closeButton" onClick={onClose}>
-          <img src="src/assets/stängKnapp.png" alt="Stäng" />
+          <img src="/stängKnapp.png" alt="Stäng" />
         </button>
         <h2 className="loginTitle">Logga In</h2>
         <form>
