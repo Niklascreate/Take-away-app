@@ -1,19 +1,16 @@
-import { adminUser } from '../../data/admin.mjs';
-import { sendResponse } from '../../responses/index.mjs';
-import jwt from 'jsonwebtoken';
+import { sendResponseWithHeaders } from '../../responses/index.mjs';
+import { validateAdmin } from '../../middlewares/validateAdmin.mjs';
+import { generateJWT } from '../../utils/index.mjs';
+import { validateToken } from '../../middlewares/validateToken.mjs';
+import 'dotenv/config';
+import middy from '@middy/core';
 
-export const handler = async (req) => {
-  const { username, password } = req.body;
+export const handler = middy(async (event) => {
+  const token = generateJWT(JSON.parse(event.body));
+  console.log('Generated token:', token);
 
-  if (username === adminUser.username && password === adminUser.password) {
-    const token = jwt.sign(
-      { username: adminUser.username, role: adminUser.role }, 
-      process.env.SECRET_ACCESS_KEY,
-      { expiresIn: '24h' }
-    );
-
-    return sendResponse(200, { message: 'Inloggning lyckades som admin', token });
-  }
-
-  return sendResponse(401, { message: 'Unauthorized: Invalid credentials' });
-};
+  return sendResponseWithHeaders(201, { 
+    message: 'Login successful' 
+  }, token);
+}).use(validateToken())
+.use(validateAdmin());

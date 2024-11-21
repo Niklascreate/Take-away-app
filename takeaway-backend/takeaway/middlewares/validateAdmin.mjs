@@ -2,9 +2,9 @@ export const validateAdmin = () => ({
   before: (handler) => {
     const user = handler.event.user;
 
-    if (!user || user.role !== 'admin') {
-      throw new Error('Unauthorized: Admin only');
-    }
+    if (!user || user.isAdmin !== 'admin') {
+      throw new Error('obehörig: Admin only');
+    }    
 
     return handler;
   }

@@ -3,7 +3,8 @@ import 'dotenv/config';
 
 export const generateJWT = (user) => {
     const payload = {
-        user: user.username, 
+        user: user.admin,
+        role: user.role, 
         isAdmin: true
     };
 
