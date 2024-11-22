@@ -11,10 +11,6 @@ function OverlayConfirmation() {
                 </article>
 
                 <section className="box-wrapper">
-<<<<<<< HEAD
-                    <article className="box-img__three">
-                        <img className="box-img box-position" src="src/assets/plats.svg" alt="" />
-=======
                 <article className="box-img__two">
                     <img className="box-img" src="src/assets/ShoppingBag.svg" alt="" />
                     <p className="pickUp">Avhämtning</p>
@@ -22,7 +18,6 @@ function OverlayConfirmation() {
 
                 <article className="box-img__three">
                         <img className="box-img box-position" src="/plats.svg" alt="" />
->>>>>>> 5875b99cdd91e708c1fb780a724ac96b67b62ade
                         <p className="pickUp-adress">Surströmmingsvägen 1</p>
                         <p className="pickUp-adress">113 51 Norrland</p>
                     </article>
