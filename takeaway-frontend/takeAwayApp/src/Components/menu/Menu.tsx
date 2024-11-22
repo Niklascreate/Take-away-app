@@ -29,8 +29,8 @@ const Menu = () => {
   const openOverlay = (dish: Dish) => setSelectedDish(dish);
   const closeOverlay = () => setSelectedDish(null);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p className='menu_loading'>Loading...</p>;
+  if (error) return <p className='menu_error'>{error}</p>;
 
   return (
     <section className="menu_container">
