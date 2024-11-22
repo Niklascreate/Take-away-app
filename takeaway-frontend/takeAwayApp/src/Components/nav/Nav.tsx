@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
-import './nav.css';
-import { Link } from 'react-router-dom';
-import OverlayOrder from '../overlayorder/OverlayOrder';
-import OverlayInlog from '../overlayInlog/OverlayInlog';
+import "./nav.css";
+import { Link } from "react-router-dom";
+import OverlayOrder from "../overlayorder/OverlayOrder";
+import OverlayInlog from "../overlayInlog/OverlayInlog";
+
+const getTotalItems = (cart: any[]): number => {
+  return cart.reduce((total, item) => total + item.quantity, 0);
+};
 
 export default function Nav() {
   const [isOrderOverlayVisible, setOrderOverlayVisible] = useState(false);
@@ -21,7 +25,7 @@ export default function Nav() {
 
     const intervalId = setInterval(updateCartFromStorage, 500);
 
-    return () => clearInterval(intervalId); 
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -35,7 +39,9 @@ export default function Nav() {
         </Link>
         <li className="nav_cart" onClick={() => setOrderOverlayVisible(true)}>
           <img src="/cart.svg" alt="Cart" className="nav_icon" />
-          {cart.length > 0 && <span className="cart_count">{cart.length}</span>}
+          {cart.length > 0 && (
+            <span className="cart_count">{getTotalItems(cart)}</span>
+          )}
         </li>
         <li onClick={() => setLoginOverlayVisible(true)}>
           <img src="/avatar.svg" alt="Login" className="nav_icon" />
