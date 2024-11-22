@@ -1,8 +1,9 @@
 import './menu.css';
 import { useEffect, useState } from 'react';
-import { fetchMenu } from '../../../api/api';
-import { Dish } from '../../../interface/interface';
-import OverlayMenyInfo from '../overlayMenyInfo/OverlayMenyInfo';
+import { fetchMenu } from '../../../api/Api';
+import { Dish } from '../../../interface/Interface';
+import OverlayMenyInfo from '../overlaymenyinfo/OverlayMenyinfo';
+
 
 const Menu = () => {
   const [menuItems, setMenuItems] = useState<Dish[]>([]);

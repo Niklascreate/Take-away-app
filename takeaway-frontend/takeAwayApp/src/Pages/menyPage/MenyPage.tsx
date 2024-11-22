@@ -1,7 +1,7 @@
-import Header from "../../Components/header/Header";
-import Menu from "../../Components/menu/Menu";
-import Menuhero from "../../Components/menuhero/Menuhero";
-import Nav from "../../Components/nav/Nav";
+import Header from "../../components/header/Header";
+import Menu from "../../components/menu/Menu";
+import Menuhero from "../../components/menuhero/Menuhero";
+import Nav from "../../components/nav/Nav";
 
 
 export default function MenyPage() {

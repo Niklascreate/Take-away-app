@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./overlayMenyInfo.css";
-import { Dish } from "../../../interface/interface";
+import { Dish } from "../../../interface/Interface";
 
 interface OverlayMenyInfoProps {
   closeOverlay: () => void;
@@ -38,7 +38,7 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
     <section className="overlay">
       <section className="overlayContent">
         <img
-          src="src/assets/stängKnapp.png"
+          src="/stängKnapp.png"
           alt="Stäng"
           className="closeButton"
           onClick={closeOverlay}
@@ -53,11 +53,11 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
         <section className="actionContainer">
           <section className="quantitySelector">
             <button className="quantityButton" onClick={decreaseQuantity}>
-              <img src="src/assets/minus.png" alt="Minus" className="quantityIcon" />
+              <img src="/minus.png" alt="Minus" className="quantityIcon" />
             </button>
             <span className="quantity">{quantity}</span>
             <button className="quantityButton" onClick={increaseQuantity}>
-              <img src="src/assets/plus.png" alt="Plus" className="quantityIcon" />
+              <img src="/plus.png" alt="Plus" className="quantityIcon" />
             </button>
           </section>
           <button className="addToCartButton" onClick={handleAddToCart}>
