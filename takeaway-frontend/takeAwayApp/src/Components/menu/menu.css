@@ -71,3 +71,25 @@
     font-size: 1rem;
     margin-top: auto;
 }
+
+.menu_loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    background-color: var(--background);
+    height: 100vh;
+}
+
+.menu_error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    background-color: var(--background);
+    height: 100vh;
+}
