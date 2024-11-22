@@ -1,10 +1,11 @@
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { sendResponse, sendError } from '../../responses/index.mjs';
+import { db } from '../../services/index.mjs';
+import middy from '@middy/core';
+import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 
-const db = new DynamoDBClient({ region: 'eu-north-1' });
 
-export const handler = async (event) => {
+
+export const handler = middy(async (event) => {
   try {
     if (!event.body) {
       return sendError(400, { message: 'Ingen data skickades' });
@@ -36,7 +37,10 @@ export const handler = async (event) => {
     console.error('Fel vid uppdatering av beställning:', error);
     return sendError(500, { message: 'Intern serverfel', error: error.message });
   }
-};
+});
 
 // Rindert
 // lägga till en kommentar till kocken för varje beställning, t.ex. om allergier eller specialönskemål.
+
+//Niklas
+//Bugfix: Har lagt till validering med middy och JWT.

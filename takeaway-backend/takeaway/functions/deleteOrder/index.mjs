@@ -1,8 +1,9 @@
 import { DeleteCommand } from '@aws-sdk/lib-dynamodb';
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
+import middy from '@middy/core';
 
-export const handler = async (event) => {
+export const handler = middy(async (event) => {
   try {
     const { orderId } = event.queryStringParameters || {};
 
@@ -29,4 +30,4 @@ export const handler = async (event) => {
 
     return sendError(500, { message: 'Intern serverfel', error: error.message });
   }
-};
+});
