@@ -3,7 +3,7 @@ import { Dish } from '../interface/Interface';
 
 export const fetchMenu = async (): Promise<Dish[]> => {
   const response = await axios.get<Dish[]>(
-    "https://spclae7z7g.execute-api.eu-north-1.amazonaws.com/get/menu?key=key-1A2B3"
+    "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/get/menu?key=key-Y9Z0A"
   );
   return response.data;
 };
