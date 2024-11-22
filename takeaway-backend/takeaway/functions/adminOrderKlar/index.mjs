@@ -1,7 +1,8 @@
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
+import middy from '@middy/core';
 
-export const handler = async (event) => {
+export const handler = middy(async (event) => {
     try {
         const { orderId, status } = JSON.parse(event.body || '{}');
         if (!orderId || !status) return sendError(400, 'OrderId och status krävs');
@@ -27,4 +28,4 @@ export const handler = async (event) => {
         console.error('Fel vid uppdatering:', error);
         return sendError(500, 'Kunde inte uppdatera status');
     }
-};
+});
