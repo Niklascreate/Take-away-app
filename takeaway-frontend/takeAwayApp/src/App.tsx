@@ -5,7 +5,7 @@ import LandingPage from './pages/landingpage/LandingPage';
 import './index.css';
 import OverlayOrder from './components/overlayorder/OverlayOrder';
 import OverlayConfirmation from './components/overlayconfirmation/OverlayConfirmation';
-import AdminConfirmation from './pages/adminConfirmation/AdminConfirmation';
+import AdminConfirmation from './pages/adminconfirmation/AdminConfirmation';
 
 
 function App() {

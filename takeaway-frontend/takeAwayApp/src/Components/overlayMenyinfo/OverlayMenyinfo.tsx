@@ -4,10 +4,9 @@ import { Dish, Drinks } from "../../../interface/Interface";
 import "./overlaymenyinfo.css";
 
 
-// Definierar props för komponenten
 interface OverlayMenyInfoProps {
-  closeOverlay: () => void; // Funktion för att stänga överlägget
-  dish: Dish;              // Objekt med information om maträtten
+  closeOverlay: () => void; 
+  dish: Dish | Drinks;             
 }
 
 function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
