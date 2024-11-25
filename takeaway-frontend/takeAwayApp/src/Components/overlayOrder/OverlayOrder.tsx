@@ -60,7 +60,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       email,
       phoneNumber: phone,
       quantity: item.quantity,
-      specialRequests: item.specialRequests || "", // valfritt
+      specialRequests: item.specialRequests || "",
     }));
 
     console.log("Skickar orderdata:", orders);
@@ -87,6 +87,14 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
     }
   };
 
+  // Ta bort en maträtt från varukorgen
+  const removeItem = (id: number) => {
+    const updatedItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedItems);
+    sessionStorage.setItem("cart", JSON.stringify(updatedItems));
+  };
+  
+
   return (
     <section className="orderOverlay_container">
       <section className="orderOverlay_header">
@@ -106,6 +114,12 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
               <p className="orderOverlay_text">{item.quantity}</p>
               <p className="orderOverlay_text">{item.name}</p>
               <p className="orderOverlay_price">{item.price * item.quantity} SEK</p>
+              <button
+                className="remove-btn"
+                onClick={() => removeItem(item.id)}
+              >
+                X
+              </button>
             </section>
           ))
         ) : (
