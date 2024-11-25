@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import './overlayorder.css';
+import { orderFood } from "../../../api/Api";
+import { OrderItem } from "../../../interface/Interface";
 
+// Props för komponenten
 interface OverlayOrderProps {
   cart: any[];
   onClose: () => void;
@@ -8,6 +11,17 @@ interface OverlayOrderProps {
 
 function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const [cartItems, setCartItems] = useState<any[]>(cart);
+  const [name, setName] = useState(""); // För att lagra namnet
+  const [email, setEmail] = useState(""); // För att lagra e-posten
+  const [phone, setPhone] = useState(""); // För att lagra telefonnummer
+
+  // State för att hålla reda på vilka fält som har fel
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+
+  // State för att visa orderbekräftelse
+  const [orderMessage, setOrderMessage] = useState<string>("");
 
   useEffect(() => {
     const savedCart = sessionStorage.getItem("cart");
@@ -17,6 +31,61 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   }, [cart]);
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  const handleOrder = async () => {
+    setNameError(false);
+    setEmailError(false);
+    setPhoneError(false);
+
+    let isValid = true;
+    if (!name.trim()) {
+      setNameError(true);
+      isValid = false;
+    }
+    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) {
+      setEmailError(true);
+      isValid = false;
+    }
+    if (!phone.trim() || phone.length < 10) {
+      setPhoneError(true);
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    // Skapa orderdata med rätt typ
+    const orders: OrderItem[] = cartItems.map((item) => ({
+      dishId: item.id,
+      customerName: name,
+      email,
+      phoneNumber: phone,
+      quantity: item.quantity,
+      specialRequests: item.specialRequests || null, // Special requests är valfritt
+    }));
+
+    console.log("Skickar orderdata:", orders);
+    
+
+    try {
+      // Anropa orderFood med orderobjektet
+      const response = await orderFood(orders);
+      console.log('Order skickad:', response);
+
+      // Uppdatera meddelandet
+      setOrderMessage(`Din order är mottagen! Total: ${response.totalPrice} SEK`);
+
+      // Återställ state efter lyckad order
+      setCartItems([]);
+      setName("");
+      setEmail("");
+      setPhone("");
+
+      onClose(); // Stäng överlägget
+    } catch (error) {
+      console.error('Kunde inte skicka ordern:', error);
+      setOrderMessage('Ett fel inträffade vid beställningen. Försök igen.');
+    }
+  };
 
   return (
     <section className="orderOverlay_container">
@@ -45,23 +114,53 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       </section>
 
       <section className="inputFields_container">
-      <h3>Fyll i dina kontaktuppgifter</h3>
-        <input className="inputField" type="text" placeholder="Namn" />
-        <input className="inputField" type="email" placeholder="E-post" />
-        <input className="inputField" type="tel" placeholder="Telefonnummer" />
+        <h3>Fyll i dina kontaktuppgifter</h3>
+        <section className="inputFieldWrapper">
+          <input
+            className="inputField"
+            type="text"
+            placeholder="Namn"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          {nameError && <p className="errorText">Vänligen fyll i ditt namn.</p>}
+        </section>
+        <section className="inputFieldWrapper">
+          <input
+            className="inputField"
+            type="email"
+            placeholder="E-post"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {emailError && <p className="errorText">Vänligen fyll i en giltig e-postadress.</p>}
+        </section>
+        <section className="inputFieldWrapper">
+          <input
+            className="inputField"
+            type="tel"
+            placeholder="Telefonnummer"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          {phoneError && <p className="errorText">Vänligen fyll i ett giltigt telefonnummer.</p>}
+        </section>
       </section>
+
+      {orderMessage && (
+        <p className="orderOverlay_message">{orderMessage}</p> // Visar ordermeddelandet om det finns
+      )}
 
       <section className="orderOverlay_totalPrice">
         <p className="orderOverlay_totalPrice__total">Total</p>
         <p className="orderOverlay_totalPrice__price">{total} SEK</p>
       </section>
 
-      <button className="orderOverlay_orderButton">Beställ {total} SEK</button>
+      <button className="orderOverlay_orderButton" onClick={handleOrder}>
+        Beställ {total} SEK
+      </button>
     </section>
   );
 }
 
 export default OverlayOrder;
-
-// Rindert
-// hämtar det som ligger i sessionStorage/Varukorgen

@@ -7,3 +7,21 @@ export const fetchMenu = async (): Promise<Dish[]> => {
   );
   return response.data;
 };
+
+export const orderFood = async (orders: any[]) => {
+  try {
+    const response = await axios.post(
+      "https://7didnuouob.execute-api.eu-north-1.amazonaws.com/order/food",
+      orders,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Fel vid beställning:', error);
+    throw error;
+  }
+};

@@ -100,3 +100,25 @@
     align-items: center;
     margin-bottom: 1rem;
 }
+
+
+.inputFieldWrapper {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .errorText {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  .orderOverlay_message {
+    margin-top: 20px;
+    color: #ff0000;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
