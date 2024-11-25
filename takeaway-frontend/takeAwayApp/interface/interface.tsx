@@ -9,3 +9,12 @@ export interface Dish {
     price: number;
   }
 
+export interface Drinks {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  imageUrl: string;
+}  
+
