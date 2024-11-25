@@ -23,3 +23,12 @@ export interface Dish {
     totalPrice: number;
     data: OrderItem[];
   }
+
+export interface Drinks {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  imageUrl: string;
+}  

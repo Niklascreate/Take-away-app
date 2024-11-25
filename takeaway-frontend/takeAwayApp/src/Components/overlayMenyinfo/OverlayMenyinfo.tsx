@@ -1,6 +1,8 @@
 import { useState } from "react";
+import "./overlayMenyInfo.css";
+import { Dish, Drinks } from "../../../interface/Interface";
 import "./overlaymenyinfo.css";
-import { Dish } from "../../../interface/Interface";
+
 
 // Definierar props för komponenten
 interface OverlayMenyInfoProps {
