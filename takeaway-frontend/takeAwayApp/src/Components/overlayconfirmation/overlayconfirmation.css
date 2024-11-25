@@ -8,20 +8,19 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-    padding: 20px;
 }
 
 .overlay-box {
     background-color: #FAB703;
     color: #000;
-    border-radius: 0.5rem;
-    width: 80%;
+    width: 100%;
     max-width: 600px;
     padding: 20px;
     position: relative;
     height: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
               0 10px 15px rgba(0, 0, 0, 0.2);
+    height: 100vh;
 }
 
 .close-overlay {
@@ -38,14 +37,14 @@
 .confirmation-title {
     font-size: 24px;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
+    margin-top: 2rem;
 }
 
 .box-wrapper {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .box-position {
@@ -114,7 +113,6 @@
     height: auto;
 }
 
-
 .your-order__title {
     font-size: 1.5rem;
     margin-top: 3rem;
@@ -137,6 +135,7 @@
 .countdown-title {
     font-size: 1.3rem;
     margin-top: 2rem;
+    text-align: center;
 }
 
 .countdown-number {
@@ -150,5 +149,5 @@
     font-size: 0.6rem;
     text-align: center;
     font-style: italic;
-    margin-top: 4rem;
+    margin-top: 7rem;
 }

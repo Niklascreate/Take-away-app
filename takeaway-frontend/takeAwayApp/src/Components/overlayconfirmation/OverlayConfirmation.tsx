@@ -41,7 +41,6 @@ function OverlayConfirmation() {
                 </article>
                 <ChangeOrderBtn />
                 <h2 className="countdown-title">Din order skickas strax...</h2>
-                <p className="countdown-number">1 minuter kvar</p>
                 <p className="countdown-info">Du blir automatiskt omdirigerad när ordern skickas.</p>
             </section>
         </section>
