@@ -1,6 +1,8 @@
 .header_container {
     display: flex;
-    max-width: 375px;
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
     background-color: var(--header);
     margin: 0 auto;
 }
