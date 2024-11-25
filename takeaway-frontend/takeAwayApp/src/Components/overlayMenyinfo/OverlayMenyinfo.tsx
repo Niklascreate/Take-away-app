@@ -1,10 +1,13 @@
 import { useState } from "react";
+import "./overlayMenyInfo.css";
+import { Dish, Drinks } from "../../../interface/Interface";
 import "./overlaymenyinfo.css";
 import { Dish } from "../../../interface/Interface";
 
+
 interface OverlayMenyInfoProps {
   closeOverlay: () => void;
-  dish: Dish;
+  dish: Dish | Drinks;
 }
 
 function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
