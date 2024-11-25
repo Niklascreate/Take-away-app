@@ -9,6 +9,21 @@ export interface Dish {
     price: number;
   }
 
+  export interface OrderItem {
+    id: string;
+    customerName: string;
+    email: string;
+    phoneNumber: string;
+    quantity: number;
+    specialRequests?: string; 
+  }
+
+  export interface OrderResponse {
+    message: string;
+    totalPrice: number;
+    data: OrderItem[];
+  }
+
 export interface Drinks {
   id: string;
   name: string;
@@ -17,4 +32,3 @@ export interface Drinks {
   category: string;
   imageUrl: string;
 }  
-

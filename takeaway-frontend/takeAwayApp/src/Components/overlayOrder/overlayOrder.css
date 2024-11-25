@@ -100,3 +100,51 @@
     align-items: center;
     margin-bottom: 1rem;
 }
+
+
+.inputFieldWrapper {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .errorText {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  .orderOverlay_message {
+    margin-top: 20px;
+    color: #ff0000;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+
+  .remove-btn {
+    cursor: pointer;
+    border: none;
+    padding: 0.1rem;
+    background: none;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    margin-left: 10px;
+    position: relative;
+  }
+  
+  .remove-btn:hover::after {
+    content: "Ta bort";
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 1;
+  }

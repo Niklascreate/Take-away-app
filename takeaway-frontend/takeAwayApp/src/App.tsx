@@ -5,7 +5,7 @@ import LandingPage from './pages/landingpage/LandingPage';
 import './index.css';
 import OverlayOrder from './components/overlayorder/OverlayOrder';
 import OverlayConfirmation from './components/overlayconfirmation/OverlayConfirmation';
-import AdminConfirmation from './pages/adminconfirmation/AdminConfirmation';
+import AdminConfirmation from './pages/adminConfirmation/AdminConfirmation';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/info" element={<InfoPage />} />
         <Route path="/meny" element={<MenyPage />} />
-        <Route path="/overlayorder" element={<OverlayOrder cart={[]} onClose={function (): void {
+        <Route path="/overlayorder/" element={<OverlayOrder cart={[]} onClose={function (): void {
           throw new Error("Function not implemented.");
         } } />} />
         <Route path="/adminconfirmation" element={<AdminConfirmation />} />
