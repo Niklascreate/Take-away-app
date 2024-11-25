@@ -55,12 +55,12 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
     // Skapa orderdata med rätt typ
     const orders: OrderItem[] = cartItems.map((item) => ({
-      dishId: item.id,
+      id: item.id,
       customerName: name,
       email,
       phoneNumber: phone,
       quantity: item.quantity,
-      specialRequests: item.specialRequests || null, // Special requests är valfritt
+      specialRequests: item.specialRequests || "", // valfritt
     }));
 
     console.log("Skickar orderdata:", orders);

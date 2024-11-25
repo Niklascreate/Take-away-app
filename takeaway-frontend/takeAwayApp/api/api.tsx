@@ -11,7 +11,7 @@ export const fetchMenu = async (): Promise<Dish[]> => {
 export const orderFood = async (orders: any[]) => {
   try {
     const response = await axios.post(
-      "https://7didnuouob.execute-api.eu-north-1.amazonaws.com/order/food",
+      "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/food",
       orders,
       {
         headers: {

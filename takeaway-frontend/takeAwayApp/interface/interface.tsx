@@ -10,7 +10,7 @@ export interface Dish {
   }
 
   export interface OrderItem {
-    dishId: string;
+    id: string;
     customerName: string;
     email: string;
     phoneNumber: string;

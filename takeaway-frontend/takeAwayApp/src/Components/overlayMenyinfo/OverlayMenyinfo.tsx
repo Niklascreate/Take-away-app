@@ -24,27 +24,36 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
   const totalPrice = dish.price * quantity;
 
   // Lägg till maträtten i varukorgen
-  const handleAddToCart = () => {
-    const item = {
-      id: dish.id,
-      name: dish.name,      // Namn på maträtten
-      price: dish.price,    // Pris per maträtt
-      quantity: quantity,   // Antal valda
-    };
-
-    // Hämta nuvarande varukorg från sessionStorage
-    const currentCart = sessionStorage.getItem("cart");
-    let cart = currentCart ? JSON.parse(currentCart) : []; // Om ingen varukorg finns, skapa en tom array
-
-    // Lägg till den nya maträtten i varukorgen
-    cart.push(item);
-
-    // Spara den uppdaterade varukorgen i sessionStorage
-    sessionStorage.setItem("cart", JSON.stringify(cart));
-
-    // Stäng överlägget
-    closeOverlay();
+const handleAddToCart = () => {
+  // Skapa ett objekt med information om maträtten som ska läggas till i varukorgen
+  const item = {
+    id: dish.id,       // ID för maträtten
+    name: dish.name,   // Namn på maträtten
+    price: dish.price, // Pris för maträtten
+    quantity: quantity, // Antal maträtter som användaren vill köpa
   };
+
+  // Hämta nuvarande varukorg från sessionStorage, eller skapa en tom array om ingen finns
+  const currentCart = sessionStorage.getItem("cart");
+  let cart = currentCart ? JSON.parse(currentCart) : [];
+
+  // Kolla om maträtten redan finns i varukorgen och uppdatera kvantiteten om den gör det
+  const existingItemIndex = cart.findIndex((cartItem: { id: string; }) => cartItem.id === item.id);
+  if (existingItemIndex !== -1) {
+    // Om maträtten redan finns, öka kvantiteten
+    cart[existingItemIndex].quantity += item.quantity;
+  } else {
+    // Om maträtten inte finns, lägg till den i varukorgen
+    cart.push(item);
+  }
+
+  // Spara den uppdaterade varukorgen tillbaka i sessionStorage
+  sessionStorage.setItem("cart", JSON.stringify(cart));
+
+  // Stäng överlägget när maträtten har lagts till
+  closeOverlay();
+};
+
 
   return (
     <section className="overlay">
