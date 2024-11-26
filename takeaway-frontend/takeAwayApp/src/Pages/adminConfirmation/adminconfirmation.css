@@ -30,7 +30,12 @@
 .order-list {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     margin-bottom: .3rem;
+}
+
+.order-list p {
+  font-family: "Roboto", sans-serif;;
 }
 
 .order-total {

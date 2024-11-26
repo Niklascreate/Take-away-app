@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./nav.css";
 import { Link } from "react-router-dom";
 import OverlayOrder from "../overlayorder/OverlayOrder";
-import OverlayInlog from "../overlayInlog/OverlayInlog";
+import OverlayInlog from "../overlayinlog/OverlayInlog";
 
 const getTotalItems = (cart: any[]): number => {
   return cart.reduce((total, item) => total + item.quantity, 0);
