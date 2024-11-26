@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import './overlayorder.css';
 import { orderFood } from "../../../api/Api";
 import { OrderItem } from "../../../interface/Interface";
@@ -22,6 +23,12 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
   // State för att visa orderbekräftelse
   const [orderMessage, setOrderMessage] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  const handlePageClick = () => {
+      navigate('/overlayconfirmation');
+  };
 
   useEffect(() => {
     const savedCart = sessionStorage.getItem("cart");
@@ -55,16 +62,18 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
     // Skapa orderdata med rätt typ
     const orders: OrderItem[] = cartItems.map((item) => ({
-      dishId: item.id,
+      id: item.id,
       customerName: name,
       email,
       phoneNumber: phone,
       quantity: item.quantity,
+      dishName: item.name,
       specialRequests: item.specialRequests || "",
+      price: item.price,
     }));
 
     console.log("Skickar orderdata:", orders);
-    
+
 
     try {
       // Anropa orderFood med orderobjektet
@@ -73,7 +82,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
       // Uppdatera meddelandet
       setOrderMessage(`Din order är mottagen! Total: ${response.totalPrice} SEK`);
-
+      sessionStorage.clear();
       // Återställ state efter lyckad order
       setCartItems([]);
       setName("");
@@ -93,7 +102,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
     setCartItems(updatedItems);
     sessionStorage.setItem("cart", JSON.stringify(updatedItems));
   };
-  
+
 
   return (
     <section className="orderOverlay_container">
@@ -170,7 +179,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
         <p className="orderOverlay_totalPrice__price">{total} SEK</p>
       </section>
 
-      <button className="orderOverlay_orderButton" onClick={handleOrder}>
+      <button className="orderOverlay_orderButton" onClick={() => { handleOrder(); handlePageClick(); }}>
         Beställ {total} SEK
       </button>
     </section>

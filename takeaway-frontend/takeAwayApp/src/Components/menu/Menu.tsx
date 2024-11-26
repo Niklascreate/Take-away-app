@@ -65,7 +65,7 @@ const Menu = () => {
       </section>
 
       {selectedItem && (
-  <OverlayMenyInfo closeOverlay={closeOverlay} dish={selectedItem} />
+  <OverlayMenyInfo closeOverlay={closeOverlay} dish={selectedItem}/>
 )}
     </section>
   );
