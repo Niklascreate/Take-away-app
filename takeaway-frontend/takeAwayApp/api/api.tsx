@@ -1,9 +1,18 @@
 import axios from 'axios';
+import { Dish, OrderItem } from '../interface/Interface';
+import { Drinks } from '../interface/Interface';
 import { Dish, Drinks, AdminPage } from '../interface/Interface';
 
 export const fetchMenu = async (): Promise<Dish[]> => {
   const response = await axios.get<Dish[]>(
     "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/get/menu?key=key-Y9Z0A"
+  );
+  return response.data;
+};
+
+export const fetchOrder = async (): Promise<OrderItem[]> => {
+  const response = await axios.get<OrderItem[]>(
+    "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order?key=key-Y9Z0A"
   );
   return response.data;
 };

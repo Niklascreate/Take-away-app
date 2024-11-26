@@ -9,6 +9,17 @@ export interface Dish {
     price: number;
   }
 
+  export interface OrderItem {
+    id: string;
+    customerName: string;
+    email: string;
+    phoneNumber: string;
+    quantity: number;
+    specialRequests?: string; 
+    dishName: string;
+    price: number;
+  }
+
 export interface OrderItem {
   dishId: string;
   customerName: string;
