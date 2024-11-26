@@ -18,7 +18,7 @@ function App() {
         <Route path="/overlayorder/" element={<OverlayOrder cart={[]} onClose={function (): void {
           throw new Error("Function not implemented.");
         } } />} />
-        <Route path="/adminpage" element={<AdminConfirmation />} />
+        <Route path="/adminconfirmation" element={<AdminConfirmation />} />
         <Route path="/overlayconfirmation" element={<OverlayConfirmation />} />
       </Routes>
     </Router>
