@@ -1,7 +1,16 @@
+.menu_adress {
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    background-color: var(--background);
+}
+
+
 .menu_adressContainer {
     display: flex;
     gap: .9rem;
     padding: .8rem;
+    
 }
 
 .menu_adressHeader {
@@ -21,8 +30,4 @@
 
 .menu_hero {
     width: 100%;
-}
-
-.menu_adress {
-    background-color: var(--background);
 }
