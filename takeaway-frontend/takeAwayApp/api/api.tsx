@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { Dish, OrderItem } from '../interface/Interface';
-import { Drinks } from '../interface/Interface';
-import { Dish, Drinks, AdminPage } from '../interface/Interface';
+import { Dish, Drinks, AdminPage, OrderItem } from '../interface/Interface';
 
 export const fetchMenu = async (): Promise<Dish[]> => {
   const response = await axios.get<Dish[]>(

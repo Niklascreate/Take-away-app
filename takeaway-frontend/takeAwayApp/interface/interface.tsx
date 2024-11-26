@@ -20,14 +20,6 @@ export interface Dish {
     price: number;
   }
 
-export interface OrderItem {
-  dishId: string;
-  customerName: string;
-  email: string;
-  phoneNumber: string;
-  quantity: number;
-  specialRequests?: string; 
-}
 
 export interface OrderResponse {
   message: string;
