@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./nav.css";
+import "./nav.css"; // Här är CSS-filen för menyn
 import { Link } from "react-router-dom";
 import OverlayOrder from "../overlayorder/OverlayOrder";
 import OverlayInlog from "../overlayinlog/OverlayInlog";

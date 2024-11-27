@@ -137,7 +137,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       </section>
 
       <section className="inputFields_container">
-        <h3>Fyll i dina kontaktuppgifter</h3>
+        <h3 className="kontakt_h3">Fyll i dina kontaktuppgifter</h3>
         <section className="inputFieldWrapper">
           <input
             className="inputField"
