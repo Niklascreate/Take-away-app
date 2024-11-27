@@ -63,7 +63,7 @@ export const adminOrders = async () => {
 export const adminOrderLock = async (orderId: string) => {
   try {
     const response = await axios.post(
-      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/klar',
+      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/lock',
       { orderId, lockStatus: "locked" },
       {
         headers: {
@@ -78,24 +78,24 @@ export const adminOrderLock = async (orderId: string) => {
   }
 };
 
-// Funktion för att låsa upp en order
-export const adminOrderUnlock = async (orderId: string) => {
-  try {
-    const response = await axios.put(
-      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/klar',
-      { orderId, lockStatus: "unlocked" },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Gick inte att låsa upp order:', error);
-    throw error;
-  }
-};
+// // Funktion för att låsa upp en order
+// export const adminOrderUnlock = async (orderId: string) => {
+//   try {
+//     const response = await axios.put(
+//       'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/lock',
+//       { orderId, lockStatus: "unlocked" },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error('Gick inte att låsa upp order:', error);
+//     throw error;
+//   }
+// };
 
 // Funktion för att markera en order som klar
 export const adminOrderDone = async (orderId: string) => {
@@ -115,3 +115,23 @@ export const adminOrderDone = async (orderId: string) => {
     throw error;
   }
 };
+
+
+// //Ta bort en order
+// export const adminOrderDone = async (orderId: string) => {
+//   try {
+//     const response = await axios.put(
+//       'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/delete',
+//       { orderId },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error('Gick inte bekräfta order', error);
+//     throw error;
+//   }
+// };

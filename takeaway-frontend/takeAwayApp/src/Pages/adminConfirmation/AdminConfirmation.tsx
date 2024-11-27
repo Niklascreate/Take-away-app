@@ -1,13 +1,14 @@
 import Nav from "../../components/nav/Nav";
 import "./adminconfirmation.css";
 import { useState, useEffect } from "react";
-import { adminOrders, adminOrderDone, adminOrderLock, adminOrderUnlock } from "../../../api/Api";
+import { adminOrders, adminOrderLock } from "../../../api/Api";
 import { AdminPage } from "../../../interface/Interface";
 
 function AdminConfirmation() {
   const [orders, setOrders] = useState<AdminPage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [lockedOrders, setLockedOrders] = useState<{ [key: string]: boolean }>({});
  
   // Hämta ordrar vid sidans laddning
   useEffect(() => {
@@ -24,6 +25,22 @@ function AdminConfirmation() {
 
     fetchOrders();
   }, []);
+
+    // Funktion för att låsa ordern
+    const lockOrder = async (orderId: string) => {
+      try {
+        await adminOrderLock(orderId);
+  
+        // Uppdatera lockedOrders state för att markera denna order som låst
+        setLockedOrders((prev) => ({
+          ...prev,
+          [orderId]: true,
+        }));
+      } catch (error) {
+        console.error("Gick inte att låsa order", error);
+        setError("Fel vid låsning av order");
+      }
+    };
 
   return (
     <section className="confirmation_container">
@@ -61,8 +78,12 @@ function AdminConfirmation() {
               <p><strong>Skapad:</strong> {new Date(order.createdAt).toLocaleString()}</p>
             </aside>
             <article className="switch-container">
-              <label className="switch">
-                <input type="checkbox"/>
+            <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={lockedOrders[order.orderId] || false} // Om ordern är låst, sätt checkboxen som markerad
+                  onChange={() => lockOrder(order.orderId)} // När användaren klickar, lås ordern
+                />
                 <span className="slider round"></span>
                 <p className="switch-text">Låsa order</p>
               </label>
