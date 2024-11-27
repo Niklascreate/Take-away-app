@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./overlayInlog.css";
 import { useNavigate } from "react-router-dom";
 import './overlayinlog.css';
@@ -11,7 +11,15 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
+
+  // Kontrollera om användaren är redan inloggad när komponenten laddas
+  useEffect(() => {
+    const loggedInUser = sessionStorage.getItem("username");
+    if (loggedInUser) {
+      navigate('/adminconfirmation');
+    }
+  }, [navigate]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -33,7 +41,10 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
       if (!response.ok) {
         throw new Error('Fel vid inloggning');
       }
-  
+
+      // Spara användarnamnet i sessionStorage när inloggning lyckas
+      sessionStorage.setItem("username", username);
+      
       navigate('/adminconfirmation');
     } catch (error) {
       console.error('Något gick fel:', error);

@@ -37,7 +37,6 @@ function OverlayConfirmation() {
             <section className="overlay-box">
                 <article className="box-img__one">
                     <h2 className="confirmation-title">Orderbekräftelse</h2>
-                    {/* Lägg till onClick för att stänga overlayn */}
                     <img className="close-overlay" src="/stängKnapp.png" alt="Stäng" onClick={closeOverlay} />
                 </article>
 
