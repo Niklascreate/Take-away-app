@@ -41,7 +41,7 @@ function AdminConfirmation() {
       // Uppdatera lokalt för att reflektera ändringen
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
-          order.dishId === orderId ? { ...order, available: !currentStatus } : order
+          order.orderId === orderId ? { ...order, available: !currentStatus } : order
         )
       );
     } catch (err) {
@@ -63,23 +63,23 @@ function AdminConfirmation() {
         <h3 className="your-order__title">Redo att bekräfta</h3>
 
         {orders.map((order) => (
-          <section className="confirmation_card" key={order.dishId}>
+          <section className="confirmation_card" key={order.orderId}>
             <aside className="order-list">
-              <p>Id: {order.dishId}</p>
+              <p>Orderid: {order.orderId}</p>
               <p>Maträtt: {order.dishName}</p>
               <p>Kund: {order.customerName}</p>
               <p>E-mail: {order.email}</p>
               <p>Telefon: {order.phoneNumber}</p>
               <p>Antal: {order.quantity}</p>
               {order.specialRequests && <p>Önskemål: {order.specialRequests}</p>}
-              <p>Status: {order.available ? 'Tillgänglig' : 'Inte tillgänglig'}</p>
+              <p>Status: {order.available ? 'Klar' : 'Inte klar'}</p>
               <p>Skapad: {new Date(order.createdAt).toLocaleString()}</p>
             </aside>
             <label className="switch">
               <input
                 type="checkbox"
                 checked={!order.available}
-                onChange={() => handleOrderToggle(order.dishId, order.available)}
+                onChange={() => handleOrderToggle(order.orderId, order.available)}
               />
               <span className="slider round"></span>
             </label>
