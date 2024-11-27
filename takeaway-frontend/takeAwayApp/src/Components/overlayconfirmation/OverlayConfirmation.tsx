@@ -25,6 +25,10 @@ function OverlayConfirmation() {
         getOrderItems();
     }, []);
 
+    const closeOverlay = () => {
+        window.location.href = '/meny';
+    };
+
     if (loading) return <p>Laddar order...</p>;
     if (error) return <p>{error}</p>;
 
@@ -33,7 +37,8 @@ function OverlayConfirmation() {
             <section className="overlay-box">
                 <article className="box-img__one">
                     <h2 className="confirmation-title">Orderbekräftelse</h2>
-                    <img className="close-overlay" src="/stängKnapp.png" alt="Stäng" />
+                    {/* Lägg till onClick för att stänga overlayn */}
+                    <img className="close-overlay" src="/stängKnapp.png" alt="Stäng" onClick={closeOverlay} />
                 </article>
 
                 <section className="box-wrapper">
