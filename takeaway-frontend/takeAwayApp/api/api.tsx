@@ -45,7 +45,12 @@ export const fetchDrinks = async (): Promise<Drinks[]> => {
 export const adminOrders = async () => {
   try {
     const response = await axios.get<AdminPage[]>(
-      "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order"
+      "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -54,12 +59,17 @@ export const adminOrders = async () => {
   }
 };
 
-
 // Funktion för att låsa en order
 export const adminOrderLock = async (orderId: string) => {
   try {
-    const response = await axios.get(
-      `https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/admin/order/lock/${orderId}`  // Lägg till orderId i URL:en
+    const response = await axios.post(
+      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/klar',
+      { orderId, lockStatus: "locked" },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -68,11 +78,36 @@ export const adminOrderLock = async (orderId: string) => {
   }
 };
 
+// Funktion för att låsa upp en order
+export const adminOrderUnlock = async (orderId: string) => {
+  try {
+    const response = await axios.put(
+      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/klar',
+      { orderId, lockStatus: "unlocked" },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Gick inte att låsa upp order:', error);
+    throw error;
+  }
+};
+
 // Funktion för att markera en order som klar
 export const adminOrderDone = async (orderId: string) => {
   try {
-    const response = await axios.get(
-      `https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/klar/${orderId}`  // Lägg till orderId i URL:en
+    const response = await axios.put(
+      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/klar',
+      { orderId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
     return response.data;
   } catch (error) {

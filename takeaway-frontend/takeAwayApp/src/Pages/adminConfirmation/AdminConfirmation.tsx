@@ -1,14 +1,14 @@
-import Nav from '../../components/nav/Nav';
-import './adminconfirmation.css';
-import { useState, useEffect } from 'react';
-import { adminOrders, adminOrderDone, adminOrderLock } from '../../../api/Api';
-import { AdminPage } from '../../../interface/Interface';
+import Nav from "../../components/nav/Nav";
+import "./adminconfirmation.css";
+import { useState, useEffect } from "react";
+import { adminOrders, adminOrderDone, adminOrderLock, adminOrderUnlock } from "../../../api/Api";
+import { AdminPage } from "../../../interface/Interface";
 
 function AdminConfirmation() {
   const [orders, setOrders] = useState<AdminPage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+ 
   // Hämta ordrar vid sidans laddning
   useEffect(() => {
     const fetchOrders = async () => {
@@ -17,40 +17,13 @@ function AdminConfirmation() {
         setOrders(data);
         setLoading(false);
       } catch (err) {
-        setError('Kunde inte ladda ordrar');
+        setError("Kunde inte ladda ordrar");
         setLoading(false);
       }
     };
 
     fetchOrders();
   }, []);
-
-  // Hantera toggling av status (låsa eller markera som klar)
-  const handleOrderToggle = async (orderId: string, currentStatus: boolean) => {
-    try {
-      if (currentStatus) {
-        // Markera som klar
-        await adminOrderDone(orderId); // Skicka med orderId
-        alert(`Order med ID ${orderId} markerades som klar.`);
-      } else {
-        // Låsa order
-        await adminOrderLock(orderId); // Skicka med orderId
-        alert(`Order med ID ${orderId} låstes.`);
-      }
-  
-      // Uppdatera lokalt för att reflektera ändringen
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.orderId === orderId ? { ...order, available: !currentStatus } : order
-        )
-      );
-    } catch (err) {
-      alert('Något gick fel vid uppdateringen av orderstatus.');
-      console.error(err);
-    }
-  };
-  
-
 
   return (
     <section className="confirmation_container">
@@ -65,24 +38,46 @@ function AdminConfirmation() {
         {orders.map((order) => (
           <section className="confirmation_card" key={order.orderId}>
             <aside className="order-list">
-              <p>Orderid: {order.orderId}</p>
-              <p>Maträtt: {order.dishName}</p>
-              <p>Kund: {order.customerName}</p>
-              <p>E-mail: {order.email}</p>
-              <p>Telefon: {order.phoneNumber}</p>
-              <p>Antal: {order.quantity}</p>
-              {order.specialRequests && <p>Önskemål: {order.specialRequests}</p>}
-              <p>Status: {order.available ? 'Klar' : 'Inte klar'}</p>
-              <p>Skapad: {new Date(order.createdAt).toLocaleString()}</p>
+              <p>
+                <strong>Orderid:</strong> {order.orderId}
+              </p>
+              <p>
+                <strong>Maträtt:</strong> {order.dishName}
+              </p>
+              <p>
+                <strong>Kund:</strong> {order.customerName}
+              </p>
+              <p>
+                <strong>E-mail:</strong> {order.email}
+              </p>
+              <p>
+                <strong>Telefon:</strong> {order.phoneNumber}
+              </p>
+              <p>
+                <strong>Antal:</strong> {order.quantity}
+              </p>
+              <p><strong>Önskemål:</strong> {order.specialRequests}</p>
+              <p><strong>Status:</strong> {order.available ? "Klar" : "Inte klar"}</p>
+              <p><strong>Skapad:</strong> {new Date(order.createdAt).toLocaleString()}</p>
             </aside>
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={!order.available}
-                onChange={() => handleOrderToggle(order.orderId, order.available)}
-              />
-              <span className="slider round"></span>
-            </label>
+            <article className="switch-container">
+              <label className="switch">
+                <input type="checkbox"/>
+                <span className="slider round"></span>
+                <p className="switch-text">Låsa order</p>
+              </label>
+              <label className="switch">
+                <input type="checkbox"/>
+                <span className="slider round"></span>
+                <p className="switch-text">Bekräfta order</p>
+              </label>
+              <label className="switch">
+                <input type="checkbox" />
+                <span className="slider round"></span>
+                <p className="switch-text">Ta bort order</p>
+              </label>
+            </article>
+            <p className="felmeddelande"></p>
           </section>
         ))}
       </section>
