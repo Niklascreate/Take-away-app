@@ -22,7 +22,7 @@ export const handler = middy(async (event) => {
             ExpressionAttributeValues: { ':status': status },
         });
 
-        return sendResponse(200, { message: 'Status uppdaterad', orderId, status });
+        return sendResponse(200, { message: 'Ordern är bekräftad', orderId, status });
 
     } catch (error) {
         console.error('Fel vid uppdatering:', error);
