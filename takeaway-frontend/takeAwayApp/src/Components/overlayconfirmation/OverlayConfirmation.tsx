@@ -49,7 +49,7 @@ function OverlayConfirmation() {
             <section className="overlay-box">
                 <article className="box-img__one">
                     <h2 className="confirmation-title">Orderbekräftelse</h2>
-                    <img className="close-overlay" src="/stängKnapp.png" alt="Stäng" onClick={closeOverlay} />
+                    <img className="close-overlay" src="/stängKnapp.svg" alt="Stäng" onClick={closeOverlay} />
                 </article>
 
                 <section className="box-wrapper">
