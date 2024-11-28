@@ -34,39 +34,44 @@ const Menu = () => {
   return (
     <section className="menu_container">
       <h1 className="menu_header">Meny</h1>
-      
+  
       <section className="dishes_section">
-        {dishes.map((dish) => (
-          <section key={dish.id} className="menu" onClick={() => openOverlay(dish)}>
-            <img src={dish.imageUrl} alt={dish.name} className="menu_img" />
-            <section className="menu_descText">
-              <h2 className="menu_dish">{dish.name}</h2>
-              <p className="menu_desc">{dish.description}</p>
-              <p className="menu_price">{dish.price} sek</p>
+        {dishes
+          .filter((dish) => dish.category === "food") 
+          .map((dish) => (
+            <section key={dish.id} className="menu" onClick={() => openOverlay(dish)}>
+              <img src={dish.imageUrl} alt={dish.name} className="menu_img" />
+              <section className="menu_descText">
+                <h2 className="menu_dish">{dish.name}</h2>
+                <p className="menu_desc">{dish.description}</p>
+                <p className="menu_price">{dish.price} sek</p>
+              </section>
             </section>
-          </section>
-        ))}
+          ))}
       </section>
-
+  
       <section className="drinks_section">
         <h2 className="menu_header">Drycker</h2>
-        {dishes.map((dish) => (
-          <section key={dish.id} className="menu" onClick={() => openOverlay(dish)}>
-            <img src={dish.imageUrl} alt={dish.name} className="menu_img" />
-            <section className="menu_descText">
-              <h2 className="menu_dish">{dish.name}</h2>
-              <p className="menu_desc">{dish.description}</p>
-              <p className="menu_price">{dish.price} sek</p>
+        {dishes
+          .filter((dish) => dish.category === "drink")
+          .map((dish) => (
+            <section key={dish.id} className="menu" onClick={() => openOverlay(dish)}>
+              <img src={dish.imageUrl} alt={dish.name} className="menu_img" />
+              <section className="menu_descText">
+                <h2 className="menu_dish">{dish.name}</h2>
+                <p className="menu_desc">{dish.description}</p>
+                <p className="menu_price">{dish.price} sek</p>
+              </section>
             </section>
-          </section>
-        ))}
+          ))}
       </section>
-
+  
       {selectedItem && (
-  <OverlayMenyInfo closeOverlay={closeOverlay} dish={selectedItem}/>
-)}
+        <OverlayMenyInfo closeOverlay={closeOverlay} dish={selectedItem} />
+      )}
     </section>
   );
+  
 };
 
 export default Menu;
