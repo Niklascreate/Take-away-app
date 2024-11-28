@@ -5,15 +5,24 @@ import './overlayconfirmation.css';
 import ChangeOrderBtn from "../changeorderbtn/ChangeOrderBtn";
 
 function OverlayConfirmation() {
-    const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const [latestOrder, setLatestOrder] = useState<OrderItem | null>(null); // Senaste ordern
+    const [loading, setLoading] = useState<boolean>(true); // Laddningsstatus
+    const [error, setError] = useState<string | null>(null); // Felhantering
 
+    // Hämta senaste ordern när komponenten laddas
     useEffect(() => {
         const getOrderItems = async () => {
             try {
-                const data = await fetchOrder();
-                setOrderItems(data);
+                const data = await fetchOrder(); // Hämta alla ordrar från backend
+                if (data.length > 0) {
+                    // Sortera ordrar efter skapad tidpunkt och välj den senaste
+                    const latestOrder = data.sort(
+                        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+                    )[0];
+                    setLatestOrder(latestOrder); // Spara den senaste ordern
+                } else {
+                    setError("Inga ordrar hittades.");
+                }
             } catch (err) {
                 setError("Kunde inte hämta orderdata.");
                 console.error(err);
@@ -26,11 +35,14 @@ function OverlayConfirmation() {
     }, []);
 
     const closeOverlay = () => {
-        window.location.href = '/meny';
+        window.location.href = '/meny'; // Navigera till menyn
     };
 
+    // Visa laddningsmeddelande
     if (loading) return <p>Laddar order...</p>;
+    // Visa felmeddelande
     if (error) return <p>{error}</p>;
+    if (!latestOrder) return <p>Ingen order att visa.</p>;
 
     return (
         <section className="overlay-container">
@@ -50,17 +62,15 @@ function OverlayConfirmation() {
 
                 <article className="box-order">
                     <h3 className="your-order__title">Din order</h3>
-                    {orderItems.map((item, index) => (
+                    {latestOrder.order.map((item, index) => (
                         <aside key={index} className="order-list">
                             <p>{item.dishName} (x{item.quantity})</p>
-                            <p>{item.price} sek </p>
+                            <p>{item.price} SEK</p>
                         </aside>
                     ))}
                     <aside className="order-list order-total">
                         <p>Total:</p>
-                        <p>
-                            {orderItems.reduce((total, item) => total + item.price * item.quantity, 0)} SEK
-                        </p>
+                        <p>{latestOrder.orderPrice} SEK</p>
                     </aside>
                     <p className="change-order">Behöver du ändra din order?</p>
                 </article>

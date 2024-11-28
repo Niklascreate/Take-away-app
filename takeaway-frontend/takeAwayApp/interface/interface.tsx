@@ -21,13 +21,11 @@ export interface OrderItem {
   price: number;
 }
 
-
 export interface OrderResponse {
 message: string;
 totalPrice: number;
 data: OrderItem[];
 }
-
 
 export interface AdminPage {
 orderId: string;
@@ -39,4 +37,24 @@ quantity: number;
 specialRequests?: string;
 available: boolean; 
 createdAt: string; 
+}
+
+export interface OrderProduct {
+  id: string;
+  dishName: string;
+  description: string;
+  category: string;
+  price: number;
+  quantity: number;
+  specialRequests: string;
+}
+
+export interface OrderItem {
+  orderId: string;
+  customerName: string;
+  email: string;
+  phoneNumber: string;
+  createdAt: string;
+  orderPrice: number;
+  order: OrderProduct[];
 }

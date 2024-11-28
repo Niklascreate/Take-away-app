@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './overlayorder.css';
 import { orderFood } from "../../../api/Api";
-import { OrderItem } from "../../../interface/Interface";
 
 // Props för komponenten
 interface OverlayOrderProps {
@@ -40,10 +39,12 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handleOrder = async () => {
+    // Återställ valideringsfel
     setNameError(false);
     setEmailError(false);
     setPhoneError(false);
-
+  
+    // Validering
     let isValid = true;
     if (!name.trim()) {
       setNameError(true);
@@ -57,39 +58,40 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       setPhoneError(true);
       isValid = false;
     }
-
+  
     if (!isValid) return;
-
-    // Skapa orderdata med rätt typ
-    const orders: OrderItem[] = cartItems.map((item) => ({
-      id: item.id,
+  
+    // Skapa orderobjekt
+    const orders = {
       customerName: name,
-      email,
+      email: email,
       phoneNumber: phone,
-      quantity: item.quantity,
-      dishName: item.name,
-      specialRequests: item.specialRequests || "",
-      price: item.price,
-    }));
-
-    console.log("Skickar orderdata:", orders);
-
-
+      order: cartItems.map((item) => ({
+        id: item.id,
+        specialRequests: item.specialRequests || "",
+        quantity: item.quantity,
+      })),
+    };
+  
+    console.log("Skickar beställning:", orders);
+  
     try {
-      // Anropa orderFood med orderobjektet
+      // Skicka orderobjektet till API:et
       const response = await orderFood(orders);
       console.log('Order skickad:', response);
-
-      // Uppdatera meddelandet
+  
+      // Uppdatera meddelande
       setOrderMessage(`Din order är mottagen! Total: ${response.totalPrice} SEK`);
       sessionStorage.clear();
-      // Återställ state efter lyckad order
+  
+      // Återställ state
       setCartItems([]);
       setName("");
       setEmail("");
       setPhone("");
-
-      onClose(); // Stäng överlägget
+  
+      onClose(); // Stäng overlay
+      navigate('/overlayconfirmation'); // Navigera till bekräftelsesidan
     } catch (error) {
       console.error('Kunde inte skicka ordern:', error);
       setOrderMessage('Ett fel inträffade vid beställningen. Försök igen.');
