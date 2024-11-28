@@ -15,7 +15,37 @@ export const fetchOrder = async (): Promise<OrderItem[]> => {
   return response.data;
 };
 
-export const orderFood = async (orders: any[]) => {
+// export const orderFood = async (orders: OrderItem[]) => {
+//   try {
+//     const response = await axios.post(
+//       "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/food",
+//       orders,
+//       {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         }
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error('Fel vid beställning:', error);
+//     throw error;
+//   }
+// };
+
+
+// Test
+
+export const orderFood = async (orders: {
+  customerName: string;
+  email: string;
+  phoneNumber: string;
+  order: {
+    id: string;
+    specialRequests?: string;
+    quantity: number;
+  }[];
+}) => {
   try {
     const response = await axios.post(
       "https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/food",
@@ -23,7 +53,7 @@ export const orderFood = async (orders: any[]) => {
       {
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       }
     );
     return response.data;
