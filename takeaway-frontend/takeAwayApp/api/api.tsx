@@ -126,7 +126,7 @@ export const adminOrderDone = async (orderId: string) => {
 export const adminDeleteOrder = async (orderId: string) => {
   try {
     const response = await axios.delete(
-      `https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/delete${orderId}`,
+      `https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/delete/${orderId}`,
       {
         headers: {
           "Content-Type": "application/json",

@@ -25,10 +25,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
   const navigate = useNavigate();
 
-  const handlePageClick = () => {
-      navigate('/overlayconfirmation');
-  };
-
   useEffect(() => {
     const savedCart = sessionStorage.getItem("cart");
     if (savedCart) {
@@ -43,7 +39,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
     setNameError(false);
     setEmailError(false);
     setPhoneError(false);
-  
+
     // Validering
     let isValid = true;
     if (!name.trim()) {
@@ -58,9 +54,9 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       setPhoneError(true);
       isValid = false;
     }
-  
+
     if (!isValid) return;
-  
+
     // Skapa orderobjekt
     const orders = {
       customerName: name,
@@ -72,24 +68,24 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
         quantity: item.quantity,
       })),
     };
-  
+
     console.log("Skickar beställning:", orders);
-  
+
     try {
       // Skicka orderobjektet till API:et
       const response = await orderFood(orders);
       console.log('Order skickad:', response);
-  
+
       // Uppdatera meddelande
       setOrderMessage(`Din order är mottagen! Total: ${response.totalPrice} SEK`);
       sessionStorage.clear();
-  
+
       // Återställ state
       setCartItems([]);
       setName("");
       setEmail("");
       setPhone("");
-  
+
       onClose(); // Stäng overlay
       navigate('/overlayconfirmation'); // Navigera till bekräftelsesidan
     } catch (error) {
@@ -104,7 +100,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
     setCartItems(updatedItems);
     sessionStorage.setItem("cart", JSON.stringify(updatedItems));
   };
-
 
   return (
     <section className="orderOverlay_container">
@@ -181,7 +176,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
         <p className="orderOverlay_totalPrice__price">{total} SEK</p>
       </section>
 
-      <button className="orderOverlay_orderButton" onClick={() => { handleOrder(); handlePageClick(); }}>
+      <button className="orderOverlay_orderButton" onClick={handleOrder}>
         Beställ {total} SEK
       </button>
     </section>
