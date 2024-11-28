@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(29, 113, 157, 1);
+  background-color: var(--background);
   color: #ffffff;
   overflow: hidden;
 }

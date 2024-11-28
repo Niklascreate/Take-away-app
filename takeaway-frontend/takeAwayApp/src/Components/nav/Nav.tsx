@@ -32,13 +32,13 @@ export default function Nav() {
     <section className="nav_container">
       <ul className="nav_list">
         <Link to="/meny">
-          <img src="/home.svg" alt="Home" className="nav_icon" />
+          <img src="/Home.svg" alt="Home" className="nav_icon" />
         </Link>
         <Link to="/info">
           <img src="/info.svg" alt="Info" className="nav_icon" />
         </Link>
         <li className="nav_cart" onClick={() => setOrderOverlayVisible(true)}>
-          <img src="/cart.svg" alt="Cart" className="nav_icon" />
+          <img src="/Cart.svg" alt="Cart" className="nav_icon" />
           {cart.length > 0 && (
             <span className="cart_count">{getTotalItems(cart)}</span>
           )}
