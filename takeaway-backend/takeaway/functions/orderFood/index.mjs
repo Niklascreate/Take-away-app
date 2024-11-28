@@ -51,6 +51,8 @@ export const handler = async (event) => {
         const confirmations = [];
         let totalPrice = 0;
 
+        const orderId = generateOrderId();    
+
         for (const orderData of orders) {
             const { id, customerName, email, phoneNumber, quantity, specialRequests } = orderData;
         
@@ -77,6 +79,7 @@ export const handler = async (event) => {
                 console.error(`Maträtt med ID ${id} kunde inte hittas`);
                 continue;
             }
+            console.log(`Hämtade maträttsdetaljer för ID ${id}:`, dishDetails);
 
             if (!validatePrice(dishDetails.price)) {
                 console.error(`Ogiltigt pris för maträtt med ID ${id}: ${dishDetails.price}`);
@@ -87,7 +90,7 @@ export const handler = async (event) => {
             totalPrice += orderPrice;
         
             const order = {
-                orderId: generateOrderId(),
+                orderId,
                 id,
                 dishName: dishDetails.name,
                 category: dishDetails.category,

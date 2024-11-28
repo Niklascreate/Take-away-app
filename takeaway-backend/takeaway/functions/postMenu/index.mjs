@@ -13,9 +13,10 @@ export const handler = async (event) => {
         name: item.dish,
         description: item.description,
         price: item.price,
-        ingredients: item.ingredients,
+        ingredients: item.ingredients || null,
         available: item.available,
         createdAt: new Date().toISOString(),
+        category: item.category,
         imageUrl: item.imageUrl || null,
       };
 
@@ -33,6 +34,7 @@ export const handler = async (event) => {
           ingredients: dish.ingredients,
           available: dish.available,
           createdAt: dish.createdAt,
+          category: dish.category,
           imageUrl: dish.imageUrl,
         });
       } catch (innerError) {
