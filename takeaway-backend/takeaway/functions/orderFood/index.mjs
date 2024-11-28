@@ -42,108 +42,91 @@ export const handler = async (event) => {
             return sendError(400, 'Ingen data skickades');
         }
 
-        const orders = JSON.parse(event.body);
+        const orderData = JSON.parse(event.body);
 
-        if (!Array.isArray(orders) || orders.length === 0) {
-            return sendError(400, 'Förväntar en lista med beställningar');
+        if (!orderData.order || !Array.isArray(orderData.order) || orderData.order.length === 0) {
+            return sendError(400, 'Förväntar en lista med maträtter i beställningen');
         }
 
         const confirmations = [];
         let totalPrice = 0;
 
-        for (const orderData of orders) {
-            const { id, customerName, email, phoneNumber, quantity, specialRequests } = orderData;
-        
-            if (!id || !customerName || !email || !phoneNumber || !quantity) {
-                console.error('Saknar nödvändig information:', orderData);
+        // Generera ett orderId för hela beställningen
+        const orderId = generateOrderId();
+
+        // Hantera varje maträtt i beställningen
+        for (const item of orderData.order) {
+            const { id, specialRequests, quantity } = item;
+
+            if (!id || !quantity) {
+                console.error('Saknar nödvändig information:', item);
                 continue;
             }
 
-            if (!validatePhoneNumber(phoneNumber)) {
-                return sendError(400, 'Ogiltigt mobilnummer. Vänligen ange exakt 10 siffror.');
-            }
-
-            if (!validateEmail(email)) {
-                return sendError(400, 'Ogiltig e-postadress.');
-            }
-        
             if (!Number.isInteger(quantity) || quantity <= 0) {
                 return sendError(400, 'Kvantiteten måste vara ett positivt heltal.');
             }
-        
+
             const dishDetails = await getDishDetails(id);
-        
+
             if (!dishDetails) {
                 console.error(`Maträtt med ID ${id} kunde inte hittas`);
                 continue;
             }
 
-            if (!validatePrice(dishDetails.price)) {
-                console.error(`Ogiltigt pris för maträtt med ID ${id}: ${dishDetails.price}`);
-                return sendError(400, `Ogiltigt pris för maträtt med ID ${id}`);
-            }
-        
             const orderPrice = dishDetails.price * quantity;
             totalPrice += orderPrice;
-        
-            const order = {
-                orderId: generateOrderId(),
-                id,
+
+            const orderItem = {
+                id: orderId,
                 dishName: dishDetails.name,
                 category: dishDetails.category,
                 description: dishDetails.description,
                 price: dishDetails.price,
-                customerName,
-                email,
-                phoneNumber,
                 quantity,
-                specialRequests: specialRequests || '',
-                orderPrice,
-                createdAt: new Date().toISOString(),
+                specialRequests: specialRequests || ''
             };
 
-            try {
-                await db.put({
-                    TableName: 'HerringOrder',
-                    Item: order,
-                });
-            } catch (dbError) {
-                console.error(`Fel vid sparande av beställning för maträtt med ID ${id}:`, dbError);
-                return sendError(500, `Kunde inte spara beställning för maträtt med ID ${id}`);
-            }
-        
-            confirmations.push({
-                orderId: order.orderId,
-                dishName: order.dishName,
-                category: order.category,
-                description: order.description,
-                price: order.price,
-                customerName: order.customerName,
-                email: order.email,
-                phoneNumber: order.phoneNumber,
-                quantity: order.quantity,
-                specialRequests: order.specialRequests,
-                orderPrice: order.orderPrice,
-                createdAt: order.createdAt,
-            });
+            confirmations.push(orderItem);
         }
 
         if (confirmations.length === 0) {
-            return sendError(400, 'Inga giltiga beställningar kunde behandlas');
+            return sendError(400, 'Inga giltiga maträtter kunde behandlas');
+        }
+
+        // Skapa order-objektet och lägg till orderId
+        const order = {
+            orderId: orderId,  // Lägg till orderId här
+            customerName: orderData.customerName,
+            email: orderData.email,
+            phoneNumber: orderData.phoneNumber,
+            order: confirmations,
+            orderPrice: totalPrice,
+            createdAt: new Date().toISOString()
+        };
+
+        // Spara beställningen i databasen
+        try {
+            await db.put({
+                TableName: 'HerringOrder',
+                Item: order,
+            });
+        } catch (dbError) {
+            console.error('Fel vid sparande av beställning:', dbError);
+            return sendError(500, 'Kunde inte spara beställningen');
         }
 
         return sendResponse(201, {
-            message: 'Beställningar mottagna!',
+            message: 'Beställningen mottagen!',
             totalPrice,
-            data: confirmations,
+            data: order,
         });
 
     } catch (error) {
-        console.error('Fel vid hantering av beställningar:', error);
-        return sendError(500, { message: 'Kunde inte bearbeta beställningarna', error: error.message });
+        console.error('Fel vid hantering av beställningen:', error);
+        return sendError(500, { message: 'Kunde inte bearbeta beställningen', error: error.message });
     }
 };
-
 
 
 //Niklas
