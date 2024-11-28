@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchMenu } from '../../../api/Api';
 import { Dish } from '../../../interface/Interface';
 import OverlayMenyInfo from '../overlaymenyinfo/OverlayMenyinfo';
+import { motion } from 'framer-motion';
 
 const Menu = () => {
   const [dishes, setDishes] = useState<Dish[]>([]);
@@ -33,8 +34,15 @@ const Menu = () => {
 
   return (
     <section className="menu_container">
-      <h1 className="menu_header">Meny</h1>
-  
+      <motion.h1
+        className="menu_header"
+        initial={{ x: '-100%' }} // Börjar utanför skärmen till vänster
+        animate={{ x: 0 }} // Vandrar till sin plats
+        transition={{ duration: 1, ease: 'easeInOut' }} // Animationens tid och stil
+      >
+        Meny
+      </motion.h1>
+
       <section className="dishes_section">
         {dishes
           .filter((dish) => dish.category === "food") 
@@ -49,9 +57,16 @@ const Menu = () => {
             </section>
           ))}
       </section>
-  
+
       <section className="drinks_section">
-        <h2 className="menu_header">Drycker</h2>
+        <motion.h2
+          className="menu_header"
+          initial={{ x: '-100%' }}
+          animate={{ x: 0 }}
+          transition={{ duration: 1, ease: 'easeInOut' }}
+        >
+          Drycker
+        </motion.h2>
         {dishes
           .filter((dish) => dish.category === "drink")
           .map((dish) => (
@@ -65,13 +80,12 @@ const Menu = () => {
             </section>
           ))}
       </section>
-  
+
       {selectedItem && (
         <OverlayMenyInfo closeOverlay={closeOverlay} dish={selectedItem} />
       )}
     </section>
   );
-  
 };
 
 export default Menu;

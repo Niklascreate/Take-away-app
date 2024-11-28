@@ -5,21 +5,19 @@ import './overlayconfirmation.css';
 import ChangeOrderBtn from "../changeorderbtn/ChangeOrderBtn";
 
 function OverlayConfirmation() {
-    const [latestOrder, setLatestOrder] = useState<OrderItem | null>(null); // Senaste ordern
-    const [loading, setLoading] = useState<boolean>(true); // Laddningsstatus
-    const [error, setError] = useState<string | null>(null); // Felhantering
+    const [latestOrder, setLatestOrder] = useState<OrderItem | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-    // Hämta senaste ordern när komponenten laddas
     useEffect(() => {
         const getOrderItems = async () => {
             try {
-                const data = await fetchOrder(); // Hämta alla ordrar från backend
+                const data = await fetchOrder();
                 if (data.length > 0) {
-                    // Sortera ordrar efter skapad tidpunkt och välj den senaste
                     const latestOrder = data.sort(
                         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
                     )[0];
-                    setLatestOrder(latestOrder); // Spara den senaste ordern
+                    setLatestOrder(latestOrder);
                 } else {
                     setError("Inga ordrar hittades.");
                 }
@@ -35,12 +33,10 @@ function OverlayConfirmation() {
     }, []);
 
     const closeOverlay = () => {
-        window.location.href = '/meny'; // Navigera till menyn
+        window.location.href = '/meny';
     };
 
-    // Visa laddningsmeddelande
     if (loading) return <p>Laddar order...</p>;
-    // Visa felmeddelande
     if (error) return <p>{error}</p>;
     if (!latestOrder) return <p>Ingen order att visa.</p>;
 

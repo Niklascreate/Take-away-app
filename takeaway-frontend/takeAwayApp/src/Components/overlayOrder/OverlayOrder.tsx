@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './overlayorder.css';
 import { orderFood } from "../../../api/Api";
 
-// Props för komponenten
 interface OverlayOrderProps {
   cart: any[];
   onClose: () => void;
@@ -11,36 +10,27 @@ interface OverlayOrderProps {
 
 function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const [cartItems, setCartItems] = useState<any[]>(cart);
-  const [name, setName] = useState(""); // För att lagra namnet
-  const [email, setEmail] = useState(""); // För att lagra e-posten
-  const [phone, setPhone] = useState(""); // För att lagra telefonnummer
-
-  // State för att hålla reda på vilka fält som har fel
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
-
-  // State för att visa orderbekräftelse
   const [orderMessage, setOrderMessage] = useState<string>("");
-
   const navigate = useNavigate();
 
   useEffect(() => {
     const savedCart = sessionStorage.getItem("cart");
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
-    }
+    if (savedCart) setCartItems(JSON.parse(savedCart));
   }, [cart]);
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handleOrder = async () => {
-    // Återställ valideringsfel
     setNameError(false);
     setEmailError(false);
     setPhoneError(false);
 
-    // Validering
     let isValid = true;
     if (!name.trim()) {
       setNameError(true);
@@ -57,7 +47,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
     if (!isValid) return;
 
-    // Skapa orderobjekt
     const orders = {
       customerName: name,
       email: email,
@@ -69,32 +58,21 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       })),
     };
 
-    console.log("Skickar beställning:", orders);
-
     try {
-      // Skicka orderobjektet till API:et
       const response = await orderFood(orders);
-      console.log('Order skickad:', response);
-
-      // Uppdatera meddelande
       setOrderMessage(`Din order är mottagen! Total: ${response.totalPrice} SEK`);
       sessionStorage.clear();
-
-      // Återställ state
       setCartItems([]);
       setName("");
       setEmail("");
       setPhone("");
-
-      onClose(); // Stäng overlay
-      navigate('/overlayconfirmation'); // Navigera till bekräftelsesidan
+      onClose();
+      navigate('/overlayconfirmation');
     } catch (error) {
-      console.error('Kunde inte skicka ordern:', error);
       setOrderMessage('Ett fel inträffade vid beställningen. Försök igen.');
     }
   };
 
-  // Ta bort en maträtt från varukorgen
   const removeItem = (id: number) => {
     const updatedItems = cartItems.filter((item) => item.id !== id);
     setCartItems(updatedItems);
@@ -120,12 +98,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
               <p className="orderOverlay_text">{item.quantity}</p>
               <p className="orderOverlay_text">{item.name}</p>
               <p className="orderOverlay_price">{item.price * item.quantity} SEK</p>
-              <button
-                className="remove-btn"
-                onClick={() => removeItem(item.id)}
-              >
-                X
-              </button>
+              <button className="remove-btn" onClick={() => removeItem(item.id)}>X</button>
             </section>
           ))
         ) : (
@@ -167,9 +140,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
         </section>
       </section>
 
-      {orderMessage && (
-        <p className="orderOverlay_message">{orderMessage}</p> // Visar ordermeddelandet om det finns
-      )}
+      {orderMessage && <p className="orderOverlay_message">{orderMessage}</p>}
 
       <section className="orderOverlay_totalPrice">
         <p className="orderOverlay_totalPrice__total">Total</p>

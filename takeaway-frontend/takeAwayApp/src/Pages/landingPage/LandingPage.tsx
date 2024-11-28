@@ -16,7 +16,7 @@ function LandingPage() {
         alt="rund logga"
         animate={{ y: [0, -20, 0] }}
         transition={{
-          duration: 1.3,
+          duration: 2.5,
           repeat: Infinity,
           repeatType: 'loop',
           ease: 'easeInOut',
