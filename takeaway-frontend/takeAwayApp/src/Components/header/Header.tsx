@@ -3,11 +3,7 @@ import './header.css'
 export default function Header() {
     return (
         <section className='header_container'>
-            <img src="/FishBone.svg" alt="fishbone" className="header_img" />
-            <section className='header_heading__container'>
-            <h1 className="header_heading">strömming på språng</h1>
-            <h2 className="header_smallHeading">Doft av norrländsk vind</h2>
-            </section>
+            <img src="/logga.svg" alt="fishLogo" className="header_img" />
         </section>
     )
 }
