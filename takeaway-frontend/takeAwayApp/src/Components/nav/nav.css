@@ -11,7 +11,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: var(--background);
+    background-color: var(--darkBlue);
     z-index: 100;
     padding: 0 1rem 0 1rem;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);

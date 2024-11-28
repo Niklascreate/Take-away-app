@@ -61,7 +61,7 @@ const handleAddToCart = () => {
       <section className="overlayContent">
         {/* Stäng-knapp */}
         <img
-          src="/stängKnapp.png"
+          src="/stängKnapp.svg"
           alt="Stäng"
           className="closeButton"
           onClick={closeOverlay} // Stäng överlägget när användaren klickar

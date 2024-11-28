@@ -10,7 +10,7 @@
 .menu_header {
     font-family: "Roboto", sans-serif;
     font-weight: 700;
-    color: var(--yellow);
+    color: var(--white);
     text-transform: uppercase;
     padding: 0 1rem 1rem 0;
     margin-bottom: 1rem;
@@ -22,11 +22,11 @@
     gap: 1rem; 
     align-items: flex-start; 
     margin-bottom: 1.5rem;
-    background-color: var(--header);
+    background-color: var(--darkBlue);
+    color: #ffffff;
     padding: 1rem; 
     border-radius: 4px; 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 10px rgba(0, 0, 0, 0.15);
-    border: 1px solid #fa7878; 
+    border: 1px solid #ffffff; 
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -53,7 +53,7 @@
 .menu_dish {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
-    color: var(--yellow);
+    color: #ffffff;
     font-size: 1.1rem;
     margin: 0; 
 }

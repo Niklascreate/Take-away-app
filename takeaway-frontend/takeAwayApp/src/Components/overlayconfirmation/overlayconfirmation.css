@@ -11,7 +11,7 @@
 }
 
 .overlay-box {
-    background-color: #FAB703;
+    background-color: var(--background);
     color: #000;
     width: 100%;
     max-width: 600px;
@@ -31,7 +31,7 @@
     width: 42px;
     height: 42px;
     cursor: pointer;
-    background-color: #FAB703;
+    background-color: var(--background);
 }
 
 .confirmation-title {

@@ -8,9 +8,9 @@
 }
 
 :root {
-  --background: #C62E2E;
-  --header: #F95454;
-  --yellow: #FAB703;
+  --background: rgb(19, 94, 135);
+  --darkBlue: #2C394C;
+  --blue: #56bad6;
   --white: #FFFFFF;
   --black: #000000;
 }

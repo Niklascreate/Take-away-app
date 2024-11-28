@@ -13,33 +13,11 @@
   text-align: center;
 }
 
-.landingpage-img {
-  max-width: 50%;
-  max-height: 50vh;
-  object-fit: contain;
-  cursor: pointer;
-  position: relative;
+.animated-logo {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid white;
+  object-fit: contain; 
 }
-
-.landingpage-title {
-  cursor: pointer;
-  font-family: 'roboto', sans-serif;
-  text-align: center;
-  color: var(--yellow);
-  font-size: 1.2rem;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-}
-
-.landingpage-title:hover {
-  transform: scale(1.1);
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-}
-
-.landingpage-slogan {
-  font-family: 'roboto', sans-serif;
-  text-align: center;
-  color: var(--yellow);
-  font-size: 0.8rem;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-}
-

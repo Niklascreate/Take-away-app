@@ -1,5 +1,6 @@
 .orderOverlay_container {
-    background-color: var(--yellow);
+    background-color: var(--background);
+    color: rgb(255, 255, 255);
     height: 100vh;
     width: 100vw;
     position: fixed;
@@ -13,12 +14,13 @@
 }
 
 .orderOverlay_header {
+    color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 90%;
     padding: 1rem;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid rgb(0, 0, 0);
 }
 
 .orderOverlay_header h1 {
@@ -42,7 +44,7 @@
     width: 90%;
     flex-grow: 1;
     margin-top: 2rem;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(0, 0, 0);
 }
 
 .orderOverlay_order {
@@ -52,6 +54,7 @@
     margin-bottom: 10px;
     width: 100%;
     margin: 1rem 0;
+    color: rgb(255, 255, 255);
 }
 
 .orderOverlay_text {
@@ -76,6 +79,12 @@
     margin-top: 2rem; 
     height: 100vh; 
     flex-direction: column; 
+    color: rgb(255, 255, 255);
+}
+
+.kontakt_h3
+{
+    color: rgb(255, 255, 255);
 }
 
 .orderOverlay_totalPrice {
@@ -84,7 +93,8 @@
     align-items: center;
     width: 90%;
     padding: 1rem;
-    border-top: 2px solid black;
+    border-top: 2px solid rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 }
 
 .orderOverlay_orderButton {
@@ -128,7 +138,7 @@
     border: none;
     padding: 0.1rem;
     background: none;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 18px;
     margin-left: 10px;
     position: relative;

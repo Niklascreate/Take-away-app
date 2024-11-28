@@ -6,25 +6,23 @@ function LandingPage() {
   const navigate = useNavigate();
 
   const handlePageClick = () => {
-    navigate('/meny'); 
+    navigate('/meny');
   };
 
   return (
     <div className='landingpage-container' onClick={handlePageClick}>
-      <h1 className='landingpage-title'>STRÖMMING PÅ SPRÅNG</h1>
-      <motion.img 
-        className='landingpage-img' 
-        src="/FishBone.svg" 
-        alt="Fish Bone" 
-        initial={{ x: '-100vw', opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ 
-          duration: 2, 
-          delay: 0.5,
-          ease: "easeInOut"
+      <motion.img
+        src="rundLogga.svg"
+        alt="rund logga"
+        animate={{ y: [0, -20, 0] }}
+        transition={{
+          duration: 1.3,
+          repeat: Infinity,
+          repeatType: 'loop',
+          ease: 'easeInOut',
         }}
+        className="animated-logo"
       />
-      <h3 className='landingpage-slogan'>Doft av norrländsk vind</h3>
     </div>
   );
 }
