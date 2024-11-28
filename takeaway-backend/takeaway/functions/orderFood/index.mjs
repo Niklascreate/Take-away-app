@@ -19,23 +19,6 @@ function generateOrderId() {
     return uuid().replace(/-/g, '').substring(0, 4);
 }
 
-function validatePhoneNumber(phoneNumber) {
-    const phoneNmbr = /^\d{10}$/;
-    return phoneNmbr.test(phoneNumber);
-}
-
-function validateEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-}
-
-function validatePrice(price) {
-    if (isNaN(price) || price <= 0) {
-        return false;
-    }
-    return true;
-}
-
 export const handler = async (event) => {
     try {
         if (!event.body) {
@@ -44,15 +27,16 @@ export const handler = async (event) => {
 
         const orderData = JSON.parse(event.body);
 
-        if (!orderData.order || !Array.isArray(orderData.order) || orderData.order.length === 0) {
-            return sendError(400, 'Förväntar en lista med maträtter i beställningen');
-        }
-
         const confirmations = [];
         let totalPrice = 0;
 
         // Generera ett orderId för hela beställningen
         const orderId = generateOrderId();
+
+        // Kontrollera att orderData.order är en array innan loopen
+        if (!Array.isArray(orderData.order)) {
+            return sendError(400, 'Order måste vara en lista.');
+        }
 
         // Hantera varje maträtt i beställningen
         for (const item of orderData.order) {
@@ -94,9 +78,8 @@ export const handler = async (event) => {
             return sendError(400, 'Inga giltiga maträtter kunde behandlas');
         }
 
-        // Skapa order-objektet och lägg till orderId
         const order = {
-            orderId: orderId,  // Lägg till orderId här
+            orderId: orderId,
             customerName: orderData.customerName,
             email: orderData.email,
             phoneNumber: orderData.phoneNumber,
@@ -105,7 +88,6 @@ export const handler = async (event) => {
             createdAt: new Date().toISOString()
         };
 
-        // Spara beställningen i databasen
         try {
             await db.put({
                 TableName: 'HerringOrder',
