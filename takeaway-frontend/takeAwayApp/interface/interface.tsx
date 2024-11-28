@@ -7,6 +7,7 @@ export interface Dish {
   id: string; 
   name: string; 
   price: number;
+  category: string;
 }
 
 export interface OrderItem {
@@ -27,14 +28,6 @@ totalPrice: number;
 data: OrderItem[];
 }
 
-export interface Drinks {
-id: string;
-name: string;
-price: number;
-description: string;
-category: string;
-imageUrl: string;
-}
 
 export interface AdminPage {
 orderId: string;
