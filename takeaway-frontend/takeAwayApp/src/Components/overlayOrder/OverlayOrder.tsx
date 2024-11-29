@@ -102,7 +102,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
             </section>
           ))
         ) : (
-          <p>Din varukorg är tom.</p>
+          <p className="orderOverlay_text__cartEmpty">Din varukorg är tom.</p>
         )}
       </section>
 

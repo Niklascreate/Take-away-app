@@ -1,7 +1,7 @@
 import Nav from "../../components/nav/Nav";
 import "./adminconfirmation.css";
 import { useState, useEffect } from "react";
-import { adminOrders, adminDeleteOrder } from "../../../api/Api";
+import { adminOrders } from "../../../api/Api";
 import { AdminPage } from "../../../interface/Interface";
 
 function AdminConfirmation() {
