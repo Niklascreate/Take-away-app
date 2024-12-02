@@ -1,15 +1,15 @@
 import Nav from "../../components/nav/Nav";
 import "./adminconfirmation.css";
 import { useState, useEffect } from "react";
-import { adminOrders } from "../../../api/Api";
+import { adminOrders, adminOrderLock } from "../../../api/Api";
 import { AdminPage } from "../../../interface/Interface";
 
 function AdminConfirmation() {
   const [orders, setOrders] = useState<AdminPage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [lockedOrders, setLockedOrders] = useState<string[]>([]);
 
-  // Hämta ordrar vid sidans laddning
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -25,7 +25,19 @@ function AdminConfirmation() {
     fetchOrders();
   }, []);
 
-
+  const handleLock = async (orderId: string) => {
+    console.log("Försöker låsa order med ID:", orderId);
+  
+    try {
+      const response = await adminOrderLock(orderId);
+      console.log("Order låst framgångsrikt:", response);
+  
+      setLockedOrders((prev) => [...prev, orderId]);
+    } catch (err) {
+      console.error("Gick inte att låsa order:", err);
+      setError("Kunde inte låsa order.");
+    }
+  };
   return (
     <section className="confirmation_container">
       <h1 className="confirmation_header">Bekräftelse av Order</h1>
@@ -69,23 +81,18 @@ function AdminConfirmation() {
                 {new Date(order.createdAt).toLocaleString()}
               </p>
             </aside>
-            <article className="switch-container">
-              <label className="switch">
-                <input type="checkbox" />
-                <span className="slider round lock"></span>
-                <p className="switch-text">Låsa order</p>
-              </label>
-              <label className="switch">
-                <input type="checkbox" />
-                <span className="slider round lock"></span>
-                <p className="switch-text">Bekräfta order</p>
-              </label>
-              <label className="switch">
-                <input
-                  type="checkbox"/>
-                <span className="slider round lock"></span>
-                <p className="switch-text">Ta bort order</p>
-              </label>
+            <article className="button-container">
+              <button className="switch lock">Bekräfta</button>
+              <button
+                className={`switch ${
+                  lockedOrders.includes(order.orderId) ? "confirmed" : "lock"
+                }`}
+                onClick={() => handleLock(order.orderId)}
+                disabled={lockedOrders.includes(order.orderId)}
+              >
+                {lockedOrders.includes(order.orderId) ? "Låst" : "Lås"}
+              </button>
+              <button className="switch lock">Ta bort</button>
             </article>
             <p className="felmeddelande"></p>
           </section>

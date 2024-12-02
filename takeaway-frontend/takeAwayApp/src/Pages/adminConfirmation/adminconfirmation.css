@@ -62,23 +62,41 @@
     min-height: 400px;
 }
 
-.switch-container {
+.button-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
   margin-top: 1rem;
 }
 
-
 .switch {
-    position: relative;
-    display: block;
-    margin: 1rem auto 0 auto;
-    width: 60px;
-    height: 34px;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  display: block;
+  margin: 1rem auto 0 auto;
+  width: 4.5rem;
+  height: 36px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  padding: 0.1rem;
+  }
+  
+  .switch:active {
+    background-color: green;
   }
 
+  .switch.confirmed {
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: not-allowed;
+  }
+  
   .switch-text {
     margin-top: 2rem;
     font-size: 0.6rem;
@@ -86,51 +104,8 @@
     font-weight: bold;
   }
 
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: black;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border: 1px solid white;
-  }
-  
   .lock {
     background-color: red;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: green;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-
-.slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
   }
 
   .delete-order-button {
