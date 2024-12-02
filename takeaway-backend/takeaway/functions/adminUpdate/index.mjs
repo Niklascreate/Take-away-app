@@ -8,62 +8,37 @@ export const handler = middy(async (event) => {
             return sendError(400, { message: 'Ingen data skickades' });
         }
 
-        const { dish, category, price, description, ingredients, available } = JSON.parse(event.body);
+        const { quantity } = JSON.parse(event.body);
 
-        const itemId = event.pathParameters.id;
-        if (!itemId) {
-            return sendError(400, { message: 'Ingen maträtt ID angiven' });
-        }
-
-        if (!dish && !category && !price && !description && !ingredients && typeof available !== 'boolean') {
-            return sendError(400, { message: 'Inget fält att uppdatera. Vänligen specificera minst ett attribut.' });
+        const orderId = event.pathParameters.id;
+        if (!orderId) {
+            return sendError(400, { message: 'Ingen order ID angiven' });
         }
 
-        const updateFields = [];
-        const expressionAttributeValues = {};
-
-        if (dish) {
-            updateFields.push('dish = :dish');
-            expressionAttributeValues[':dish'] = dish;
-        }
-        if (category) {
-            updateFields.push('category = :category');
-            expressionAttributeValues[':category'] = category;
-        }
-        if (price) {
-            updateFields.push('price = :price');
-            expressionAttributeValues[':price'] = price;
-        }
-        if (description) {
-            updateFields.push('description = :description');
-            expressionAttributeValues[':description'] = description;
-        }
-        if (ingredients) {
-            updateFields.push('ingredients = :ingredients');
-            expressionAttributeValues[':ingredients'] = ingredients;
-        }
-        if (typeof available === 'boolean') {
-            updateFields.push('available = :available');
-            expressionAttributeValues[':available'] = available;
+        if (typeof quantity !== 'number' || quantity < 0) {
+            return sendError(400, { message: 'Ogiltigt värde för quantity. Måste vara ett positivt heltal.' });
         }
 
-        const updateExpression = `set ${updateFields.join(', ')}`;
+        const updateExpression = 'set quantity = :quantity';
+        const expressionAttributeValues = {
+            ':quantity': quantity,
+        };
 
         await db.update({
-            TableName: 'HerringDB',
-            Key: { id: itemId },
+            TableName: 'HerringOrder',
+            Key: { orderId },
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
-            ConditionExpression: 'attribute_exists(id)' 
+            ConditionExpression: 'attribute_exists(orderId)', 
         });
 
-        return sendResponse(200, { message: 'Maträtt uppdaterad!', id: itemId });
+        return sendResponse(200, { message: 'Order uppdaterad!', orderId });
 
     } catch (error) {
         if (error.code === 'ConditionalCheckFailedException') {
-            return sendError(404, { message: 'Maträtt med angivet ID hittades inte.' });
+            return sendError(404, { message: 'Order med angivet ID hittades inte.' });
         }
-        console.error('Fel vid uppdatering av maträtt:', error);
-        return sendError(500, { message: 'Kunde inte uppdatera maträtten', error: error.message });
+        console.error('Fel vid uppdatering av order:', error);
+        return sendError(500, { message: 'Kunde inte uppdatera ordern', error: error.message });
     }
 });
