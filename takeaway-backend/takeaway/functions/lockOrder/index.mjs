@@ -6,16 +6,18 @@ import middy from '@middy/core';
 export const handler = middy(async (event) => {
     try {
         const { orderId } = JSON.parse(event.body || '{}');
-        if (!orderId) return sendError(400, 'OrderId krävs');
+        
+        if (!orderId) {
+            return sendError(400, 'OrderId krävs');
+        }
 
-        const result = await db.send(new UpdateItemCommand({
+        await db.send(new UpdateItemCommand({
             TableName: 'HerringOrder',
             Key: { orderId: { S: orderId } },
             UpdateExpression: 'SET #isLocked = :isLocked',
             ExpressionAttributeNames: { '#isLocked': 'isLocked' },
             ExpressionAttributeValues: { ':isLocked': { BOOL: true } },
             ConditionExpression: 'attribute_not_exists(isLocked) OR isLocked = :false',
-            ExpressionAttributeValues: { ':isLocked': { BOOL: true }, ':false': { BOOL: false } },
         }));
 
         return sendResponse(200, { message: 'Beställningen är nu låst', orderId });
@@ -23,6 +25,8 @@ export const handler = middy(async (event) => {
         if (error.name === 'ConditionalCheckFailedException') {
             return sendError(400, 'Beställningen är redan låst');
         }
+
+        // Hantera andra fel
         console.error('Fel vid låsning av beställning:', error);
         return sendError(500, 'Kunde inte låsa beställningen');
     }
