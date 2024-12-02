@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Dish, AdminPage, OrderItem } from '../interface/Interface';
+import { Dish, AdminPage, OrderItem, UpdateOrder } from '../interface/Interface';
 
 export const fetchMenu = async (): Promise<Dish[]> => {
   const response = await axios.get<Dish[]>(
@@ -86,7 +86,7 @@ export const adminOrders = async () => {
 export const adminOrderLock = async (orderId: string) => {
   try {
     const response = await axios.post(
-      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/lock',
+      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/admin/order/lock',
       { orderId },
       {
         headers: {
@@ -101,41 +101,44 @@ export const adminOrderLock = async (orderId: string) => {
   }
 };
 
-
-// Funktion för att markera en order som klar
-export const adminOrderDone = async (orderId: string) => {
-  try {
-    const response = await axios.put(
-      'https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/klar',
-      { orderId },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Gick inte bekräfta order', error);
-    throw error;
-  }
-};
-
-
 // Ta bort en order
-export const adminDeleteOrder = async (orderId: string) => {
+export const adminDeleteOrder = async (orderId: string): Promise<void> => {
   try {
     const response = await axios.delete(
-      `https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/order/delete/${orderId}`,
+      `https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/admin/delete/order/${orderId}`,
       {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-    return response.data;
-  } catch (error) {
-    console.error('Gick inte att ta bort order', error);
-    throw error;
+
+    console.log('Order borttagen:', response.status);
+  } catch (error: any) {
+    console.error('Gick inte att ta bort order:', error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || 'Misslyckades med att ta bort order');
   }
 };
+
+export const adminUpdateOrder = async (order: UpdateOrder): Promise<void> => {
+  try {
+    const response = await axios.put(
+      `https://9vd0qeeuoa.execute-api.eu-north-1.amazonaws.com/menu/update/${order.orderId}`, 
+      {
+        orderId: order.orderId,
+        quantity: order.quantity,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log('Order uppdaterad:', response.status);
+  } catch (error: any) {
+    console.error('Gick inte att uppdatera order:', error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || 'Misslyckades med att uppdatera order');
+  }
+};
+

@@ -1,16 +1,16 @@
-.change-order__btn {
-    background-color: #000000;
-    color: white;
-    font-size: 14px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0.5rem;
-    height: 2rem;
-  }
+.changeOrder_container {
+  width: fit-content;
+  padding: .4rem;
+  border: solid white 1px;
+  border-radius: 20px;
+}
+
+.changeOrder_img {
+  width: 30px;
+  cursor: pointer;
+}
+
+.changeOrder_plusMinus {
+  width: 30px;
+  cursor: pointer;
+}

@@ -60,7 +60,11 @@ function OverlayConfirmation() {
                     <h3 className="your-order__title">Din order</h3>
                     {latestOrder.order.map((item, index) => (
                         <aside key={index} className="order-list">
-                            <p>{item.dishName} (x{item.quantity})</p>
+                            <p>
+                                {item.dishName} 
+                                <ChangeOrderBtn order={{ orderId: item.id, quantity: item.quantity }} /> 
+                                (x{item.quantity})
+                            </p>
                             <p>{item.price} SEK</p>
                         </aside>
                     ))}
@@ -70,7 +74,6 @@ function OverlayConfirmation() {
                     </aside>
                     <p className="change-order">Behöver du ändra din order?</p>
                 </article>
-                <ChangeOrderBtn />
                 <h2 className="countdown-title">Din order skickas strax...</h2>
             </section>
         </section>

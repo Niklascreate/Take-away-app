@@ -58,3 +58,8 @@ export interface OrderItem {
   orderPrice: number;
   order: OrderProduct[];
 }
+
+export interface UpdateOrder {
+  orderId: string;
+  quantity: number;
+}
