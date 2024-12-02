@@ -8,7 +8,7 @@ import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 export const handler = middy(async (event) => {
   try {
     if (!event.body) {
-      return sendError(400, { message: 'Ingen data skickades' });
+      return sendError(400, { message: 'Ingen kommentar skickades' });
     }
 
     const { orderId, comment } = JSON.parse(event.body);
