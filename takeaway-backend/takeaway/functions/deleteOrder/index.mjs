@@ -5,7 +5,7 @@ import middy from '@middy/core';
 
 export const handler = middy(async (event) => {
   try {
-    const { orderId } = event.queryStringParameters || {};
+    const { id: orderId } = event.pathParameters || {};
 
     if (!orderId) {
       return sendError(400, { message: 'OrderId måste anges' });
@@ -13,7 +13,7 @@ export const handler = middy(async (event) => {
 
     const params = {
       TableName: 'HerringOrder',
-      Key: { orderId: { S: orderId } },
+      Key: { orderId },
       ConditionExpression: 'attribute_not_exists(isLocked)',
     };
 
@@ -22,7 +22,6 @@ export const handler = middy(async (event) => {
     return sendResponse(200, { message: 'Beställningen har tagits bort' });
   } catch (error) {
     console.error('Fel vid radering av beställning:', error);
-
 
     if (error.name === 'ConditionalCheckFailedException') {
       return sendError(403, { message: 'Beställningen är låst och kan inte tas bort' });
