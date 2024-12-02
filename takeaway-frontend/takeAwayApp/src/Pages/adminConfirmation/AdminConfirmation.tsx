@@ -8,9 +8,8 @@ function AdminConfirmation() {
   const [orders, setOrders] = useState<AdminPage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [lockedOrders, setLockedOrders] = useState<string[]>([]); // Håller koll på låsta ordrar
+  const [lockedOrders, setLockedOrders] = useState<string[]>([]);
 
-  // Hämta ordrar vid sidans laddning
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -26,19 +25,17 @@ function AdminConfirmation() {
     fetchOrders();
   }, []);
 
-  // Hantera låsning av order
   const handleLock = async (orderId: string) => {
-    console.log("Försöker låsa order med ID:", orderId); // Kontrollera att rätt ID skickas
+    console.log("Försöker låsa order med ID:", orderId);
   
     try {
-      const response = await adminOrderLock(orderId); // API-anrop för att låsa ordern
-      console.log("Order låst framgångsrikt:", response); // Loggar API-svaret
+      const response = await adminOrderLock(orderId);
+      console.log("Order låst framgångsrikt:", response);
   
-      // Uppdatera listan över låsta ordrar
       setLockedOrders((prev) => [...prev, orderId]);
     } catch (err) {
       console.error("Gick inte att låsa order:", err);
-      setError("Kunde inte låsa order."); // Uppdatera felstatus för visning i UI
+      setError("Kunde inte låsa order.");
     }
   };
   return (
