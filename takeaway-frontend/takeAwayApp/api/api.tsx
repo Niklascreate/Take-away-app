@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Dish, AdminPage, OrderItem, UpdateOrder } from '../interface/Interface';
+import { Dish, AdminPage, OrderItem } from '../interface/Interface';
 
 export const fetchMenu = async (): Promise<Dish[]> => {
   const response = await axios.get<Dish[]>(
