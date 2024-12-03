@@ -60,6 +60,7 @@ export interface OrderItem {
 }
 
 export interface UpdateOrder {
-  orderId: string;
+  orderId: string;  
+  id: string;      
   quantity: number;
 }
