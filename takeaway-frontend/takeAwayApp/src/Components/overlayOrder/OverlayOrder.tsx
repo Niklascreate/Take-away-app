@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './overlayorder.css';
 import { orderFood } from "../../../api/Api";
-
-interface OverlayOrderProps {
-  cart: any[];
-  onClose: () => void;
-}
+import { OverlayOrderProps} from "../../../interface/Interface";
 
 function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const [cartItems, setCartItems] = useState<any[]>(cart);
