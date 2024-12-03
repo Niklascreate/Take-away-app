@@ -28,15 +28,16 @@ data: OrderItem[];
 }
 
 export interface AdminPage {
-orderId: string;
-dishName: string;
-customerName: string;
-email: string;
-phoneNumber: string;
-quantity: number;
-specialRequests?: string;
-available: boolean; 
-createdAt: string; 
+  orderId: string;
+  dishName: string;
+  customerName: string;
+  email: string;
+  phoneNumber: string;
+  quantity: number;
+  specialRequests?: string;
+  available: boolean;
+  createdAt: string;
+  comment?: string;
 }
 
 export interface OrderProduct {

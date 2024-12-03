@@ -1,24 +1,33 @@
 import Nav from "../../components/nav/Nav";
 import "./adminconfirmation.css";
 import { useState, useEffect } from "react";
-import { adminOrders , addCommentToOrder } from "../../../api/Api";
+import { adminOrders, addCommentToOrder } from "../../../api/Api";
 import { AdminPage } from "../../../interface/Interface";
+import { useNavigate } from "react-router-dom";
 
 function AdminConfirmation() {
-  const [orders, setOrders] = useState<AdminPage[]>([]);
+  const [orders, setOrders] = useState<Record<string, AdminPage[]>>({});
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [commentOrderId, setCommentOrderId] = useState<string | null>(null);
   const [comment, setComment] = useState<string>("");
+  const [loadingComment, setLoadingComment] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const data = await adminOrders();
-        setOrders(data);
+        const groupedOrders = data.reduce((acc: Record<string, AdminPage[]>, order: AdminPage) => {
+          if (!acc[order.orderId]) {
+            acc[order.orderId] = [];
+          }
+          acc[order.orderId].push(order);
+          return acc;
+        }, {});
+        setOrders(groupedOrders);
         setLoading(false);
-      } catch (err) {
-        setError("Kunde inte ladda ordrar");
+      } catch {
         setLoading(false);
       }
     };
@@ -27,67 +36,85 @@ function AdminConfirmation() {
   }, []);
 
   const handleAddComment = async (orderId: string) => {
+    setLoadingComment(true);
     try {
-      await addCommentToOrder(orderId, comment); // Skickar kommentar till API
+      await addCommentToOrder(orderId, comment);
       console.log(`Kommentar tillagd för order ${orderId}`);
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.orderId === orderId ? { ...order, comment } : order
-        )
-      ); // Uppdatera lokalt state
-      setCommentOrderId(null); // Stänger kommentarsfältet
-      setComment(""); // Rensar inputfältet
-    } catch (error) {
-      console.error("Kunde inte lägga till kommentar:", error);
-      setError("Kunde inte lägga till kommentar.");
+      setOrders((prevOrders) => {
+        const updatedOrders = { ...prevOrders };
+        updatedOrders[orderId] = updatedOrders[orderId].map((order) => ({
+          ...order,
+          comment,
+        }));
+        return updatedOrders;
+      });
+      setCommentOrderId(null);
+      setComment("");
+    } catch {
+      console.error("Kunde inte lägga till kommentar.");
+    } finally {
+      setLoadingComment(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    navigate("/meny");
   };
 
   return (
     <section className="confirmation_container">
       <h1 className="confirmation_header">Bekräftelse av Order</h1>
-      <button className="loggout">Logga ut</button>
+      <button className="loggout" onClick={handleLogout}>
+        Logga ut
+      </button>
 
       {loading && <p>Laddar ordrar...</p>}
-      {error && <p className="error-message">{error}</p>}
 
       <section className="box-order">
-        {orders.map((order) => (
-          <section className="confirmation_card" key={order.orderId}>
+        {Object.entries(orders).map(([orderId, orderItems]) => (
+          <section className="confirmation_card" key={orderId}>
             <aside className="order-list">
               <p>
-                <strong>Orderid:</strong> {order.orderId}
+                <strong>Orderid:</strong> {orderId}
               </p>
               <p>
-                <strong>Maträtt:</strong> {order.dishName}
+                <strong>Kund:</strong> {orderItems[0]?.customerName}
               </p>
               <p>
-                <strong>Kund:</strong> {order.customerName}
+                <strong>E-mail:</strong> {orderItems[0]?.email}
               </p>
               <p>
-                <strong>E-mail:</strong> {order.email}
+                <strong>Telefon:</strong> {orderItems[0]?.phoneNumber}
               </p>
               <p>
-                <strong>Telefon:</strong> {order.phoneNumber}
-              </p>
-              <p>
-                <strong>Antal:</strong> {order.quantity}
-              </p>
-              <p>
-                <strong>Önskemål:</strong> {order.specialRequests}
-              </p>
-              <p><strong>Status:</strong> Inte klar</p>
+                <strong>Status:</strong> inte klar</p>
               <p>
                 <strong>Skapad:</strong>{" "}
-                {new Date(order.createdAt).toLocaleString()}
+                {new Date(orderItems[0]?.createdAt).toLocaleString()}
               </p>
+              {orderItems[0]?.comment && (
+                <p>
+                  <strong>Kommentar:</strong> {orderItems[0]?.comment}
+                </p>
+              )}
+              <p>
+                <strong>Rätter:</strong>
+              </p>
+              <ul>
+                {orderItems.map((item, index) => (
+                  <li key={index}>
+                    {item.dishName} - Antal: {item.quantity} - Önskemål: {item.specialRequests}
+                  </li>
+                ))}
+              </ul>
             </aside>
             <article className="button-container">
               <button className="switch lock">Bekräfta</button>
               <button
                 className="switch lock"
                 onClick={() =>
-                  setCommentOrderId(commentOrderId === order.orderId ? null : order.orderId)
+                  setCommentOrderId(commentOrderId === orderId ? null : orderId)
                 }
               >
                 Meddelande
@@ -95,7 +122,7 @@ function AdminConfirmation() {
               <button className="switch lock">Lås</button>
               <button className="switch lock">Ta bort</button>
             </article>
-            {commentOrderId === order.orderId && (
+            {commentOrderId === orderId && (
               <div className="comment-section">
                 <textarea
                   value={comment}
@@ -105,9 +132,10 @@ function AdminConfirmation() {
                 />
                 <button
                   className="switch lock"
-                  onClick={() => handleAddComment(order.orderId)}
+                  onClick={() => handleAddComment(orderId)}
+                  disabled={loadingComment}
                 >
-                  Lägg till kommentar
+                  {loadingComment ? "Skickar..." : "Lägg till kommentar"}
                 </button>
               </div>
             )}
