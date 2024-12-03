@@ -11,7 +11,7 @@ export interface Dish {
   category: string;
 }
 
-/* Används i overlayMenyInfo (props)*/
+/* Används i overlayMenyInfo*/
 export interface UpdateOrder {
   orderId: string;  
   id: string;      
@@ -23,9 +23,27 @@ export interface OverlayMenyInfoProps {
   dish: Dish;             
 }
 
+/* Används i ChangeOrdetBtn */
+export interface ChangeOrderBtnProps {
+  order: UpdateOrder;
+  onRemove: (orderId: string) => void;
+}
+
+/* Används i OverlayOrder */
+export interface OverlayOrderProps {
+  cart: any[];
+  onClose: () => void;
+}
+
+/* Används i OverlayInlog */
+export interface LoginOverlayProps {
+  onClose: () => void;
+}
+
 /* Används i overlayConfirmation */
 export interface OrderItem {
   id: string;
+  orderId: string;
   customerName: string;
   email: string;
   phoneNumber: string;
@@ -33,18 +51,20 @@ export interface OrderItem {
   specialRequests?: string; 
   dishName: string;
   price: number;
+  createdAt: string;
 }
 
 /* Används i adminconfirmationpage */
 export interface AdminPage {
   orderId: string;
-  dishName: string;
+  id: string;
+  dishName?: string;
   customerName: string;
-  email: string;
+  email: string; 
   phoneNumber: string;
-  quantity: number;
+  quantity?: number; 
   specialRequests?: string;
-  available: boolean;
+  totalPrice?: number; 
   createdAt: string;
   comment?: string;
   status?: string;
