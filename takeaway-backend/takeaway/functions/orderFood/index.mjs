@@ -25,23 +25,27 @@ function generateDishId() {
 }
 
 export const handler = async (event) => {
+    console.log('Event mottaget:', event);
+
     try {
         if (!event.body) {
             return sendError(400, 'Ingen data skickades');
         }
 
         const orderData = JSON.parse(event.body);
-
-        const confirmations = [];
-        let totalPrice = 0;
-
-        const orderId = generateOrderId();
+        console.log('Orderdata:', orderData);
 
         if (!Array.isArray(orderData.order)) {
             return sendError(400, 'Order måste vara en lista.');
         }
 
+        const orderId = generateOrderId();
+        const dishes = [];
+        let totalPrice = 0;
+
         for (const item of orderData.order) {
+            console.log('Bearbetar maträtt:', item);
+
             const { id, specialRequests, quantity } = item;
 
             if (!id || !quantity) {
@@ -54,67 +58,64 @@ export const handler = async (event) => {
             }
 
             const dishDetails = await getDishDetails(id);
+            console.log('Hämtade maträttsdetaljer:', dishDetails);
 
             if (!dishDetails) {
-                console.error(`Maträtt med ID ${id} kunde inte hittas`);
-                continue;
+                return sendError(400, `Maträtt med ID ${id} kunde inte hittas`);
             }
 
             const orderPrice = dishDetails.price * quantity;
             totalPrice += orderPrice;
 
             const dishId = generateDishId();
-
-            const orderItem = {
+            dishes.push({
                 id: dishId,
-                orderId: orderId,
                 dishName: dishDetails.name,
                 category: dishDetails.category,
                 description: dishDetails.description,
                 price: dishDetails.price,
                 quantity,
                 specialRequests: specialRequests || '',
-            };
+            });
 
-            confirmations.push(orderItem);
+            await db.put({
+                TableName: 'HerringOrder',
+                Item: {
+                    orderId,
+                    id: dishId,
+                    dishName: dishDetails.name,
+                    category: dishDetails.category,
+                    description: dishDetails.description,
+                    price: dishDetails.price,
+                    quantity,
+                    specialRequests: specialRequests || '',
+                    createdAt: new Date().toISOString(),
+                },
+            });
         }
 
-        if (confirmations.length === 0) {
+        if (dishes.length === 0) {
             return sendError(400, 'Inga giltiga maträtter kunde behandlas');
         }
 
-        try {
-            for (const item of confirmations) {
-                // Spara varje maträtt som ett separat objekt
-                await db.put({
-                    TableName: 'HerringOrder',
-                    Item: {
-                        orderId: orderId, // Partition Key
-                        id: item.id, // Sort Key
-                        dishName: item.dishName,
-                        category: item.category,
-                        description: item.description,
-                        price: item.price,
-                        quantity: item.quantity,
-                        specialRequests: item.specialRequests,
-                        customerName: orderData.customerName,
-                        email: orderData.email,
-                        phoneNumber: orderData.phoneNumber,
-                        createdAt: new Date().toISOString(),
-                    },
-                });
-            }
-        
-            return sendResponse(201, {
-                message: 'Beställningen mottagen!',
+        await db.put({
+            TableName: 'HerringOrder',
+            Item: {
+                orderId,
+                id: 'kunduppgifter',
+                customerName: orderData.customerName,
+                email: orderData.email,
+                phoneNumber: orderData.phoneNumber,
                 totalPrice,
-                data: { orderId, dishes: confirmations },
-            });
-        } catch (dbError) {
-            console.error('Fel vid sparande av beställning:', dbError);
-            return sendError(500, 'Kunde inte spara beställningen');
-        }
+                createdAt: new Date().toISOString(),
+            },
+        });
 
+        return sendResponse(201, {
+            message: 'Beställningen mottagen!',
+            totalPrice,
+            data: { orderId, dishes },
+        });
     } catch (error) {
         console.error('Fel vid hantering av beställningen:', error);
         return sendError(500, { message: 'Kunde inte bearbeta beställningen', error: error.message });

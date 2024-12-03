@@ -1,4 +1,4 @@
-org: stenelind
+org: niklasnilsson
 app: takeawayapp
 service: takeaway
 
@@ -8,7 +8,7 @@ provider:
   region: eu-north-1
   deploymentMethod: direct
   iam:
-    role: arn:aws:iam::711387100461:role/LambdaDynamoDBFull
+    role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
     
 package:
   include:
