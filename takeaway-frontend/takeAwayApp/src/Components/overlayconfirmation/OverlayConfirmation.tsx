@@ -18,14 +18,19 @@ function OverlayConfirmation() {
         console.log(data);
 
         if (data && data.length > 0) {
-          const sortedOrders = data.sort(
+          const validOrders = data.filter((order) => order.id !== "summary");
+
+          const sortedOrders = validOrders.sort(
             (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
-          const latestOrderId = sortedOrders[0].orderId;
+
+          const latestOrderId = sortedOrders[0]?.orderId;
+
           const filteredOrders = sortedOrders.filter(
             (order) => order.orderId === latestOrderId
           );
+
           console.log("Alla ordrar med senaste orderId:", filteredOrders);
 
           setOrders(filteredOrders);

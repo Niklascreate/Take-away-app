@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './overlayorder.css';
 import { orderFood } from "../../../api/Api";
-import { OverlayOrderProps} from "../../../interface/Interface";
+import { OverlayOrderProps } from "../../../interface/Interface";
 
 function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const [cartItems, setCartItems] = useState<any[]>(cart);
@@ -13,6 +13,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [orderMessage, setOrderMessage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +24,9 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handleOrder = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
     setNameError(false);
     setEmailError(false);
     setPhoneError(false);
@@ -41,7 +45,10 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       isValid = false;
     }
 
-    if (!isValid) return;
+    if (!isValid) {
+      setIsLoading(false);
+      return;
+    }
 
     const orders = {
       customerName: name,
@@ -66,6 +73,8 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       navigate('/overlayconfirmation');
     } catch (error) {
       setOrderMessage('Ett fel inträffade vid beställningen. Försök igen.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -143,8 +152,8 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
         <p className="orderOverlay_totalPrice__price">{total} SEK</p>
       </section>
 
-      <button className="orderOverlay_orderButton" onClick={handleOrder}>
-        Beställ {total} SEK
+      <button className="orderOverlay_orderButton" onClick={handleOrder} disabled={isLoading}>
+        {isLoading ? <div className="loader"></div> : `Beställ ${total} SEK`}
       </button>
     </section>
   );
