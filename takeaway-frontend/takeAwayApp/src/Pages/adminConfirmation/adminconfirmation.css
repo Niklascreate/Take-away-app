@@ -94,6 +94,7 @@
   flex-direction: column;
   border-radius: 0.5rem;
   padding: 0.1rem;
+  background-color: red;
   }
   
   .switch:active {
@@ -106,16 +107,40 @@
     border: none;
     cursor: not-allowed;
   }
+
+  .switch.confirmed {
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: not-allowed;
+  }
+
+  .status {
+    font-weight: bold;
+  }
+
+  .status.blink {
+    animation: statusBlink 1s ease-in-out;
+  }
+  
+  @keyframes statusBlink {
+    0% {
+      color: green;
+      color: transparent;
+    }
+    50% {
+      color: lightgreen;
+    }
+    100% {
+      color: green;
+    }
+  }
   
   .switch-text {
     margin-top: 2rem;
     font-size: 0.6rem;
     text-align: center;
     font-weight: bold;
-  }
-
-  .lock {
-    background-color: red;
   }
 
   .delete-order-button {
@@ -139,18 +164,31 @@
     font-size: 1.2rem;
   }
 
-  .comment-section {
+  .kommentar-container {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
   
-  .comment-input {
+  .kommentar-input {
     width: 100%;
-    min-height: 80px;
+    min-height: 50px;
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: 1px solid #ccc;
     font-size: 1rem;
   }
+
+  .ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin-top: 0.5rem;
+  }
+
+  .ul li {
+    text-decoration: none;
+    margin: 8px 0;
+    color: #ffffff;
+}
