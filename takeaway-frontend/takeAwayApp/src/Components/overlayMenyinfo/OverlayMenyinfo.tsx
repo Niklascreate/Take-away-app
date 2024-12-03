@@ -1,12 +1,6 @@
 import { useState } from "react";
-import "./overlayMenyInfo.css";
-import { Dish } from "../../../interface/Interface";
 import "./overlaymenyinfo.css";
-
-interface OverlayMenyInfoProps {
-  closeOverlay: () => void; 
-  dish: Dish;             
-}
+import { OverlayMenyInfoProps } from "../../../interface/Interface";
 
 function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
   const [quantity, setQuantity] = useState<number>(1);
@@ -82,12 +76,9 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
           </section>
         </section>
 
-        {/* Visa totalsumman separat */}
         <section className="totalPriceContainer">
           <p className="totalPrice">Totalpris: {totalPrice} SEK</p>
         </section>
-
-        {/* Knapp för att lägga till i varukorgen */}
         <button className="addToCartButton" onClick={handleAddToCart}>
           Lägg i varukorg
         </button>
