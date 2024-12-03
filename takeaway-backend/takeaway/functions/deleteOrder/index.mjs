@@ -5,26 +5,26 @@ import middy from '@middy/core';
 
 export const handler = middy(async (event) => {
   try {
-    const { id: orderId } = event.pathParameters || {};
+    const { orderId, id } = event.pathParameters || {}; 
 
-    if (!orderId) {
-      return sendError(400, { message: 'OrderId måste anges' });
+    if (!orderId || !id) {
+      return sendError(400, { message: 'Både orderId och id för maträtten måste anges' });
     }
 
     const params = {
       TableName: 'HerringOrder',
-      Key: { orderId },
-      ConditionExpression: 'attribute_not_exists(isLocked)',
+      Key: { orderId, id },
+      ConditionExpression: 'attribute_not_exists(isLocked)', 
     };
 
-    await db.send(new DeleteCommand(params));
+    await db.send(new DeleteCommand(params)); 
 
-    return sendResponse(200, { message: 'Beställningen har tagits bort' });
+    return sendResponse(200, { message: 'Maträtten har tagits bort' });
   } catch (error) {
-    console.error('Fel vid radering av beställning:', error);
+    console.error('Fel vid hantering av radering:', error);
 
     if (error.name === 'ConditionalCheckFailedException') {
-      return sendError(403, { message: 'Beställningen är låst och kan inte tas bort' });
+      return sendError(403, { message: 'Maträtten är låst och kan inte tas bort' });
     }
 
     return sendError(500, { message: 'Intern serverfel', error: error.message });

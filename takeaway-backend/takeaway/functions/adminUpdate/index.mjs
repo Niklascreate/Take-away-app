@@ -8,11 +8,11 @@ export const handler = middy(async (event) => {
             return sendError(400, { message: 'Ingen data skickades' });
         }
 
-        const { quantity } = JSON.parse(event.body);
-
+        const { id, quantity } = JSON.parse(event.body);
         const orderId = event.pathParameters.id;
-        if (!orderId) {
-            return sendError(400, { message: 'Ingen order ID angiven' });
+
+        if (!orderId || !id) {
+            return sendError(400, { message: 'orderId och id krävs för att uppdatera ordern.' });
         }
 
         if (typeof quantity !== 'number' || quantity < 0) {
@@ -20,19 +20,17 @@ export const handler = middy(async (event) => {
         }
 
         const updateExpression = 'set quantity = :quantity';
-        const expressionAttributeValues = {
-            ':quantity': quantity,
-        };
+        const expressionAttributeValues = { ':quantity': quantity };
 
         await db.update({
             TableName: 'HerringOrder',
-            Key: { orderId },
+            Key: { orderId, id },
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
-            ConditionExpression: 'attribute_exists(orderId)', 
+            ConditionExpression: 'attribute_exists(orderId) AND attribute_exists(id)',
         });
 
-        return sendResponse(200, { message: 'Order uppdaterad!', orderId });
+        return sendResponse(200, { message: 'Order uppdaterad!', orderId, id });
 
     } catch (error) {
         if (error.code === 'ConditionalCheckFailedException') {
