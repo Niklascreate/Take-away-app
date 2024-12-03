@@ -19,6 +19,7 @@ function AdminConfirmation() {
     const fetchOrders = async () => {
       try {
         const data = await adminOrders();
+        console.log("API Response:", data);
         const groupedOrders = data.reduce(
           (acc: Record<string, AdminPage[]>, order: AdminPage) => {
             if (!acc[order.orderId]) {
@@ -31,11 +32,12 @@ function AdminConfirmation() {
         );
         setOrders(groupedOrders);
         setLoading(false);
-      } catch {
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
         setLoading(false);
       }
     };
-
+  
     fetchOrders();
   }, []);
 
@@ -57,24 +59,24 @@ function AdminConfirmation() {
   };
 
   const handleAddComment = async (orderId: string) => {
-    setLoadingComment(true); // Indikera att kommentaren laddas
+    setLoadingComment(true);
     try {
-      await addCommentToOrder(orderId, comment); // Skicka kommentaren till servern
+      await addCommentToOrder(orderId, comment);
       console.log(`Kommentar tillagd för order ${orderId}`);
       setOrders((prevOrders) => {
         const updatedOrders = { ...prevOrders };
         updatedOrders[orderId] = updatedOrders[orderId].map((order) => ({
           ...order,
-          comment: comment, // Uppdatera kommentaren lokalt
+          comment: comment,
         }));
         return updatedOrders;
       });
-      setCommentOrderId(null); // Stäng kommentarsfältet
-      setComment(""); // Töm kommentarsfältet
+      setCommentOrderId(null);
+      setComment("");
     } catch (error) {
       console.error("Kunde inte lägga till kommentar:", error);
     } finally {
-      setLoadingComment(false); // Återställ laddningsstatus
+      setLoadingComment(false);
     }
   };
 
