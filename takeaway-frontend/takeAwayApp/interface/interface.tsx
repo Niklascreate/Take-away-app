@@ -1,3 +1,4 @@
+/* Används i overlayMenyInfo (props) & Menu (state och i render-loopen för att visa rätterna*/
 export interface Dish {
   imageUrl: string; 
   available: boolean; 
@@ -10,6 +11,19 @@ export interface Dish {
   category: string;
 }
 
+/* Används i overlayMenyInfo (props)*/
+export interface UpdateOrder {
+  orderId: string;  
+  id: string;      
+  quantity: number;
+}
+
+export interface OverlayMenyInfoProps {
+  closeOverlay: () => void; 
+  dish: Dish;             
+}
+
+/* Används i overlayConfirmation */
 export interface OrderItem {
   id: string;
   customerName: string;
@@ -21,12 +35,7 @@ export interface OrderItem {
   price: number;
 }
 
-export interface OrderResponse {
-message: string;
-totalPrice: number;
-data: OrderItem[];
-}
-
+/* Används i adminconfirmationpage */
 export interface AdminPage {
   orderId: string;
   dishName: string;
@@ -39,30 +48,4 @@ export interface AdminPage {
   createdAt: string;
   comment?: string;
   status?: string;
-}
-
-export interface OrderProduct {
-  id: string;
-  dishName: string;
-  description: string;
-  category: string;
-  price: number;
-  quantity: number;
-  specialRequests: string;
-}
-
-export interface OrderItem {
-  orderId: string;
-  customerName: string;
-  email: string;
-  phoneNumber: string;
-  createdAt: string;
-  orderPrice: number;
-  order: OrderProduct[];
-}
-
-export interface UpdateOrder {
-  orderId: string;  
-  id: string;      
-  quantity: number;
 }
