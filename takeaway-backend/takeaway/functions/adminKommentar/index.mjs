@@ -1,9 +1,6 @@
 import { sendResponse, sendError } from '../../responses/index.mjs';
 import { db } from '../../services/index.mjs';
 import middy from '@middy/core';
-import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
-
-
 
 export const handler = middy(async (event) => {
   try {
@@ -17,9 +14,14 @@ export const handler = middy(async (event) => {
       return sendError(400, { message: 'OrderId och kommentar måste anges' });
     }
 
-    const params = {
+    const id = 'summary'; // Defaultvärde för sort key
+
+    const result = await db.update({
       TableName: 'HerringOrder',
-      Key: { orderId },
+      Key: { 
+        orderId,
+        id
+      },
       UpdateExpression: 'SET #cmnt = :comment',
       ExpressionAttributeNames: {
         '#cmnt': 'comment'
@@ -28,9 +30,7 @@ export const handler = middy(async (event) => {
         ':comment': comment
       },
       ReturnValues: 'ALL_NEW'
-    };
-
-    const result = await db.send(new UpdateCommand(params));
+    });
 
     return sendResponse(200, { message: 'Kommentar tillagd', updatedOrder: result.Attributes });
   } catch (error) {
@@ -39,8 +39,9 @@ export const handler = middy(async (event) => {
   }
 });
 
+
 // Rindert
 // lägga till en kommentar till kocken för varje beställning, t.ex. om allergier eller specialönskemål.
 
 //Niklas
-//Bugfix: Har lagt till validering med middy och JWT.
+//Bugfix: Har lagt till validering med middy och JWT. Har också lagt till både orderId och id för att matcha våran tabell/keyschema.
