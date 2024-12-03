@@ -15,19 +15,25 @@ const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order }) => {
 
     setQuantity(newQuantity);
 
+    // Uppdatera ordren via API
     try {
-      await adminUpdateOrder({ orderId: order.orderId, quantity: newQuantity });
+      await adminUpdateOrder({
+        id: order.id,           // Maträttens ID
+        quantity: newQuantity,  // Uppdaterad kvantitet
+      }, order.orderId);        // Skickar orderId i URL
       alert('Order uppdaterad!');
     } catch (error) {
+      console.error('Fel vid uppdatering:', error);
       alert('Kunde inte uppdatera order.');
     }
   };
 
-  const handleDeleteOrder = async () => {
+  const handleDeleteOrder = async (orderId: string, itemId: string) => {
     try {
-      await adminDeleteOrder(order.orderId);
+      await adminDeleteOrder(orderId, itemId);  // Anropar API för att ta bort
       alert('Order borttagen!');
     } catch (error) {
+      console.error('Fel vid borttagning:', error);
       alert('Kunde inte ta bort order.');
     }
   };
@@ -39,7 +45,7 @@ const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order }) => {
           className="changeOrder_img"
           src="trash.png"
           alt="Trash"
-          onClick={handleDeleteOrder}
+          onClick={() => handleDeleteOrder(order.orderId, order.id)}  // Skicka med orderId och itemId
         />
         <img
           className="changeOrder_plusMinus"
@@ -60,4 +66,3 @@ const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order }) => {
 };
 
 export default ChangeOrderBtn;
-  

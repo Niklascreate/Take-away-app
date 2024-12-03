@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchOrder } from "../../../api/Api"; 
+import { fetchOrder } from "../../../api/Api";
 import { OrderItem } from "../../../interface/Interface";
 import './overlayconfirmation.css';
 import ChangeOrderBtn from "../changeorderbtn/ChangeOrderBtn";
@@ -13,11 +13,21 @@ function OverlayConfirmation() {
         const getOrderItems = async () => {
             try {
                 const data = await fetchOrder();
-                if (data.length > 0) {
+                console.log(data); // Logga hela datan för att kontrollera strukturen
+
+                if (data && data.length > 0) {
+                    // Sortera och hitta den senaste ordern baserat på createdAt
                     const latestOrder = data.sort(
                         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
                     )[0];
-                    setLatestOrder(latestOrder);
+
+                    console.log("Senaste ordern:", latestOrder); // Logga senaste ordern för att inspektera strukturen
+
+                    if (latestOrder) {
+                        setLatestOrder(latestOrder);
+                    } else {
+                        setError("Ingen order att visa.");
+                    }
                 } else {
                     setError("Inga ordrar hittades.");
                 }
@@ -58,19 +68,18 @@ function OverlayConfirmation() {
 
                 <article className="box-order">
                     <h3 className="your-order__title">Din order</h3>
-                    {latestOrder.order.map((item, index) => (
-                        <aside key={index} className="order-list">
-                            <p>
-                                {item.dishName} 
-                                <ChangeOrderBtn order={{ orderId: item.id, quantity: item.quantity }} /> 
-                                (x{item.quantity})
-                            </p>
-                            <p>{item.price} SEK</p>
-                        </aside>
-                    ))}
+                    {/* Rendera den senaste beställningen direkt */}
+                    <aside className="order-list">
+                        <p>
+                            {latestOrder.dishName} (x{latestOrder.quantity})
+                            <ChangeOrderBtn order={{ orderId: latestOrder.orderId, id: latestOrder.id, quantity: latestOrder.quantity }} />
+                        </p>
+                        <p>{latestOrder.price} SEK</p>
+                    </aside>
+
                     <aside className="order-list order-total">
                         <p>Total:</p>
-                        <p>{latestOrder.orderPrice} SEK</p>
+                        <p>{latestOrder.price * latestOrder.quantity} SEK</p>
                     </aside>
                     <p className="change-order">Behöver du ändra din order?</p>
                 </article>
