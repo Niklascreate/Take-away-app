@@ -38,6 +38,7 @@ export interface AdminPage {
   available: boolean;
   createdAt: string;
   comment?: string;
+  status?: string;
 }
 
 export interface OrderProduct {

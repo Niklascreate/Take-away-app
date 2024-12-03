@@ -1,9 +1,9 @@
-import Nav from "../../components/nav/Nav";
-import "./adminconfirmation.css";
 import { useState, useEffect } from "react";
 import { adminOrders, addCommentToOrder } from "../../../api/Api";
 import { AdminPage } from "../../../interface/Interface";
 import { useNavigate } from "react-router-dom";
+import Nav from "../../components/nav/Nav";
+import "./adminconfirmation.css";
 
 function AdminConfirmation() {
   const [orders, setOrders] = useState<Record<string, AdminPage[]>>({});
@@ -11,6 +11,7 @@ function AdminConfirmation() {
   const [commentOrderId, setCommentOrderId] = useState<string | null>(null);
   const [comment, setComment] = useState<string>("");
   const [loadingComment, setLoadingComment] = useState<boolean>(false);
+  const [blinkStatus, setBlinkStatus] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -18,13 +19,16 @@ function AdminConfirmation() {
     const fetchOrders = async () => {
       try {
         const data = await adminOrders();
-        const groupedOrders = data.reduce((acc: Record<string, AdminPage[]>, order: AdminPage) => {
-          if (!acc[order.orderId]) {
-            acc[order.orderId] = [];
-          }
-          acc[order.orderId].push(order);
-          return acc;
-        }, {});
+        const groupedOrders = data.reduce(
+          (acc: Record<string, AdminPage[]>, order: AdminPage) => {
+            if (!acc[order.orderId]) {
+              acc[order.orderId] = [];
+            }
+            acc[order.orderId].push(order);
+            return acc;
+          },
+          {}
+        );
         setOrders(groupedOrders);
         setLoading(false);
       } catch {
@@ -35,25 +39,42 @@ function AdminConfirmation() {
     fetchOrders();
   }, []);
 
+  const handleConfirmOrder = (orderId: string) => {
+    setOrders((prevOrders) => {
+      const updatedOrders = { ...prevOrders };
+      updatedOrders[orderId] = updatedOrders[orderId].map((order) => ({
+        ...order,
+        status: "klar",
+      }));
+      return updatedOrders;
+    });
+
+    setBlinkStatus(orderId);
+
+    setTimeout(() => {
+      setBlinkStatus(null);
+    }, 1000);
+  };
+
   const handleAddComment = async (orderId: string) => {
-    setLoadingComment(true);
+    setLoadingComment(true); // Indikera att kommentaren laddas
     try {
-      await addCommentToOrder(orderId, comment);
+      await addCommentToOrder(orderId, comment); // Skicka kommentaren till servern
       console.log(`Kommentar tillagd för order ${orderId}`);
       setOrders((prevOrders) => {
         const updatedOrders = { ...prevOrders };
         updatedOrders[orderId] = updatedOrders[orderId].map((order) => ({
           ...order,
-          comment,
+          comment: comment, // Uppdatera kommentaren lokalt
         }));
         return updatedOrders;
       });
-      setCommentOrderId(null);
-      setComment("");
-    } catch {
-      console.error("Kunde inte lägga till kommentar.");
+      setCommentOrderId(null); // Stäng kommentarsfältet
+      setComment(""); // Töm kommentarsfältet
+    } catch (error) {
+      console.error("Kunde inte lägga till kommentar:", error);
     } finally {
-      setLoadingComment(false);
+      setLoadingComment(false); // Återställ laddningsstatus
     }
   };
 
@@ -88,7 +109,13 @@ function AdminConfirmation() {
                 <strong>Telefon:</strong> {orderItems[0]?.phoneNumber}
               </p>
               <p>
-                <strong>Status:</strong> inte klar</p>
+                <strong>Status:</strong>{" "}
+                <span
+                  className={`status ${blinkStatus === orderId ? "blink" : ""}`}
+                >
+                  {orderItems[0]?.status || "inte klar"}
+                </span>
+              </p>
               <p>
                 <strong>Skapad:</strong>{" "}
                 {new Date(orderItems[0]?.createdAt).toLocaleString()}
@@ -101,16 +128,24 @@ function AdminConfirmation() {
               <p>
                 <strong>Rätter:</strong>
               </p>
-              <ul>
+              <ul className="ul">
                 {orderItems.map((item, index) => (
                   <li key={index}>
-                    {item.dishName} - Antal: {item.quantity} - Önskemål: {item.specialRequests}
+                    {item.dishName} - Antal: {item.quantity} - Önskemål:{" "}
+                    {item.specialRequests}
                   </li>
                 ))}
               </ul>
             </aside>
             <article className="button-container">
-              <button className="switch lock">Bekräfta</button>
+              <button
+                className={`switch lock ${
+                  orderItems[0]?.status === "klar" ? "confirmed" : ""
+                }`}
+                onClick={() => handleConfirmOrder(orderId)}
+              >
+                Bekräfta
+              </button>
               <button
                 className="switch lock"
                 onClick={() =>
@@ -123,12 +158,12 @@ function AdminConfirmation() {
               <button className="switch lock">Ta bort</button>
             </article>
             {commentOrderId === orderId && (
-              <div className="comment-section">
+              <article className="kommentar-container">
                 <textarea
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   placeholder="Skriv din kommentar här"
-                  className="comment-input"
+                  className="kommentar-input"
                 />
                 <button
                   className="switch lock"
@@ -137,7 +172,7 @@ function AdminConfirmation() {
                 >
                   {loadingComment ? "Skickar..." : "Lägg till kommentar"}
                 </button>
-              </div>
+              </article>
             )}
           </section>
         ))}
