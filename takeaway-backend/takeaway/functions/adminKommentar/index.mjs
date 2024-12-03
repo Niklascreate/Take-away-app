@@ -14,7 +14,7 @@ export const handler = middy(async (event) => {
       return sendError(400, { message: 'OrderId och kommentar måste anges' });
     }
 
-    const id = 'summary'; // Defaultvärde för sort key
+    const id = 'summary';
 
     const result = await db.update({
       TableName: 'HerringOrder',

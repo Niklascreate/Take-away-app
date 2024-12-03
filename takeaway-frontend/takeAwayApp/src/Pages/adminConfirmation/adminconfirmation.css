@@ -16,17 +16,27 @@
     height: auto;
 }
 
+.loggout {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(255, 0, 0);
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
 .confirmation_header {
     font-family: "Roboto", sans-serif;
     font-weight: 700;
     margin-top: 1rem;
-}
-
-.your-order__title {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    text-align: center;
-    margin: 3rem 0 2rem 0 ;
 }
 
 .order-list {
@@ -121,4 +131,26 @@
   
   .delete-order-button:hover {
     color: red;
+  }
+
+  .error-message {
+    color: rgb(255, 78, 78);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .comment-section {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .comment-input {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
   }
