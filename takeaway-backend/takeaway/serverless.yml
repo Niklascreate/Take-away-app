@@ -82,7 +82,7 @@ functions:
     handler: functions/deleteOrder/index.handler
     events:
       - httpApi:
-          path: /admin/delete/order/{id}
+          path: /admin/delete/order/{orderId}/{id}
           method: delete
 
   loginAdmin:
@@ -113,7 +113,11 @@ resources:
         AttributeDefinitions:
           - AttributeName: 'orderId'
             AttributeType: 'S'
+          - AttributeName: 'id'
+            AttributeType: 'S'
         KeySchema:
           - AttributeName: 'orderId'
             KeyType: HASH
+          - AttributeName: 'id'
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
