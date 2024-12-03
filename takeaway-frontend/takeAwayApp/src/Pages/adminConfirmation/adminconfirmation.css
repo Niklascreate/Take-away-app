@@ -90,13 +90,15 @@
   position: relative;
   display: block;
   margin: 1rem auto 0 auto;
-  width: 4.5rem;
+  width: 6rem;
   height: 36px;
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem;
-  padding: 0.1rem;
+  padding: 0.2rem;
   background-color: red;
+  color: white;
+  border: none;
   }
   
   .switch:active {
