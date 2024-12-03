@@ -148,7 +148,7 @@ function AdminConfirmation() {
 
       <section className="box-order">
         {Object.entries(orders)
-          .filter(([orderId, orderItems]) => orderItems.length > 0)
+          .filter(([_orderId, orderItems]) => orderItems.length > 0)
           .map(([orderId, orderItems]) => (
             <section className="confirmation_card" key={orderId}>
               <aside className="order-list">
