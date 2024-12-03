@@ -82,12 +82,13 @@ export const adminOrders = async () => {
   }
 };
 
-// Funktion för att låsa en order
-export const adminOrderLock = async (orderId: string) => {
+// Lägg till en kommentar på en order
+
+export const addCommentToOrder = async (orderId: string, comment: string) => {
   try {
     const response = await axios.post(
-      'https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/admin/order/lock',
-      { orderId },
+      "https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/admin/kommentar",
+      { orderId, comment },
       {
         headers: {
           "Content-Type": "application/json",
@@ -96,10 +97,11 @@ export const adminOrderLock = async (orderId: string) => {
     );
     return response.data;
   } catch (error) {
-    console.error('Gick inte att låsa order:', error);
+    console.error("Fel vid skickande av kommentar:", error);
     throw error;
   }
 };
+
 
 // Ta bort en order
 export const adminDeleteOrder = async (orderId: string, itemId: string): Promise<void> => {
@@ -124,8 +126,8 @@ export const adminDeleteOrder = async (orderId: string, itemId: string): Promise
 export const adminUpdateOrder = async (data: { id: string; quantity: number }, orderId: string) => {
   try {
     const response = await axios.put(
-      `https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/menu/update/${orderId}`, // Skickar orderId i URL
-      data // Skickar data (id och quantity) i body
+      `https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/menu/update/${orderId}`,
+      data
     );
     return response.data;
   } catch (error) {
