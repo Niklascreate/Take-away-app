@@ -5,9 +5,10 @@ import { UpdateOrder } from '../../../interface/Interface';
 
 interface ChangeOrderBtnProps {
   order: UpdateOrder;
+  onRemove: (orderId: string) => void; // Callback för att ta bort ordningen från listan
 }
 
-const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order }) => {
+const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order, onRemove }) => {
   const [quantity, setQuantity] = React.useState<number>(order.quantity);
 
   const handleUpdateQuantity = async (newQuantity: number) => {
@@ -31,6 +32,7 @@ const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order }) => {
   const handleDeleteOrder = async (orderId: string, itemId: string) => {
     try {
       await adminDeleteOrder(orderId, itemId);  // Anropar API för att ta bort
+      onRemove(itemId);  // Ta bort ordren från listan lokalt
       alert('Order borttagen!');
     } catch (error) {
       console.error('Fel vid borttagning:', error);

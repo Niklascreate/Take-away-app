@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchOrder } from "../../../api/Api";
 import { OrderItem } from "../../../interface/Interface";
@@ -5,29 +6,26 @@ import './overlayconfirmation.css';
 import ChangeOrderBtn from "../changeorderbtn/ChangeOrderBtn";
 
 function OverlayConfirmation() {
-    const [latestOrder, setLatestOrder] = useState<OrderItem | null>(null);
+    const [orders, setOrders] = useState<OrderItem[]>([]);  // Håller alla ordrar
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getOrderItems = async () => {
             try {
                 const data = await fetchOrder();
-                console.log(data); // Logga hela datan för att kontrollera strukturen
-
+                console.log(data);
+    
                 if (data && data.length > 0) {
-                    // Sortera och hitta den senaste ordern baserat på createdAt
-                    const latestOrder = data.sort(
+                    const sortedOrders = data.sort(
                         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    )[0];
-
-                    console.log("Senaste ordern:", latestOrder); // Logga senaste ordern för att inspektera strukturen
-
-                    if (latestOrder) {
-                        setLatestOrder(latestOrder);
-                    } else {
-                        setError("Ingen order att visa.");
-                    }
+                    );
+                    const latestOrderId = sortedOrders[0].orderId;
+                    const filteredOrders = sortedOrders.filter(order => order.orderId === latestOrderId);
+                    console.log("Alla ordrar med senaste orderId:", filteredOrders);
+    
+                    setOrders(filteredOrders);
                 } else {
                     setError("Inga ordrar hittades.");
                 }
@@ -38,17 +36,26 @@ function OverlayConfirmation() {
                 setLoading(false);
             }
         };
-
+    
         getOrderItems();
-    }, []);
+    }, []); // Tom beroendelista gör att detta endast körs när komponenten mountas
 
     const closeOverlay = () => {
-        window.location.href = '/meny';
+        navigate("/meny");  // Navigera till "/meny" när overlay stängs
     };
 
+    const removeOrder = (orderId: string) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
+    };
+
+    // Om laddningen pågår, visa en laddningsindikator
     if (loading) return <p>Laddar order...</p>;
+
+    // Om det finns ett felmeddelande, visa det
     if (error) return <p>{error}</p>;
-    if (!latestOrder) return <p>Ingen order att visa.</p>;
+
+    // Om det inte finns några ordrar, visa ett meddelande istället för att navigera bort direkt
+    if (orders.length === 0) return <p>Ingen order att visa.</p>;
 
     return (
         <section className="overlay-container">
@@ -68,18 +75,22 @@ function OverlayConfirmation() {
 
                 <article className="box-order">
                     <h3 className="your-order__title">Din order</h3>
-                    {/* Rendera den senaste beställningen direkt */}
-                    <aside className="order-list">
-                        <p>
-                            {latestOrder.dishName} (x{latestOrder.quantity})
-                            <ChangeOrderBtn order={{ orderId: latestOrder.orderId, id: latestOrder.id, quantity: latestOrder.quantity }} />
-                        </p>
-                        <p>{latestOrder.price} SEK</p>
-                    </aside>
+                    {orders.map((item, index) => (
+                        <aside key={index} className="order-list">
+                            <p>
+                                {item.dishName} (x{item.quantity})
+                                <ChangeOrderBtn 
+                                  order={{ orderId: item.orderId, id: item.id, quantity: item.quantity, }} 
+                                  onRemove={removeOrder}  
+                                />
+                            </p>
+                            <p>{item.price} SEK</p>
+                        </aside>
+                    ))}
 
                     <aside className="order-list order-total">
                         <p>Total:</p>
-                        <p>{latestOrder.price * latestOrder.quantity} SEK</p>
+                        <p>{orders.reduce((total, item) => total + (item.price * item.quantity), 0)} SEK</p>
                     </aside>
                     <p className="change-order">Behöver du ändra din order?</p>
                 </article>
