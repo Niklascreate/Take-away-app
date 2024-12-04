@@ -96,9 +96,24 @@
   flex-direction: column;
   border-radius: 0.5rem;
   padding: 0.2rem;
-  background-color: red;
+  background-color: rgb(3, 3, 3);
   color: white;
   border: none;
+  }
+
+  .lock-btn {
+    background-color: #000000;
+    border-radius: 0.5rem;
+    color: white;
+    height: 1.5rem;
+    width: 3rem;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .lock-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
   
   .switch:active {
@@ -195,6 +210,8 @@
 .admin-update {
   display: flex;
   align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 .quantity-btn {
@@ -207,7 +224,6 @@
   border-radius: 0.5rem;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 0.5rem;
 }
 
 .quantity-btn:hover {

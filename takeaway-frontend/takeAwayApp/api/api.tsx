@@ -153,3 +153,23 @@ export const loginUser = async (username: string, password: string): Promise<voi
     throw new Error(error.response?.data?.message || "Misslyckades med inloggning");
   }
 };
+
+/* Används i adminconfirmationpage för att låsa en order i databasen */
+
+export const lockOrder = async (orderId: string, id: string): Promise<void> => {
+  try {
+    const response = await axios.post(
+      `https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/admin/order/lock`,
+      { orderId, id }, // Body innehåller både orderId och id
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("Order låst:", response.data);
+  } catch (error: any) {
+    console.error("Kunde inte låsa order:", error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || "Misslyckades med att låsa order.");
+  }
+};
