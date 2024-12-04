@@ -23,12 +23,9 @@ function InfoPage() {
                     <img src="/gladsture.svg" alt="Bild på Sture" />
                     <p className="bildText">Porträtt av Sture Ström</p>
                     <p className="historiaInfoText">
-                        I en liten kustby i Norrland fanns en fiskare vid namn Sture Ström som älskade strömming i alla dess former. 
-                        En dag när han råkade tappa en burk surströmming över bord,
-                        spred sig en doft så stark att alla måsar flög iväg utom en, som verkade förtjust. 
-                        Inspirerad av den stunden beslöt Sture att skapa en snabbmatsrestaurang för att dela sin passion.
-                        Så föddes "Strömming på Språng", en plats där traditionell surströmming möter moderna smaker, 
-                        perfekt för den som är på språng men ändå vill uppleva en smakbit av norrländsk kultur.
+                        I en liten kustby i Norrland fanns en fiskare vid namn Sture Ström som älskade strömming i alla dess former. En dag när han råkade tappa en burk surströmming över bord,
+                        spred sig en doft så stark att alla måsar flög iväg utom en, som verkade förtjust. Inspirerad av den stunden beslöt Sture att skapa en snabbmatsrestaurang för att dela sin passion.
+                        Så föddes "Strömming på Språng", en plats där traditionell surströmming möter moderna smaker, perfekt för den som är på språng men ändå vill uppleva en smakbit av norrländsk kultur.
                     </p>
                 </motion.section>
 
@@ -50,6 +47,11 @@ function InfoPage() {
                     <h3 className="kontaktTelefonLabel">Mobil:</h3>
                     <h3 className="kontaktTelefon">070-123 45 67</h3>
 
+                    <form className="kontaktForm">
+                        <label htmlFor="message">Skicka ett meddelande:</label>
+                        <textarea id="message" placeholder="Skriv ditt meddelande här..." rows={5}></textarea>
+                        <button type="submit">Skicka</button>
+                    </form>
                 </motion.section>
                 <Nav />
             </>

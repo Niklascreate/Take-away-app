@@ -3,12 +3,18 @@
     max-width: 1200px;
     height: auto;
     margin: 0 auto;
-    margin: 0 auto;
-}
-
-.header_img {
+    background-color: #2C394C;
+  }
+  
+  .header_img {
     width: 100%;
-    height: auto;
-    
-}
+    height: auto; 
+    max-height: 160px; 
+  }
+  
+
+ 
+  
+  
+  
 
