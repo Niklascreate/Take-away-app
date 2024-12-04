@@ -193,9 +193,9 @@
         width: 60%; 
     }
     .orderOverlay_close {
-      position: absolute; /* Placera den absolut i förhållande till närmaste positionerade förälder */
-      top: 10px; /* Avstånd från toppen */
-      right: 10px; /* Avstånd från höger */
-      margin-bottom: 0; /* Ingen marginal nödvändig här */
+      position: absolute; 
+      top: 10px; 
+      right: 10px; 
+      margin-bottom: 0; 
   }
 }
