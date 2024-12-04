@@ -44,13 +44,15 @@
 
 
 .historiaInfoText {
-  line-height: 1.5;
-  font-size: 16px;
-  max-width: 320px;
+  line-height: 1.6; 
+  font-size: 1rem;  
+  max-width: 290px;
   margin: 0 auto;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
   font-style: italic;
+  text-align: left; 
+  padding: 0 15px; 
 }
 
 
@@ -61,15 +63,6 @@
   margin-bottom: 15px;
 }
 
-.kontaktMailLabel,
-.kontaktTelefonLabel {
-  font-family: "Arial", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  margin-bottom: 5px;
-  color: #ffffff;
-}
-
 .kontaktMail,
 .kontaktTelefon {
   font-family: "Roboto", sans-serif;
@@ -78,42 +71,9 @@
   margin-bottom: 10px;
   color: #ffffff;
   max-width: 70%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: .8rem auto;
 }
 
-
-
-.kontaktForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.kontaktForm textarea {
-  margin-top: 10px;
-  padding: 10px;
-  width: 100%;
-  max-width: 320px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.kontaktForm button {
-  margin-top: 10px;
-  margin-bottom: 2rem;
-  padding: 10px;
-  width: 35%;
-  max-width: 320px;
-  background-color: #000000;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-family: "Arial", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
+.kontaktTelefon {
+  margin-bottom: 4rem;
 }
