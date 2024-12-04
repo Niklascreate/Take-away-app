@@ -103,8 +103,11 @@ function OverlayConfirmation() {
           <h3 className="your-order__title">Din order</h3>
           {orders.map((item, index) => (
             <aside key={index} className="order-list">
-              <p>
-                {item.dishName} (x{item.quantity})
+              <section>
+                <section className="order_container">
+                <p className="order_name">{item.dishName}</p>
+                <p className="order_price">{item.price} sek</p>
+                </section>
                 <ChangeOrderBtn
                   order={{
                     orderId: item.orderId,
@@ -114,19 +117,18 @@ function OverlayConfirmation() {
                   onRemove={removeOrder}
                   onQuantityChange={updateOrderQuantityInState}
                 />
-              </p>
-              <p>{item.price} SEK</p>
+              </section>
             </aside>
           ))}
 
           <aside className="order-list order-total">
-            <p>Total:</p>
-            <p>
+            <p className="order_totalHeader">Total:</p>
+            <p className="order_total">
               {orders.reduce(
                 (total, item) => total + item.price * item.quantity,
                 0
               )}{" "}
-              SEK
+              sek
             </p>
           </aside>
         </article>
