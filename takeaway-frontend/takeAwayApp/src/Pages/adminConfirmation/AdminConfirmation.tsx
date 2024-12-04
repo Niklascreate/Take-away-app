@@ -20,54 +20,55 @@ function AdminConfirmation() {
       try {
         const data = await adminOrders();
         console.log("API Response:", data);
-
+  
         const groupedOrders = data.reduce(
           (
-            acc: Record<
-              string,
-              { customerInfo?: AdminPage; dishes: AdminPage[] }
-            >,
+            acc: Record<string, { customerInfo?: AdminPage; dishes: AdminPage[] }>,
             order: AdminPage
           ) => {
             if (!acc[order.orderId]) {
               acc[order.orderId] = { customerInfo: undefined, dishes: [] };
             }
-            if (order.id === "summary") {
+  
+            if (order.id === "kunduppgifter") {
               acc[order.orderId].customerInfo = order;
             } else {
               acc[order.orderId].dishes.push(order);
             }
+  
             return acc;
           },
           {}
         );
-
-        const enrichedOrders = Object.entries(groupedOrders).reduce(
+  
+        // Skapa uppdaterade ordrar
+        const uppdateradeOrdrar = Object.entries(groupedOrders).reduce(
           (
             acc: Record<string, AdminPage[]>,
             [orderId, { customerInfo, dishes }]
           ) => {
-            const enrichedDishes = dishes.map((dish) => ({
+            const uppdateradeRätter = dishes.map((dish) => ({
               ...dish,
               customerName: customerInfo?.customerName || "Okänd kund",
               email: customerInfo?.email || "Okänd e-post",
               phoneNumber: customerInfo?.phoneNumber || "Okänt telefonnummer",
             }));
-            acc[orderId] = enrichedDishes;
+  
+            acc[orderId] = uppdateradeRätter;
             return acc;
           },
           {}
         );
-
-        console.log("Enriched Orders:", enrichedOrders);
-        setOrders(enrichedOrders);
+  
+        console.log("Uppdaterade Ordrar:", uppdateradeOrdrar);
+        setOrders(uppdateradeOrdrar);
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch orders:", error);
         setLoading(false);
       }
     };
-
+  
     fetchOrders();
   }, []);
 
@@ -191,7 +192,7 @@ function AdminConfirmation() {
                     <li key={index}>
                       <aside>{item.dishName}</aside>
                       <aside>Antal: {item.quantity}</aside>
-                      <aside>Önskemål: {item.specialRequests}</aside>
+                      <aside>Önskemål: {item.specialRequests || "Inga"}</aside>
                     </li>
                   ))}
                 </ul>
