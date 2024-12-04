@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import { adminOrders, addCommentToOrder, adminDeleteOrder } from "../../../api/Api";
+import {
+  adminOrders,
+  addCommentToOrder,
+  adminDeleteOrder,
+  lockOrder,
+} from "../../../api/Api";
 import { AdminPage } from "../../../interface/Interface";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/nav/Nav";
 import "./adminconfirmation.css";
-import { updateOrderQuantity } from "../../../api/Api";
 
 function AdminConfirmation() {
   const [orders, setOrders] = useState<Record<string, AdminPage[]>>({});
@@ -13,6 +17,9 @@ function AdminConfirmation() {
   const [comment, setComment] = useState<string>("");
   const [loadingComment, setLoadingComment] = useState<boolean>(false);
   const [blinkStatus, setBlinkStatus] = useState<string | null>(null);
+  const [lockedButtons, setLockedButtons] = useState<Record<string, boolean>>(
+    {}
+  );
 
   const navigate = useNavigate();
 
@@ -21,27 +28,30 @@ function AdminConfirmation() {
       try {
         const data = await adminOrders();
         console.log("API Response:", data);
-  
+
         const groupedOrders = data.reduce(
           (
-            acc: Record<string, { customerInfo?: AdminPage; dishes: AdminPage[] }>,
+            acc: Record<
+              string,
+              { customerInfo?: AdminPage; dishes: AdminPage[] }
+            >,
             order: AdminPage
           ) => {
             if (!acc[order.orderId]) {
               acc[order.orderId] = { customerInfo: undefined, dishes: [] };
             }
-  
+
             if (order.id === "kunduppgifter") {
               acc[order.orderId].customerInfo = order;
             } else {
               acc[order.orderId].dishes.push(order);
             }
-  
+
             return acc;
           },
           {}
         );
-  
+
         // Skapa uppdaterade ordrar
         const uppdateradeOrdrar = Object.entries(groupedOrders).reduce(
           (
@@ -54,13 +64,13 @@ function AdminConfirmation() {
               email: customerInfo?.email || "Okänd e-post",
               phoneNumber: customerInfo?.phoneNumber || "Okänt telefonnummer",
             }));
-  
+
             acc[orderId] = uppdateradeRätter;
             return acc;
           },
           {}
         );
-  
+
         console.log("Uppdaterade Ordrar:", uppdateradeOrdrar);
         setOrders(uppdateradeOrdrar);
         setLoading(false);
@@ -69,10 +79,11 @@ function AdminConfirmation() {
         setLoading(false);
       }
     };
-  
+
     fetchOrders();
   }, []);
 
+  // Funktion för att ta bort en order
   const handleDeleteOrder = async (orderId: string) => {
     try {
       const items = orders[orderId];
@@ -91,6 +102,7 @@ function AdminConfirmation() {
     }
   };
 
+  //Funktion för att ändra status till klar
   const handleConfirmOrder = (orderId: string) => {
     setOrders((prevOrders) => {
       const updatedOrders = { ...prevOrders };
@@ -108,6 +120,30 @@ function AdminConfirmation() {
     }, 1000);
   };
 
+  // Funktion för att låsa en order
+  const handleLockOrder = async (orderId: string, id: string) => {
+    try {
+      await lockOrder(orderId, id);
+
+      // Uppdatera låst status i lokalt tillstånd
+      setOrders((prevOrders) => {
+        const updatedOrders = { ...prevOrders };
+        updatedOrders[orderId] = updatedOrders[orderId].map((order) =>
+          order.id === id ? { ...order, isLocked: true } : order
+        );
+        return updatedOrders;
+      });
+
+      // Markera knappen som låst
+      setLockedButtons((prev) => ({ ...prev, [id]: true }));
+
+      console.log(`Order med ID ${orderId} och post ID ${id} är nu låst!`);
+    } catch (error) {
+      console.error("Misslyckades med att låsa order:", error);
+    }
+  };
+
+  // Funktion för att lägga till en kommentar
   const handleAddComment = async (orderId: string) => {
     setLoadingComment(true);
     try {
@@ -190,7 +226,22 @@ function AdminConfirmation() {
                       <aside>{item.dishName}</aside>
                       <aside>Antal: {item.quantity}</aside>
                       <aside>Önskemål: {item.specialRequests || "Inga"}</aside>
-                      <aside className="admin-update"><button className="quantity-btn">-</button><button className="quantity-btn">+</button></aside>
+                      <aside className="admin-update">
+                        <button
+                          className="lock-btn"
+                          onClick={() => handleLockOrder(orderId, item.id)}
+                          disabled={item.isLocked}
+                          style={{
+                            backgroundColor: lockedButtons[item.id]
+                              ? "green"
+                              : "black",
+                          }}
+                        >
+                          {item.isLocked ? "Låst" : "Lås"}
+                        </button>
+                        <button className="quantity-btn">-</button>
+                        <button className="quantity-btn">+</button>
+                      </aside>
                     </li>
                   ))}
                 </ul>
@@ -207,14 +258,12 @@ function AdminConfirmation() {
                 <button
                   className="switch lock"
                   onClick={() =>
-                    setCommentOrderId(commentOrderId === orderId ? null : orderId)
+                    setCommentOrderId(
+                      commentOrderId === orderId ? null : orderId
+                    )
                   }
                 >
                   Meddelande
-                </button>
-                <button
-                  className="switch lock">
-                  Lås
                 </button>
                 <button
                   className="switch lock"

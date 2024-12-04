@@ -68,4 +68,5 @@ export interface AdminPage {
   createdAt: string;
   comment?: string;
   status?: string;
+  isLocked?: boolean;
 }
