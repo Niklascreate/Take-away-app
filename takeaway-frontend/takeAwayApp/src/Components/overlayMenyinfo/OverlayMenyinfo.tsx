@@ -1,16 +1,10 @@
 import { useState } from "react";
-import "./overlayMenyInfo.css";
-import { Dish } from "../../../interface/Interface";
 import "./overlaymenyinfo.css";
-
-
-interface OverlayMenyInfoProps {
-  closeOverlay: () => void; 
-  dish: Dish;             
-}
+import { OverlayMenyInfoProps } from "../../../interface/Interface";
 
 function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
   const [quantity, setQuantity] = useState<number>(1);
+  const [specialRequest, setSpecialRequest] = useState<string>("");
 
   const increaseQuantity = () => setQuantity((prevQuantity) => prevQuantity + 1);
 
@@ -20,34 +14,33 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
 
   const totalPrice = dish.price * quantity;
 
-const handleAddToCart = () => {
-  const item = {
-    id: dish.id,
-    name: dish.name,
-    price: dish.price,
-    quantity: quantity,
+  const handleAddToCart = () => {
+    const item = {
+      id: dish.id,
+      name: dish.name,
+      price: dish.price,
+      quantity: quantity,
+      specialRequest: specialRequest,
+    };
+
+    const currentCart = sessionStorage.getItem("cart");
+    let cart = currentCart ? JSON.parse(currentCart) : [];
+
+    const existingItemIndex = cart.findIndex((cartItem: { id: string }) => cartItem.id === item.id);
+    if (existingItemIndex !== -1) {
+      cart[existingItemIndex].quantity += item.quantity;
+    } else {
+      cart.push(item);
+    }
+
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+
+    closeOverlay();
   };
-
-  const currentCart = sessionStorage.getItem("cart");
-  let cart = currentCart ? JSON.parse(currentCart) : [];
-
-  const existingItemIndex = cart.findIndex((cartItem: { id: string; }) => cartItem.id === item.id);
-  if (existingItemIndex !== -1) {
-    cart[existingItemIndex].quantity += item.quantity;
-  } else {
-    cart.push(item);
-  }
-
-  sessionStorage.setItem("cart", JSON.stringify(cart));
-
-  closeOverlay();
-};
-
 
   return (
     <section className="overlay">
       <section className="overlayContent">
-        {/* Stäng-knapp */}
         <img
           src="/stängKnapp.svg"
           alt="Stäng"
@@ -63,6 +56,13 @@ const handleAddToCart = () => {
         <p className="dishDescription">{dish.description}</p>
 
         <section className="actionContainer">
+          <textarea
+            className="specialRequestTextarea"
+            placeholder="önskemål..."
+            value={specialRequest}
+            onChange={(e) => setSpecialRequest(e.target.value)}
+          ></textarea>
+
           <section className="quantitySelector">
             <button className="quantityButton" onClick={decreaseQuantity}>
               <img src="/minus.png" alt="Minus" className="quantityIcon" />
@@ -74,11 +74,14 @@ const handleAddToCart = () => {
               <img src="/plus.png" alt="Plus" className="quantityIcon" />
             </button>
           </section>
-
-          <button className="addToCartButton" onClick={handleAddToCart}>
-            Lägg i varukorg <span>{totalPrice} SEK</span>
-          </button>
         </section>
+
+        <section className="totalPriceContainer">
+          <p className="totalPrice">Totalpris: {totalPrice} SEK</p>
+        </section>
+        <button className="addToCartButton" onClick={handleAddToCart}>
+          Lägg i varukorg
+        </button>
       </section>
     </section>
   );

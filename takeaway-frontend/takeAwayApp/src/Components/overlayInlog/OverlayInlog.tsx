@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./overlayInlog.css";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './overlayinlog.css';
-
-interface LoginOverlayProps {
-  onClose: () => void;
-}
+import { LoginOverlayProps } from "../../../interface/Interface";
+import { loginUser } from "../../../api/Api";
 
 function LoginOverlay({ onClose }: LoginOverlayProps) {
   const [username, setUsername] = useState("");
@@ -13,7 +10,6 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  // Kontrollera om användaren är redan inloggad när komponenten laddas
   useEffect(() => {
     const loggedInUser = sessionStorage.getItem("username");
     if (loggedInUser) {
@@ -24,31 +20,11 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
   
-    const loginData = {
-      username: username,
-      password: password,
-    };
-  
     try {
-      const response = await fetch('https://62e8azqirl.execute-api.eu-north-1.amazonaws.com/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Fel vid inloggning');
-      }
-
-      // Spara användarnamnet i sessionStorage när inloggning lyckas
-      sessionStorage.setItem("username", username);
-      
+      await loginUser(username, password);
       navigate('/adminconfirmation');
-    } catch (error) {
-      console.error('Något gick fel:', error);
-      setErrorMessage('Fel vid inloggning'); 
+    } catch (error: any) {
+      setErrorMessage(error.message || "Fel vid inloggning");
     }
   };
 
@@ -85,4 +61,3 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
 }
 
 export default LoginOverlay;
-

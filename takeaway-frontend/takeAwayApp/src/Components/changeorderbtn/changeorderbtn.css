@@ -1,16 +1,24 @@
 .changeOrder_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: fit-content;
-  padding: .4rem;
+  padding: 1rem;
   border: solid white 1px;
-  border-radius: 20px;
+  border-radius: 1rem;
+  max-width: 300px;
+  height: 40px;
 }
 
 .changeOrder_img {
-  width: 30px;
+  width: 20px;
+  height: auto;
   cursor: pointer;
 }
 
 .changeOrder_plusMinus {
-  width: 30px;
+  width: 20px;
+  height: auto;
   cursor: pointer;
 }

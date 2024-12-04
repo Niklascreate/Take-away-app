@@ -1,42 +1,39 @@
-import React from 'react';
-import './changeorderbtn.css';
-import { adminDeleteOrder, adminUpdateOrder } from '../../../api/Api';
-import { UpdateOrder } from '../../../interface/Interface';
+import { useState } from "react";
+import "./changeorderbtn.css";
+import { adminDeleteOrder, updateOrderQuantity } from "../../../api/Api";
+import { ChangeOrderBtnProps } from "../../../interface/Interface";
 
-interface ChangeOrderBtnProps {
-  order: UpdateOrder;
-  onRemove: (orderId: string) => void; // Callback för att ta bort ordningen från listan
-}
-
-const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order, onRemove }) => {
-  const [quantity, setQuantity] = React.useState<number>(order.quantity);
+function ChangeOrderBtn({ order, onRemove }: ChangeOrderBtnProps) {
+  const [quantity, setQuantity] = useState<number>(order.quantity);
 
   const handleUpdateQuantity = async (newQuantity: number) => {
-    if (newQuantity < 0) return; // Blockera negativa värden
+    if (newQuantity < 0) return;
 
     setQuantity(newQuantity);
 
-    // Uppdatera ordren via API
     try {
-      await adminUpdateOrder({
-        id: order.id,           // Maträttens ID
-        quantity: newQuantity,  // Uppdaterad kvantitet
-      }, order.orderId);        // Skickar orderId i URL
-      alert('Order uppdaterad!');
+      await updateOrderQuantity(
+        {
+          id: order.id,
+          quantity: newQuantity,
+        },
+        order.orderId
+      );
+      alert("Order uppdaterad!");
     } catch (error) {
-      console.error('Fel vid uppdatering:', error);
-      alert('Kunde inte uppdatera order.');
+      console.error("Fel vid uppdatering:", error);
+      alert("Kunde inte uppdatera order.");
     }
   };
 
   const handleDeleteOrder = async (orderId: string, itemId: string) => {
     try {
-      await adminDeleteOrder(orderId, itemId);  // Anropar API för att ta bort
-      onRemove(itemId);  // Ta bort ordren från listan lokalt
-      alert('Order borttagen!');
+      await adminDeleteOrder(orderId, itemId);
+      onRemove(itemId);
+      alert("Order borttagen!");
     } catch (error) {
-      console.error('Fel vid borttagning:', error);
-      alert('Kunde inte ta bort order.');
+      console.error("Fel vid borttagning:", error);
+      alert("Kunde inte ta bort order.");
     }
   };
 
@@ -47,7 +44,7 @@ const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order, onRemove }) => {
           className="changeOrder_img"
           src="trash.png"
           alt="Trash"
-          onClick={() => handleDeleteOrder(order.orderId, order.id)}  // Skicka med orderId och itemId
+          onClick={() => handleDeleteOrder(order.orderId, order.id)}
         />
         <img
           className="changeOrder_plusMinus"
@@ -65,6 +62,6 @@ const ChangeOrderBtn: React.FC<ChangeOrderBtnProps> = ({ order, onRemove }) => {
       </section>
     </section>
   );
-};
+}
 
 export default ChangeOrderBtn;

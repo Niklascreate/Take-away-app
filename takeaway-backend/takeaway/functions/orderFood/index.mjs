@@ -102,7 +102,7 @@ export const handler = async (event) => {
             TableName: 'HerringOrder',
             Item: {
                 orderId,
-                id: 'summary',
+                id: 'kunduppgifter',
                 customerName: orderData.customerName,
                 email: orderData.email,
                 phoneNumber: orderData.phoneNumber,

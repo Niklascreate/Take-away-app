@@ -17,8 +17,10 @@
 }
 
 .loggout {
+  width: 8rem;
+  height: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  margin-top: 3rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -88,12 +90,15 @@
   position: relative;
   display: block;
   margin: 1rem auto 0 auto;
-  width: 4.5rem;
+  width: 6rem;
   height: 36px;
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem;
-  padding: 0.1rem;
+  padding: 0.2rem;
+  background-color: red;
+  color: white;
+  border: none;
   }
   
   .switch:active {
@@ -106,16 +111,40 @@
     border: none;
     cursor: not-allowed;
   }
+
+  .switch.confirmed {
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: not-allowed;
+  }
+
+  .status {
+    font-weight: bold;
+  }
+
+  .status.blink {
+    animation: statusBlink 1s ease-in-out;
+  }
+  
+  @keyframes statusBlink {
+    0% {
+      color: green;
+      color: transparent;
+    }
+    50% {
+      color: lightgreen;
+    }
+    100% {
+      color: green;
+    }
+  }
   
   .switch-text {
     margin-top: 2rem;
     font-size: 0.6rem;
     text-align: center;
     font-weight: bold;
-  }
-
-  .lock {
-    background-color: red;
   }
 
   .delete-order-button {
@@ -133,24 +162,31 @@
     color: red;
   }
 
-  .error-message {
-    color: rgb(255, 78, 78);
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-  }
-
-  .comment-section {
+  .kommentar-container {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
   
-  .comment-input {
+  .kommentar-input {
     width: 100%;
-    min-height: 80px;
+    min-height: 50px;
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: 1px solid #ccc;
     font-size: 1rem;
   }
+
+  .ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin-top: 0.5rem;
+  }
+
+  .ul li {
+    text-decoration: none;
+    margin: 8px 0;
+    color: #ffffff;
+}
