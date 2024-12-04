@@ -143,17 +143,6 @@
     color: white;
 }
 
-@media (max-width: 768px) {
-    .overlayContent {
-        width: 75%;
-        max-width: 500px;
-    }
-
-    .dishImage {
-        max-width: 200px;
-    }
-}
-
 @media (max-width: 480px) {
     .overlayContent {
         width: 90%;
@@ -186,4 +175,17 @@
     .totalPriceContainer {
         font-size: 16px;
     }
+}
+
+
+@media (max-width: 768px) {
+    .overlayContent {
+        width: 75%;
+        max-width: 500px;
+    }
+
+    .dishImage {
+        max-width: 200px;
+    }
+
 }

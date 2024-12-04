@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion"; // Importera framer-motion
 import "./overlaymenyinfo.css";
 import { OverlayMenyInfoProps } from "../../../interface/Interface";
 
@@ -40,14 +41,20 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
 
   return (
     <section className="overlay">
-      <section className="overlayContent">
+      <motion.section
+        className="overlayContent"
+        initial={{ opacity: 0, scale: 0, rotate: 360 }} 
+        animate={{ opacity: 1, scale: 1, rotate: 0 }} 
+        exit={{ opacity: 0, scale: 0, rotate: -360 }} 
+        transition={{ type: "spring", stiffness: 80, damping: 10, duration: 1 }} 
+      >
         <img
           src="/stängKnapp.svg"
           alt="Stäng"
           className="closeButton"
           onClick={closeOverlay}
         />
-    
+
         <section className="imageContainer">
           <img src={dish.imageUrl} alt={dish.name} className="dishImage" />
         </section>
@@ -82,7 +89,7 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
         <button className="addToCartButton" onClick={handleAddToCart}>
           Lägg i varukorg
         </button>
-      </section>
+      </motion.section>
     </section>
   );
 }
