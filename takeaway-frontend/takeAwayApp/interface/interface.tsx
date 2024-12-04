@@ -11,7 +11,13 @@ export interface Dish {
   category: string;
 }
 
-/* Används i overlayMenyInfo*/
+
+export interface OrderItem {
+  items: any;
+  id: string;
+  customerName: string;
+  email: string;
+  phoneNumber: string;
 export interface UpdateOrder {
   orderId: string;  
   id: string;      
@@ -28,6 +34,13 @@ export interface ChangeOrderBtnProps {
   order: UpdateOrder;
   onRemove: (orderId: string) => void;
 }
+
+
+export interface OrderProduct {
+  id: string;
+  dishName: string;
+  price: number;
+  quantity: number;
 
 /* Används i OverlayOrder */
 export interface OverlayOrderProps {
