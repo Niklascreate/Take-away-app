@@ -4,7 +4,7 @@ import { Dish, AdminPage, OrderItem } from '../interface/Interface';
 /* Används i menu komponenten */
 export const fetchMenu = async (): Promise<Dish[]> => {
   const response = await axios.get<Dish[]>(
-    "https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/get/menu?key=key-Y9Z0A"
+    "https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/get/menu?key=key-Y9Z0A"
   );
   return response.data;
 };
@@ -12,7 +12,7 @@ export const fetchMenu = async (): Promise<Dish[]> => {
 /* Används i OverlayConfirmation */
 export const fetchOrder = async (): Promise<OrderItem[]> => {
   const response = await axios.get<OrderItem[]>(
-    "https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/order?key=key-Y9Z0A"
+    "https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/order?key=key-Y9Z0A"
   );
   return response.data;
 };
@@ -24,13 +24,13 @@ export const orderFood = async (orders: {
   phoneNumber: string;
   order: {
     id: string;
-    specialRequests?: string;
     quantity: number;
-  }[];
+    specialRequests?: string;
+    }[];
 }) => {
   try {
     const response = await axios.post(
-      "https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/order/food",
+      "https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/order/food",
       orders,
       {
         headers: {
@@ -50,7 +50,7 @@ export const orderFood = async (orders: {
 export const adminOrders = async () => {
   try {
     const response = await axios.get<AdminPage[]>(
-      "https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/order",
+      "https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/order",
       {
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const adminOrders = async () => {
 export const addCommentToOrder = async (orderId: string, comment: string) => {
   try {
     const response = await axios.post(
-      "https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/admin/kommentar",
+      "https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/admin/kommentar",
       { orderId, comment },
       {
         headers: {
@@ -87,7 +87,7 @@ export const addCommentToOrder = async (orderId: string, comment: string) => {
 export const adminDeleteOrder = async (orderId: string, itemId: string): Promise<void> => {
   try {
     const response = await axios.delete(
-      `https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/admin/delete/order/${orderId}/${itemId}`, 
+      `https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/admin/delete/order/${orderId}/${itemId}`, 
       {
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export const updateOrderQuantity = async (data: { id: string; quantity: number }
 
   try {
     const response = await axios.put(
-      `https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/menu/update/${orderId}`,
+      `https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/menu/update/${orderId}`,
       data,
       {
         headers: {
@@ -134,7 +134,7 @@ export const loginUser = async (username: string, password: string): Promise<voi
 
   try {
     const response = await axios.post(
-      "https://62e8azqirl.execute-api.eu-north-1.amazonaws.com/admin/login",
+      "https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/admin/login",
       loginData,
       {
         headers: {
@@ -159,7 +159,7 @@ export const loginUser = async (username: string, password: string): Promise<voi
 export const lockOrder = async (orderId: string, id: string): Promise<void> => {
   try {
     const response = await axios.post(
-      `https://6ohezxyuoe.execute-api.eu-north-1.amazonaws.com/admin/order/lock`,
+      `https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/admin/order/lock`,
       { orderId, id }, // Body innehåller både orderId och id
       {
         headers: {

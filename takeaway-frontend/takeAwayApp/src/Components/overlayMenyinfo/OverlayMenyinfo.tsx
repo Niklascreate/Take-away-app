@@ -4,7 +4,7 @@ import { OverlayMenyInfoProps } from "../../../interface/Interface";
 
 function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
   const [quantity, setQuantity] = useState<number>(1);
-  const [specialRequest, setSpecialRequest] = useState<string>("");
+  const [specialRequests, setSpecialRequest] = useState<string>("");
 
   const increaseQuantity = () => setQuantity((prevQuantity) => prevQuantity + 1);
 
@@ -14,15 +14,7 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
 
   const totalPrice = dish.price * quantity;
 
-  const handleAddToCart = () => {
-    const item = {
-      id: dish.id,
-      name: dish.name,
-      price: dish.price,
-      quantity: quantity,
-      specialRequest: specialRequest,
-    };
-
+  const updateCart = (item: { id: string; name: string; price: number; quantity: number; specialRequests: string }) => {
     const currentCart = sessionStorage.getItem("cart");
     let cart = currentCart ? JSON.parse(currentCart) : [];
 
@@ -34,9 +26,21 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
     }
 
     sessionStorage.setItem("cart", JSON.stringify(cart));
+  };
 
+  const handleAddToCart = () => {
+    const item = {
+      id: dish.id,
+      name: dish.name,
+      price: dish.price,
+      quantity,
+      specialRequests,
+    };
+
+    updateCart(item);
     closeOverlay();
   };
+
 
   return (
     <section className="overlay">
@@ -47,7 +51,7 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
           className="closeButton"
           onClick={closeOverlay}
         />
-    
+
         <section className="imageContainer">
           <img src={dish.imageUrl} alt={dish.name} className="dishImage" />
         </section>
@@ -59,7 +63,7 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
           <textarea
             className="specialRequestTextarea"
             placeholder="önskemål..."
-            value={specialRequest}
+            value={specialRequests}
             onChange={(e) => setSpecialRequest(e.target.value)}
           ></textarea>
 
