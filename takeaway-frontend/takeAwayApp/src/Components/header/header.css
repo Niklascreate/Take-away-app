@@ -1,9 +1,16 @@
+.outer_section {
+  display: flex;
+  max-width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  background-color: #2C394C;
+  padding: 15px 15px;
+}
+
 .header_container {
-    display: flex;
-    max-width: 1200px;
-    height: auto;
     margin: 0 auto;
-    background-color: #2C394C;
+    border: 3px solid #ffffff;
+    width: 100%;
   }
   
   .header_img {

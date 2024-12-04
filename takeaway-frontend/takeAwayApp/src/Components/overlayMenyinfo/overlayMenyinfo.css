@@ -145,7 +145,7 @@
 
 @media (max-width: 768px) {
     .overlayContent {
-        width: 85%;
+        width: 75%;
         max-width: 500px;
     }
 

@@ -1,3 +1,4 @@
+/* Overlay container */
 .overlay-container {
     position: fixed;
     top: 0;
@@ -9,10 +10,13 @@
     align-items: center;
     z-index: 999;
     overflow-y: auto;
+    background-color: var(--background);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .overlay-box {
-    background-color: var(--background);
+   
     color: #ffffff;
     width: 100%;
     max-width: 600px;
@@ -20,7 +24,7 @@
     position: relative;
     height: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
-              0 10px 15px rgba(0, 0, 0, 0.2);
+                0 10px 15px rgba(0, 0, 0, 0.2);
     height: 100vh;
 }
 
@@ -66,17 +70,14 @@
     }
 }
 
-
-.box-img__two {
+.box-img__two, .box-img__three {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
 .box-img__three {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    margin-top: 1rem;
 }
 
 .box-img {
@@ -89,10 +90,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.box-img__three {
-    margin-top: 1rem;
 }
 
 .pickUp-adress {
@@ -109,6 +106,7 @@
 /* Beställda maträtter */
 .box-order {
     height: auto;
+    margin: 0 auto;
 }
 
 .your-order__title {
@@ -132,11 +130,15 @@
 .order_container {
     display: flex;
     justify-content: space-between;
+    align-items: center; 
+    padding: 0.5rem 0; 
 }
 
 .order_name {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
+    margin-right: 3rem; 
+    flex-grow: 1; 
 }
 
 .order_price {
