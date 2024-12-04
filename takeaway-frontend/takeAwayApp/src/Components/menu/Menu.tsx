@@ -26,7 +26,7 @@ const Menu = () => {
     getMenu();
   }, []);
 
-  const openOverlay = (item: Dish ) => setSelectedItem(item);
+  const openOverlay = (item: Dish) => setSelectedItem(item);
   const closeOverlay = () => setSelectedItem(null);
 
   if (loading) return <p className='menu_loading'>Loading...</p>;
@@ -36,16 +36,16 @@ const Menu = () => {
     <section className="menu_container">
       <motion.h1
         className="menu_header"
-        initial={{ x: '-100%' }} // Börjar utanför skärmen till vänster
-        animate={{ x: 0 }} // Vandrar till sin plats
-        transition={{ duration: 1, ease: 'easeInOut' }} // Animationens tid och stil
+        initial={{ x: '-100%' }}
+        animate={{ x: 0 }}
+        transition={{ duration: 1, ease: 'easeInOut' }}
       >
         Meny
       </motion.h1>
 
       <section className="dishes_section">
         {dishes
-          .filter((dish) => dish.category === "food") 
+          .filter((dish) => dish.category === "food")
           .map((dish) => (
             <section key={dish.id} className="menu" onClick={() => openOverlay(dish)}>
               <img src={dish.imageUrl} alt={dish.name} className="menu_img" />
@@ -58,15 +58,16 @@ const Menu = () => {
           ))}
       </section>
 
+      <motion.h2
+        className="menu_header"
+        initial={{ x: '-100%' }}
+        animate={{ x: 0 }}
+        transition={{ duration: 1, ease: 'easeInOut' }}
+      >
+        Drycker
+      </motion.h2>
+
       <section className="drinks_section">
-        <motion.h2
-          className="menu_header"
-          initial={{ x: '-100%' }}
-          animate={{ x: 0 }}
-          transition={{ duration: 1, ease: 'easeInOut' }}
-        >
-          Drycker
-        </motion.h2>
         {dishes
           .filter((dish) => dish.category === "drink")
           .map((dish) => (
@@ -89,3 +90,4 @@ const Menu = () => {
 };
 
 export default Menu;
+

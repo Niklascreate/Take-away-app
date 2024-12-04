@@ -1,4 +1,4 @@
-.infoPageWrapper {
+.infoPageWrapper { 
   max-width: 1200px;
   height: auto;
   margin: 0 auto;
@@ -20,17 +20,17 @@
 }
 
 .historiaH1 {
-  font-size: 24px;
+  font-size: 18px; /* Börjar med en mindre storlek för mobil */
   margin-bottom: 10px;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
 }
 
-
 .historia img {
-  max-width: 60%;
-  border-radius: 3px;
+  max-width: 320px;  /* Bilden ska inte bli större än 320px */
+  width: 100%;
   height: auto;
+  border-radius: 3px;
 }
 
 .bildText {
@@ -42,10 +42,9 @@
   margin-bottom: 13px;
 }
 
-
 .historiaInfoText {
   line-height: 1.5;
-  font-size: 16px;
+  font-size: 14px; /* Börjar med en mindre storlek för mobil */
   max-width: 320px;
   margin: 0 auto;
   font-family: "Roboto", sans-serif;
@@ -53,9 +52,8 @@
   font-style: italic;
 }
 
-
 .kontaktH2 {
-  font-size: 22px;
+  font-size: 20px; /* Börjar med en mindre storlek för mobil */
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   margin-bottom: 15px;
@@ -81,8 +79,6 @@
   margin-left: auto;
   margin-right: auto;
 }
-
-
 
 .kontaktForm {
   display: flex;
@@ -116,4 +112,123 @@
   font-family: "Arial", sans-serif;
   font-weight: 400;
   font-size: 16px;
+}
+
+
+@media screen and (max-width: 600px) {
+  .historiaH1 {
+    font-size: 18px;
+  }
+
+  .bildText {
+    font-size: 12px;
+  }
+
+  .historiaInfoText {
+    font-size: 14px;
+  }
+
+  .kontaktH2 {
+    font-size: 20px;
+  }
+
+  .kontaktMailLabel,
+  .kontaktTelefonLabel {
+    font-size: 14px;
+  }
+
+  .kontaktMail,
+  .kontaktTelefon {
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  .kontaktForm textarea {
+    font-size: 12px;
+  }
+
+  .kontaktForm button {
+    width: 50%;
+    font-size: 14px;
+  }
+}
+
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .historiaH1 {
+    font-size: 22px; 
+  }
+
+  .bildText {
+    font-size: 14px; 
+  }
+
+  .historiaInfoText {
+    font-size: 16px; 
+    max-width: 70%;
+  }
+
+  .kontaktH2 {
+    font-size: 24px; 
+  }
+
+  .kontaktMailLabel,
+  .kontaktTelefonLabel {
+    font-size: 15px; 
+  }
+
+  .kontaktMail,
+  .kontaktTelefon {
+    font-size: 15px; 
+    max-width: 80%;
+  }
+
+  .kontaktForm textarea {
+    font-size: 14px;
+  }
+
+  .kontaktForm button {
+    width: 45%;
+    font-size: 15px;
+  }
+}
+
+
+@media screen and (min-width: 1025px) {
+  .historiaH1 {
+    font-size: 26px; 
+  }
+
+  .bildText {
+    font-size: 16px; 
+  }
+
+  .historiaInfoText {
+    font-size: 18px; 
+    max-width: 70%;
+  }
+
+  .kontaktH2 {
+    font-size: 28px; 
+  }
+
+  .kontaktMailLabel,
+  .kontaktTelefonLabel {
+    font-size: 18px; 
+  }
+
+  .kontaktMail,
+  .kontaktTelefon {
+    font-size: 18px; 
+    max-width: 70%;
+  }
+
+  .kontaktForm textarea {
+    font-size: 16px;
+  }
+
+  .kontaktForm button {
+    width: 35%;
+    font-size: 16px;
+  }
 }
