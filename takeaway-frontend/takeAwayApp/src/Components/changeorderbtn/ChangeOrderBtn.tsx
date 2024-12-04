@@ -3,13 +3,14 @@ import "./changeorderbtn.css";
 import { adminDeleteOrder, updateOrderQuantity } from "../../../api/Api";
 import { ChangeOrderBtnProps } from "../../../interface/Interface";
 
-function ChangeOrderBtn({ order, onRemove }: ChangeOrderBtnProps) {
+function ChangeOrderBtn({ order, onRemove, onQuantityChange }: ChangeOrderBtnProps & { onQuantityChange: (id: string, newQuantity: number) => void }) {
   const [quantity, setQuantity] = useState<number>(order.quantity);
 
   const handleUpdateQuantity = async (newQuantity: number) => {
     if (newQuantity < 0) return;
 
     setQuantity(newQuantity);
+    onQuantityChange(order.id, newQuantity);
 
     try {
       await updateOrderQuantity(
@@ -19,10 +20,10 @@ function ChangeOrderBtn({ order, onRemove }: ChangeOrderBtnProps) {
         },
         order.orderId
       );
-      alert("Order uppdaterad!");
+      console.log("Order uppdaterad!");
     } catch (error) {
       console.error("Fel vid uppdatering:", error);
-      alert("Kunde inte uppdatera order.");
+      console.log("Kunde inte uppdatera order.");
     }
   };
 
@@ -30,10 +31,10 @@ function ChangeOrderBtn({ order, onRemove }: ChangeOrderBtnProps) {
     try {
       await adminDeleteOrder(orderId, itemId);
       onRemove(itemId);
-      alert("Order borttagen!");
+      console.log("Order borttagen!");
     } catch (error) {
       console.error("Fel vid borttagning:", error);
-      alert("Kunde inte ta bort order.");
+      console.log("Kunde inte ta bort order.");
     }
   };
 
