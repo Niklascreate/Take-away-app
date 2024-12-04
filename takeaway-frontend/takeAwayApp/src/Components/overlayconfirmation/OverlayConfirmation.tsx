@@ -15,24 +15,21 @@ function OverlayConfirmation() {
     const getOrderItems = async () => {
       try {
         const data = await fetchOrder();
-        console.log(data);
-    
+
         if (data && data.length > 0) {
           const validOrders = data.filter((order) => order.id !== "summary");
-    
+
           const sortedOrders = validOrders.sort(
             (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
-    
+
           const latestOrderId = sortedOrders[0]?.orderId;
-    
+
           const filteredOrders = sortedOrders.filter(
             (order) => order.orderId === latestOrderId && order.dishName
           );
-    
-          console.log("Alla ordrar med senaste orderId:", filteredOrders);
-    
+
           setOrders(filteredOrders);
         } else {
           setError("Inga ordrar hittades.");
@@ -105,8 +102,8 @@ function OverlayConfirmation() {
             <aside key={index} className="order-list">
               <section>
                 <section className="order_container">
-                <p className="order_name">{item.dishName}</p>
-                <p className="order_price">{item.price} sek</p>
+                  <p className="order_name">{item.dishName}</p>
+                  <p className="order_price">{item.price} sek</p>
                 </section>
                 <ChangeOrderBtn
                   order={{

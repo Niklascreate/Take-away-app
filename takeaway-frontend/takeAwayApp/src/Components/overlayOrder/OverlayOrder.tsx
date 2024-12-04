@@ -18,7 +18,10 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
   useEffect(() => {
     const savedCart = sessionStorage.getItem("cart");
-    if (savedCart) setCartItems(JSON.parse(savedCart));
+    if (savedCart) {
+      const parsedCart = JSON.parse(savedCart);
+      setCartItems(parsedCart);
+    }
   }, [cart]);
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);

@@ -31,7 +31,7 @@ export interface ChangeOrderBtnProps {
 
 /* Används i OverlayOrder */
 export interface OverlayOrderProps {
-  cart: any[];
+  cart: Dish[]; 
   onClose: () => void;
 }
 
