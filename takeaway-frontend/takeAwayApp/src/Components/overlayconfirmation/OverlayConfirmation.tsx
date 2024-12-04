@@ -16,23 +16,23 @@ function OverlayConfirmation() {
       try {
         const data = await fetchOrder();
         console.log(data);
-
+    
         if (data && data.length > 0) {
           const validOrders = data.filter((order) => order.id !== "summary");
-
+    
           const sortedOrders = validOrders.sort(
             (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
-
+    
           const latestOrderId = sortedOrders[0]?.orderId;
-
+    
           const filteredOrders = sortedOrders.filter(
-            (order) => order.orderId === latestOrderId
+            (order) => order.orderId === latestOrderId && order.dishName
           );
-
+    
           console.log("Alla ordrar med senaste orderId:", filteredOrders);
-
+    
           setOrders(filteredOrders);
         } else {
           setError("Inga ordrar hittades.");
@@ -48,6 +48,7 @@ function OverlayConfirmation() {
     getOrderItems();
   }, []);
 
+
   const closeOverlay = () => {
     navigate("/meny");
   };
@@ -58,11 +59,20 @@ function OverlayConfirmation() {
     );
   };
 
+  const updateOrderQuantityInState = (id: string, newQuantity: number) => {
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order.id === id ? { ...order, quantity: newQuantity } : order
+      )
+    );
+  };
+
   if (loading) return <p>Laddar order...</p>;
 
   if (error) return <p>{error}</p>;
 
   if (orders.length === 0) return <p>Ingen order att visa.</p>;
+
 
   return (
     <section className="overlay-container">
@@ -102,6 +112,7 @@ function OverlayConfirmation() {
                     quantity: item.quantity,
                   }}
                   onRemove={removeOrder}
+                  onQuantityChange={updateOrderQuantityInState}
                 />
               </p>
               <p>{item.price} SEK</p>
