@@ -4,6 +4,7 @@ import { AdminPage } from "../../../interface/Interface";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/nav/Nav";
 import "./adminconfirmation.css";
+import { updateOrderQuantity } from "../../../api/Api";
 
 function AdminConfirmation() {
   const [orders, setOrders] = useState<Record<string, AdminPage[]>>({});
@@ -129,10 +130,6 @@ function AdminConfirmation() {
     }
   };
 
-  const handleLockOrder = (orderId: string) => {
-    console.log(`Order med ID ${orderId} låst!`);
-  };
-
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     navigate("/meny");
@@ -193,6 +190,7 @@ function AdminConfirmation() {
                       <aside>{item.dishName}</aside>
                       <aside>Antal: {item.quantity}</aside>
                       <aside>Önskemål: {item.specialRequests || "Inga"}</aside>
+                      <aside className="admin-update"><button className="quantity-btn">-</button><button className="quantity-btn">+</button></aside>
                     </li>
                   ))}
                 </ul>
@@ -215,9 +213,7 @@ function AdminConfirmation() {
                   Meddelande
                 </button>
                 <button
-                  className="switch lock"
-                  onClick={() => handleLockOrder(orderId)}
-                >
+                  className="switch lock">
                   Lås
                 </button>
                 <button

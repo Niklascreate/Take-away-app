@@ -62,7 +62,7 @@ export interface AdminPage {
   customerName: string;
   email: string; 
   phoneNumber: string;
-  quantity?: number; 
+  quantity: number; 
   specialRequests?: string;
   totalPrice?: number; 
   createdAt: string;
