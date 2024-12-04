@@ -11,6 +11,7 @@ export interface Dish {
 }
 
 export interface OrderItem {
+  items: any;
   id: string;
   customerName: string;
   email: string;
@@ -42,11 +43,8 @@ createdAt: string;
 export interface OrderProduct {
   id: string;
   dishName: string;
-  description: string;
-  category: string;
   price: number;
   quantity: number;
-  specialRequests: string;
 }
 
 export interface OrderItem {
