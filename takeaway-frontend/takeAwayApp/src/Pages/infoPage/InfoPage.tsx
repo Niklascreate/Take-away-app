@@ -47,11 +47,6 @@ function InfoPage() {
                     <h3 className="kontaktTelefonLabel">Mobil:</h3>
                     <h3 className="kontaktTelefon">070-123 45 67</h3>
 
-                    <form className="kontaktForm">
-                        <label htmlFor="message">Skicka ett meddelande:</label>
-                        <textarea id="message" placeholder="Skriv ditt meddelande här..." rows={5}></textarea>
-                        <button type="submit">Skicka</button>
-                    </form>
                 </motion.section>
                 <Nav />
             </>
