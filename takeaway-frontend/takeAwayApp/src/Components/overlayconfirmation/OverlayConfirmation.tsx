@@ -48,6 +48,7 @@ function OverlayConfirmation() {
     getOrderItems();
   }, []);
 
+
   const closeOverlay = () => {
     navigate("/meny");
   };
@@ -58,11 +59,20 @@ function OverlayConfirmation() {
     );
   };
 
+  const updateOrderQuantityInState = (id: string, newQuantity: number) => {
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order.id === id ? { ...order, quantity: newQuantity } : order
+      )
+    );
+  };
+
   if (loading) return <p>Laddar order...</p>;
 
   if (error) return <p>{error}</p>;
 
   if (orders.length === 0) return <p>Ingen order att visa.</p>;
+
 
   return (
     <section className="overlay-container">
@@ -102,6 +112,7 @@ function OverlayConfirmation() {
                     quantity: item.quantity,
                   }}
                   onRemove={removeOrder}
+                  onQuantityChange={updateOrderQuantityInState}
                 />
               </p>
               <p>{item.price} SEK</p>
