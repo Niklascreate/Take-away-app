@@ -9,7 +9,9 @@ function OverlayConfirmation() {
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [isLocked, setIsLocked] = useState(false);
   const navigate = useNavigate();
+  const [latestOrderId, setLatestOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     const getOrderItems = async () => {
@@ -24,10 +26,11 @@ function OverlayConfirmation() {
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
 
-          const latestOrderId = sortedOrders[0]?.orderId;
+          const latestOrder = sortedOrders[0];
+          setLatestOrderId(latestOrder?.orderId || null);
 
           const filteredOrders = sortedOrders.filter(
-            (order) => order.orderId === latestOrderId && order.dishName
+            (order) => order.orderId === latestOrder?.orderId && order.dishName
           );
 
           setOrders(filteredOrders);
@@ -45,6 +48,27 @@ function OverlayConfirmation() {
     getOrderItems();
   }, []);
 
+  useEffect(() => {
+    if (!latestOrderId) return;
+
+    const intervalId = setInterval(async () => {
+      try {
+        const data = await fetchOrder();
+
+        const lockedOrder = data.some(
+          (order: any) => order.orderId === latestOrderId && order.isLocked
+        );
+        if (lockedOrder) {
+          setIsLocked(true);
+          clearInterval(intervalId);
+        }
+      } catch (error) {
+        console.error("Fel vid hämtning av order:", error);
+      }
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [latestOrderId]);
 
   const closeOverlay = () => {
     navigate("/meny");
@@ -69,7 +93,6 @@ function OverlayConfirmation() {
   if (error) return <p>{error}</p>;
 
   if (orders.length === 0) return <p>Ingen order att visa.</p>;
-
 
   return (
     <section className="overlay-container">
@@ -129,8 +152,12 @@ function OverlayConfirmation() {
             </p>
           </aside>
         </article>
+
+        {/* Ändra text baserat på isLocked */}
         <h2 className="countdown-title">
-          Din order skickas strax
+          {isLocked
+            ? "Din order är mottagen, välkommen att hämta på Surströmmingsvägen 1, 113 51 Norrland"
+            : "Din order skickas strax..."}
           <span className="dot">.</span>
           <span className="dot">.</span>
           <span className="dot">.</span>
