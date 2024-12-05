@@ -119,7 +119,7 @@ function OverlayConfirmation() {
           ))}
 
           <aside className="order-list order-total">
-            <p className="order_totalHeader">Total:</p>
+            <p className="order_totalHeader">Total</p>
             <p className="order_total">
               {orders.reduce(
                 (total, item) => total + item.price * item.quantity,

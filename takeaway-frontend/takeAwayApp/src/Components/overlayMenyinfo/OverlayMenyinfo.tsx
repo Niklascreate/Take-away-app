@@ -88,7 +88,7 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
         </section>
 
         <section className="totalPriceContainer">
-          <p className="totalPrice">Totalpris: {totalPrice} SEK</p>
+          <p className="totalPrice">{totalPrice} sek</p>
         </section>
         <button className="addToCartButton" onClick={handleAddToCart}>
           Lägg i varukorg

@@ -50,12 +50,14 @@
 }
 
 .dishTitle {
+    font-family: "Roboto", sans-serif;
     font-size: 24px;
     font-weight: bold;
     margin-top: 0.5rem;
 }
 
 .dishDescription {
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
     color: #ffffff;
     margin-top: 10px;
@@ -88,6 +90,7 @@
 }
 
 .quantity {
+    font-family: "Roboto", sans-serif;
     font-size: 23px;
     font-weight: bold;
     color: #ffffff;
@@ -102,6 +105,7 @@
 .addToCartButton {
     background-color: #000000;
     color: white;
+    font-family: "Roboto", sans-serif;
     font-size: 14px;
     padding: 10px 20px;
     border: none;
@@ -130,6 +134,7 @@
     height: 80px;
     margin-bottom: 20px;
     padding: 10px;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -138,6 +143,7 @@
 
 .totalPriceContainer {
     text-align: center;
+    font-family: "Roboto", sans-serif;
     font-size: 18px;
     font-weight: bold;
     color: white;

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center; 
   align-items: center; 
-  max-width: 300px;
+  width: 100%;
   height: 40px;
   margin-top: 1rem;
   border-bottom: 2px solid white; 
@@ -11,8 +11,10 @@
 
 .changeOrder_delete {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  margin-bottom: .5rem;
 }
 
 .changeOrder_img {

@@ -105,7 +105,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
             <section key={index} className="orderOverlay_order">
               <p className="orderOverlay_text">{item.quantity}</p>
               <p className="orderOverlay_text">{item.name}</p>
-              <p className="orderOverlay_price">{item.price * item.quantity} SEK</p>
+              <p className="orderOverlay_price">{item.price * item.quantity} sek</p>
               <button className="remove-btn" onClick={() => removeItem(item.id)}>X</button>
             </section>
           ))
