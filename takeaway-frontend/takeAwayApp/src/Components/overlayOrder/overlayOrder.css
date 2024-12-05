@@ -11,7 +11,6 @@
   overflow-y: auto;
   position: relative;
   padding: 1rem;
-
 }
 
 .orderOverlay_header {
@@ -37,7 +36,6 @@
   height: 35px;
   cursor: pointer;
   margin-bottom: .5rem;
- 
 }
 
 .center_container {
@@ -93,7 +91,6 @@
   margin-left: 10px;
 }
 
-
 .orderOverlay_text__cartEmpty {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -142,7 +139,6 @@
   margin-bottom: 2rem;
 }
 
-
 .inputFieldWrapper {
   position: relative;
   margin-bottom: 15px;
@@ -178,29 +174,7 @@
   opacity: 1;
 }
 
-.loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: lazyloader 2s linear infinite;
-  margin: auto;
-}
-
-@keyframes lazyloader {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
 @media (min-width: 768px) {
-
   .orderOverlay_header,
   .center_container,
   .orderOverlay_totalPrice {
@@ -214,6 +188,3 @@
     margin-bottom: 0;
   }
 }
-
-
-/* Niklas, Jonas, Rindert */

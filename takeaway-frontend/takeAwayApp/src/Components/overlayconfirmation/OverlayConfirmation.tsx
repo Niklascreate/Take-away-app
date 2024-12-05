@@ -65,7 +65,7 @@ function OverlayConfirmation() {
       } catch (error) {
         console.error("Fel vid hämtning av order:", error);
       }
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(intervalId);
   }, [latestOrderId]);
@@ -154,13 +154,22 @@ function OverlayConfirmation() {
         </article>
 
         <h2 className="countdown-title">
-          {isLocked
-            ? "Din order är mottagen, välkommen att hämta på Surströmmingsvägen 1, 113 51 Norrland"
-            : "Din order skickas strax..."}
-          <span className="dot">.</span>
-          <span className="dot">.</span>
-          <span className="dot">.</span>
-          <span className="dot">.</span>
+          {isLocked ? (
+            <>
+              <span className="order-received">Din order är mottagen:</span>
+              <br />
+              <span className="welcome-text">Välkommen att hämta på</span>
+              <br />
+              <span className="pickup-address">
+                Surströmmingsvägen 1, 113 51 Norrland
+              </span>
+            </>
+          ) : (
+            <>
+              Din order skickas strax...
+              <section className="lazy-loader"></section>
+            </>
+          )}
         </h2>
       </section>
     </section>

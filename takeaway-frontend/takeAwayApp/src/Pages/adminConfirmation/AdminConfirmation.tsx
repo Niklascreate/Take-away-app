@@ -332,3 +332,7 @@ function AdminConfirmation() {
 }
 
 export default AdminConfirmation;
+
+
+//Niklas
+//En adminsida som hämtar alla ordrar från databasen. Man kan lägga till/ta bort rätt, lås en order, bekräfta order, ta bort en order.
