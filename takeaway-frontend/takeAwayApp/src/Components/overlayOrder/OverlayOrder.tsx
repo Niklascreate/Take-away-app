@@ -94,9 +94,9 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       initial={{ x: '-100vw', opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{
-          duration: 0.6,
-          delay: 0.2,
-          ease: 'easeInOut'
+        duration: 0.6,
+        delay: 0.2,
+        ease: 'easeInOut'
       }}
     >
       <section className="orderOverlay_header">
@@ -114,9 +114,12 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
           cartItems.map((item, index) => (
             <section key={index} className="orderOverlay_order">
               <p className="orderOverlay_text">{item.quantity}</p>
-              <p className="orderOverlay_text">{item.name}</p>
-              <p className="orderOverlay_price">{item.price * item.quantity} sek</p>
+              <section className="orderOverlay_middle">
+                <p className="orderOverlay_text">{item.name}</p>
+                <p className="orderOverlay_price">{item.price * item.quantity} sek</p>
+              </section>
               <button className="remove-btn" onClick={() => removeItem(item.id)}>X</button>
+
             </section>
           ))
         ) : (
