@@ -152,8 +152,6 @@ function OverlayConfirmation() {
             </p>
           </aside>
         </article>
-
-        {/* Ändra text baserat på isLocked */}
         <h2 className="countdown-title">
           {isLocked
             ? "Din order är mottagen, välkommen att hämta på Surströmmingsvägen 1, 113 51 Norrland"
