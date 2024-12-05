@@ -14,7 +14,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [orderMessage, setOrderMessage] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,9 +27,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const handleOrder = async () => {
-    if (isLoading) return;
-
-    setIsLoading(true);
     setNameError(false);
     setEmailError(false);
     setPhoneError(false);
@@ -50,7 +46,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
     }
 
     if (!isValid) {
-      setIsLoading(false);
       return;
     }
 
@@ -77,8 +72,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       navigate('/overlayconfirmation');
     } catch (error) {
       setOrderMessage('Ett fel inträffade vid beställningen. Försök igen.');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -119,7 +112,6 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
                 <p className="orderOverlay_price">{item.price * item.quantity} sek</p>
               </section>
               <button className="remove-btn" onClick={() => removeItem(item.id)}>X</button>
-
             </section>
           ))
         ) : (
@@ -168,14 +160,11 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
         <p className="orderOverlay_totalPrice__price">{total} SEK</p>
       </section>
 
-      <button className="orderOverlay_orderButton" onClick={handleOrder} disabled={isLoading}>
-        {isLoading ? <div className="loader"></div> : `Beställ ${total} SEK`}
+      <button className="orderOverlay_orderButton" onClick={handleOrder}>
+        Beställ {total} SEK
       </button>
     </motion.section>
   );
 }
+
 export default OverlayOrder;
-
-
-//Jonas, Niklas, Rindert
-//Hanterar och visar användarens kundvagn, låter användaren lägga till kontaktinformation, beräkna totalpriset och skicka en beställning till backend.
