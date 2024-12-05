@@ -9,7 +9,6 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-    overflow-y: auto;
     background-color: var(--background);
     max-width: 1200px;
     margin: 0 auto;
@@ -23,8 +22,6 @@
     padding: 1rem;
     position: relative;
     height: auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
-                0 10px 15px rgba(0, 0, 0, 0.2);
     height: 100vh;
 }
 
@@ -37,7 +34,7 @@
     height: 42px;
     cursor: pointer;
     background-color: var(--background);
-    margin-right: .5rem;
+    margin-right: 3rem;
 }
 
 .confirmation-title {
@@ -61,6 +58,7 @@
 .lazzyloader {
     background-color: var(--background);
     color: #ffffff;
+    height: 100vh;
 }
 
 @keyframes bounce {
@@ -208,4 +206,10 @@
     }
   }
   
+  @media (min-width: 600px) and (max-width: 1200px) {
+    .close-overlay {
+        margin-right: 5rem;
+    }
+  }
+
 /* Niklas, Jonas, Rindert */

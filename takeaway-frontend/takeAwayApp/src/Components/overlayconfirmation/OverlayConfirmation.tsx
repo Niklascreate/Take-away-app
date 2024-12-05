@@ -166,7 +166,7 @@ function OverlayConfirmation() {
             </>
           ) : (
             <>
-              Din order skickas strax...
+              Din order är strax klar...
               <section className="lazy-loader"></section>
             </>
           )}
