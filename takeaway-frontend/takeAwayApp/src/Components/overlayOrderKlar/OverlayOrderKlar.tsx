@@ -47,3 +47,5 @@ export default OverlayOrderKlar;
 
 // Rindert
 // Sista sidan i flödet. visar hur länge det är kvar tills maten är färdig
+
+//

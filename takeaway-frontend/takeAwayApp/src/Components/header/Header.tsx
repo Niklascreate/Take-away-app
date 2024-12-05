@@ -10,3 +10,5 @@ export default function Header() {
     )
 }
 
+//Rindert
+//Visar en header-sektion med en bild inuti en stylad container.

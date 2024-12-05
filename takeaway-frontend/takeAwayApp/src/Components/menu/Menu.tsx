@@ -91,3 +91,9 @@ const Menu = () => {
 
 export default Menu;
 
+
+//Jonas
+//Hämtar och visar en lista med maträtter och drycker från API:t, kategoriserar dem som "mat" och "dryck", och tillhandahåller en interaktiv overlay för att visa detaljer om en vald maträtt eller dryck.
+
+//Rindert, Niklas
+//La till animationer

@@ -11,6 +11,14 @@ export interface Dish {
   category: string;
 }
 
+/* Används i nav */
+export interface CartItem {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
+
 /* Används i overlayMenyInfo*/
 export interface UpdateOrder {
   orderId: string;  
@@ -31,7 +39,7 @@ export interface ChangeOrderBtnProps {
 
 /* Används i OverlayOrder */
 export interface OverlayOrderProps {
-  cart: Dish[]; 
+  cart: CartItem[]; 
   onClose: () => void;
 }
 
@@ -70,3 +78,7 @@ export interface AdminPage {
   status?: string;
   isLocked?: boolean;
 }
+
+
+//Niklas, Jonas, Rindert
+//Samtliga Interface som används i applikationen
