@@ -46,3 +46,6 @@ export default function Menuhero() {
     </section>
   );
 }
+
+
+//Jonas, Rindert, Niklas

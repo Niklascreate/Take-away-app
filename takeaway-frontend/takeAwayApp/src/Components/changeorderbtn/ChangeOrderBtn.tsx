@@ -66,3 +66,6 @@ function ChangeOrderBtn({ order, onRemove, onQuantityChange }: ChangeOrderBtnPro
 }
 
 export default ChangeOrderBtn;
+
+//Jonas
+//Hnterar visning och ändringar av kvantitet eller borttagning av en order.

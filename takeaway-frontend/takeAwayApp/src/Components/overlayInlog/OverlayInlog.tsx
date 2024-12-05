@@ -61,3 +61,9 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
 }
 
 export default LoginOverlay;
+
+//Rindert
+//Logga in som admin
+
+//Niklas
+//rensa sessionsStorage och logga ut
