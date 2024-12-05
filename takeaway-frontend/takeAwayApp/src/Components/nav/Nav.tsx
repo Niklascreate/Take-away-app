@@ -3,15 +3,16 @@ import "./nav.css";
 import { Link } from "react-router-dom";
 import OverlayOrder from "../overlayorder/OverlayOrder";
 import OverlayInlog from "../overlayinlog/OverlayInlog";
+import { CartItem } from '../../../interface/Interface'
 
-const getTotalItems = (cart: any[]): number => {
+const getTotalItems = (cart: CartItem[]): number => {
   return cart.reduce((total, item) => total + item.quantity, 0);
 };
 
 export default function Nav() {
   const [isOrderOverlayVisible, setOrderOverlayVisible] = useState(false);
   const [isLoginOverlayVisible, setLoginOverlayVisible] = useState(false);
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   const updateCartFromStorage = () => {
     const updatedCart = sessionStorage.getItem("cart");
@@ -58,3 +59,6 @@ export default function Nav() {
     </>
   );
 }
+
+
+//Rindert, Jonas, Niklas

@@ -175,3 +175,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   );
 }
 export default OverlayOrder;
+
+
+//Jonas, Niklas, Rindert
+//Hanterar och visar användarens kundvagn, låter användaren lägga till kontaktinformation, beräkna totalpriset och skicka en beställning till backend.

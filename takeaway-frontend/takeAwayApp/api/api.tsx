@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { Dish, AdminPage, OrderItem } from '../interface/Interface';
 
 /* Används i menu komponenten */
@@ -95,9 +95,14 @@ export const adminDeleteOrder = async (orderId: string, itemId: string): Promise
       }
     );
     console.log('Order borttagen:', response.status);
-  } catch (error: any) {
-    console.error('Gick inte att ta bort order:', error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || 'Misslyckades med att ta bort order');
+  } catch (error: AxiosError | unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error('Gick inte att ta bort order:', error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || 'Misslyckades med att ta bort order');
+    } else {
+      console.error('Ett okänt fel inträffade:', error);
+      throw new Error('Ett oväntat fel inträffade.');
+    }
   }
 };
 
@@ -189,19 +194,21 @@ export const loginUser = async (username: string, password: string): Promise<voi
     }
 
     sessionStorage.setItem("username", username);
-  } catch (error: any) {
-    console.error("Något gick fel vid inloggning:", error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || "Misslyckades med inloggning");
+  } catch (error: AxiosError | unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Något gick fel vid inloggning:", error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Misslyckades med inloggning");
+    }
+    throw error;
   }
 };
 
 /* Används i adminconfirmationpage för att låsa en order i databasen */
-
 export const lockOrder = async (orderId: string, id: string): Promise<void> => {
   try {
     const response = await axios.post(
       `https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/admin/order/lock`,
-      { orderId, id }, // Body innehåller både orderId och id
+      { orderId, id }, 
       {
         headers: {
           "Content-Type": "application/json",
@@ -209,8 +216,15 @@ export const lockOrder = async (orderId: string, id: string): Promise<void> => {
       }
     );
     console.log("Order låst:", response.data);
-  } catch (error: any) {
-    console.error("Kunde inte låsa order:", error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || "Misslyckades med att låsa order.");
+  } catch (error: AxiosError | unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Kunde inte låsa order:", error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Misslyckades med att låsa order.");
+    }
+    throw error;
   }
 };
+
+
+//Niklas, Jonas, Rindert
+//Samtliga API anrop som används i applikationen
