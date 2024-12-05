@@ -20,7 +20,7 @@ function InfoPage() {
                         }}
                     >
                         <h1 className="historiaH1">Vår Historia</h1>
-                        <img src="/gladsture.svg" alt="Bild på Sture" />
+                        <img src="/img/gladsture.svg" alt="Bild på Sture" />
                         <p className="bildText">Porträtt av Sture Ström</p>
                         <p className="historiaInfoText">
                             I en liten kustby i Norrland fanns en fiskare vid namn Sture Ström som älskade strömming i alla dess former. En dag när han råkade tappa en burk surströmming över bord,

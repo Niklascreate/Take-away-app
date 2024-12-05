@@ -12,7 +12,7 @@ function LandingPage() {
   return (
     <div className='landingpage-container' onClick={handlePageClick}>
       <motion.img
-        src="rundLogga.svg"
+        src="/img/rundLogga.svg"
         alt="rund logga"
         animate={{ y: [0, -20, 0] }}
         transition={{

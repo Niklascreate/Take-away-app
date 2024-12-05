@@ -102,7 +102,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       <section className="orderOverlay_header">
         <h1>Din Order</h1>
         <img
-          src="/stängKnapp.svg"
+          src="/img/stängKnapp.svg"
           alt="Close Button"
           className="orderOverlay_close"
           onClick={onClose}
