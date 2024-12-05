@@ -48,7 +48,6 @@ function AdminConfirmation() {
           {}
         );
 
-        // Skapa uppdaterade ordrar
         const uppdateradeOrdrar = Object.entries(groupedOrders).reduce(
           (
             acc: Record<string, AdminPage[]>,
@@ -79,21 +78,19 @@ function AdminConfirmation() {
     fetchOrders();
   }, []);
 
-  //Uppdatera en order i databsen
   const updateOrder = async (
     orderId: string,
     itemId: string,
     newQuantity: number
   ) => {
     try {
-      // Använd det nya API-anropet
+    
       await adminQuantity(orderId, itemId, newQuantity);
 
       console.log(
         `Kvantitet uppdaterad till ${newQuantity} för item ${itemId}`
       );
 
-      // Uppdatera lokalt tillstånd
       setOrders((prevOrders) => {
         const updatedOrders = { ...prevOrders };
         updatedOrders[orderId] = updatedOrders[orderId].map((order) =>
@@ -106,7 +103,6 @@ function AdminConfirmation() {
     }
   };
 
-  // Funktion för att ta bort en order
   const handleDeleteOrder = async (orderId: string) => {
     try {
       const items = orders[orderId];
@@ -125,7 +121,6 @@ function AdminConfirmation() {
     }
   };
 
-  //Funktion för att ändra status till klar
   const handleConfirmOrder = (orderId: string) => {
     setOrders((prevOrders) => {
       const updatedOrders = { ...prevOrders };

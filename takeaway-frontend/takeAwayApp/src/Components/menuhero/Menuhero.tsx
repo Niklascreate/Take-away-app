@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 
 export default function Menuhero() {
   const images = [
-    "/boatHouse.svg",
-    "/boathouse2.svg",
-    "/brygga.svg",
-    "/boathouse3.svg",
-    "/boat.svg",
+    "/img/boatHouse.svg",
+    "/img/boathouse2.svg",
+    "/img/brygga.svg",
+    "/img/boathouse3.svg",
+    "/img/boat.svg",
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
