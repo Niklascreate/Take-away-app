@@ -64,7 +64,8 @@
   font-family: "Arial", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-top: 7px;
+  margin-bottom: 7px;
   color: #ffffff;
 }
 
@@ -73,7 +74,6 @@
   font-family: "Roboto", sans-serif;
   font-weight: 300;
   font-size: 16px;
-  margin-bottom: 10px;
   color: #ffffff;
   max-width: 70%;
   margin-left: auto;
@@ -138,7 +138,7 @@
 
   .kontaktMail,
   .kontaktTelefon {
-    font-size: 15px; 
+    font-size: 18px; 
     max-width: 80%;
   }
 
