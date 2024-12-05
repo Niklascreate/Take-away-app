@@ -46,6 +46,7 @@
 .nav_icon {
     width: 35px;
     height: 35px;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 380px) and (max-width: 1200px) {
