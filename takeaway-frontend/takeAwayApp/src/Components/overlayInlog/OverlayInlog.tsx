@@ -29,8 +29,8 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
   };
 
   return (
-    <div className="overlay">
-      <div className="loginOverlayContent">
+    <section className="inlog_overlay">
+      <section className="loginOverlayContent">
         <button className="closeButton" onClick={onClose}>
           <img src="/stängKnapp.svg" alt="Stäng" />
         </button>
@@ -55,8 +55,8 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
             Logga In
           </button>
         </form>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
 
