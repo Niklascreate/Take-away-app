@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
-import {
-  adminOrders,
-  addCommentToOrder,
-  adminDeleteOrder,
-  lockOrder,
-} from "../../../api/Api";
+import { adminOrders,addCommentToOrder,adminDeleteOrder,lockOrder } from "../../../api/Api";
 import { AdminPage } from "../../../interface/Interface";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/nav/Nav";
 import "./adminconfirmation.css";
+import { adminQuantity } from "../../../api/Api";
 
 function AdminConfirmation() {
   const [orders, setOrders] = useState<Record<string, AdminPage[]>>({});
@@ -82,6 +78,33 @@ function AdminConfirmation() {
 
     fetchOrders();
   }, []);
+
+  //Uppdatera en order i databsen
+  const updateOrder = async (
+    orderId: string,
+    itemId: string,
+    newQuantity: number
+  ) => {
+    try {
+      // Använd det nya API-anropet
+      await adminQuantity(orderId, itemId, newQuantity);
+
+      console.log(
+        `Kvantitet uppdaterad till ${newQuantity} för item ${itemId}`
+      );
+
+      // Uppdatera lokalt tillstånd
+      setOrders((prevOrders) => {
+        const updatedOrders = { ...prevOrders };
+        updatedOrders[orderId] = updatedOrders[orderId].map((order) =>
+          order.id === itemId ? { ...order, quantity: newQuantity } : order
+        );
+        return updatedOrders;
+      });
+    } catch (error) {
+      console.error("Misslyckades med att uppdatera kvantitet:", error);
+    }
+  };
 
   // Funktion för att ta bort en order
   const handleDeleteOrder = async (orderId: string) => {
@@ -167,7 +190,7 @@ function AdminConfirmation() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
+    sessionStorage.removeItem("username");
     navigate("/meny");
   };
 
@@ -239,8 +262,24 @@ function AdminConfirmation() {
                         >
                           {item.isLocked ? "Låst" : "Lås"}
                         </button>
-                        <button className="quantity-btn">-</button>
-                        <button className="quantity-btn">+</button>
+                        <button
+                          className="quantity-btn"
+                          onClick={() => {
+                            if (item.quantity > 1) {
+                              updateOrder(orderId, item.id, item.quantity - 1);
+                            }
+                          }}
+                        >
+                          -
+                        </button>
+                        <button
+                          className="quantity-btn"
+                          onClick={() =>
+                            updateOrder(orderId, item.id, item.quantity + 1)
+                          }
+                        >
+                          +
+                        </button>
                       </aside>
                     </li>
                   ))}
