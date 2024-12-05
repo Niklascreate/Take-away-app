@@ -43,6 +43,11 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.nav_icon {
+    width: 35px;
+    height: 35px;
+}
+
 @media screen and (min-width: 380px) and (max-width: 1200px) {
     .nav_container {
         padding: 0 1rem;
@@ -61,23 +66,6 @@
 
     .nav_list li {
         margin: 0;
-    }
-}
-
-@media screen and (max-width: 380px) {
-    .nav_icon {
-        width: 35px;
-        height: 35px;
-    }
-
-    .cart_count {
-        width: 18px;
-        height: 18px;
-        font-size: 0.7rem;
-    }
-
-    .nav_list {
-        padding: 0.5rem 0;
     }
 }
 
