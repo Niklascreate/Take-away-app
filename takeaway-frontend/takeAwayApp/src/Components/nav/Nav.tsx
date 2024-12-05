@@ -33,7 +33,7 @@ export default function Nav() {
     <>
       <section className="nav_container">
         <ul className="nav_list">
-          <Link to="/img/meny">
+          <Link to="/meny">
             <img src="/img/home.svg" alt="Home" className="nav_icon" />
           </Link>
           <Link to="/info">

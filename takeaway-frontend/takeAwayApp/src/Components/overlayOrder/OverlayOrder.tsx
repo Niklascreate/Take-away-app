@@ -157,9 +157,8 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
 
       <section className="orderOverlay_totalPrice">
         <p className="orderOverlay_totalPrice__total">Total</p>
-        <p className="orderOverlay_totalPrice__price">{total} SEK</p>
+        <p className="orderOverlay_totalPrice__price">{total} sek</p>
       </section>
-
       <button className="orderOverlay_orderButton" onClick={handleOrder}>
         Beställ {total} SEK
       </button>

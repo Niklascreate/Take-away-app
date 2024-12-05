@@ -88,11 +88,11 @@ function OverlayConfirmation() {
     );
   };
 
-  if (loading) return <p>Laddar order...</p>;
+  if (loading) return <p className="lazzyloader">Laddar order...</p>;
 
-  if (error) return <p>{error}</p>;
+  if (error) return <p className="lazzyloader">{error}</p>;
 
-  if (orders.length === 0) return <p>Ingen order att visa.</p>;
+  if (orders.length === 0) return <p className="lazzyloader">Ingen order att visa.</p>;
 
   return (
     <section className="overlay-container">
