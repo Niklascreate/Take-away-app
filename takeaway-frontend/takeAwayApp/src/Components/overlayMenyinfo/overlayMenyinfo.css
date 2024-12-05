@@ -143,41 +143,6 @@
     color: white;
 }
 
-@media (max-width: 480px) {
-    .overlayContent {
-        width: 90%;
-        max-width: 400px;
-        padding: 15px;
-        height: auto;
-        max-height: none;
-    }
-
-    .dishImage {
-        max-width: 200px;
-    }
-
-    .dishTitle {
-        font-size: 20px;
-    }
-
-    .dishDescription {
-        font-size: 14px;
-    }
-
-    .quantity {
-        font-size: 20px;
-    }
-
-    .addToCartButton {
-        font-size: 12px;
-    }
-
-    .totalPriceContainer {
-        font-size: 16px;
-    }
-}
-
-
 @media (max-width: 768px) {
     .overlayContent {
         width: 75%;

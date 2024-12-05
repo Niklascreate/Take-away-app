@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './overlayorder.css';
 import { orderFood } from "../../../api/Api";
 import { OverlayOrderProps } from "../../../interface/Interface";
+import { motion } from "framer-motion";
 
 function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   const [cartItems, setCartItems] = useState<any[]>(cart);
@@ -88,7 +89,16 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
   };
 
   return (
-    <section className="orderOverlay_container">
+    <motion.section
+      className="orderOverlay_container"
+      initial={{ x: '-100vw', opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{
+          duration: 0.6,
+          delay: 0.2,
+          ease: 'easeInOut'
+      }}
+    >
       <section className="orderOverlay_header">
         <h1>Din Order</h1>
         <img
@@ -158,8 +168,7 @@ function OverlayOrder({ cart, onClose }: OverlayOrderProps) {
       <button className="orderOverlay_orderButton" onClick={handleOrder} disabled={isLoading}>
         {isLoading ? <div className="loader"></div> : `Beställ ${total} SEK`}
       </button>
-    </section>
+    </motion.section>
   );
 }
-
 export default OverlayOrder;
