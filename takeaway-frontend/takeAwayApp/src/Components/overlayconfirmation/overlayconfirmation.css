@@ -58,6 +58,11 @@
     animation: bounce 2s ease-in-out infinite;
 }
 
+.lazzyloader {
+    background-color: var(--background);
+    color: #ffffff;
+}
+
 @keyframes bounce {
     0% {
         transform: translateY(0);
