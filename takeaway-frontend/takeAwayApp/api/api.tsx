@@ -128,6 +128,47 @@ export const updateOrderQuantity = async (data: { id: string; quantity: number }
   }
 };
 
+/* Används i adminpage för att uppdatera en order */
+  export const adminQuantity = async (
+    orderId: string,
+    itemId: string,
+    newQuantity: number
+  ): Promise<void> => {
+    if (!orderId) {
+      throw new Error("OrderId är obligatoriskt för att uppdatera en order.");
+    }
+
+    if (!itemId) {
+      throw new Error("ItemId är obligatoriskt för att uppdatera en order.");
+    }
+
+    if (newQuantity === undefined || newQuantity < 1) {
+      throw new Error("Kvantiteten måste vara minst 1.");
+    }
+
+    const data = {
+      id: itemId,
+      quantity: newQuantity,
+    };
+
+    try {
+      const response = await axios.put(
+        `https://y2zbpyprg7.execute-api.eu-north-1.amazonaws.com/menu/update/${orderId}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Order uppdaterad framgångsrikt:", response.data);
+    } catch (error) {
+      console.error("Fel vid uppdatering av order:", error);
+      throw error;
+    }
+  };
+
+
 /* Används i OverLayInlog */
 export const loginUser = async (username: string, password: string): Promise<void> => {
   const loginData = { username, password };
