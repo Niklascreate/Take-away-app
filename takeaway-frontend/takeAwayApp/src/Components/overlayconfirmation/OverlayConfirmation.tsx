@@ -101,7 +101,7 @@ function OverlayConfirmation() {
           <h2 className="confirmation-title">Orderbekräftelse</h2>
           <img
             className="close-overlay"
-            src="/stängKnapp.svg"
+            src="/img/stängKnapp.svg"
             alt="Stäng"
             onClick={closeOverlay}
           />
@@ -111,7 +111,7 @@ function OverlayConfirmation() {
           <article className="box-img__three">
             <img
               className="box-img box-position"
-              src="/plats.svg"
+              src="/img/plats.svg"
               alt="Plats"
             />
             <p className="pickUp-adress">Surströmmingsvägen 1</p>
@@ -152,6 +152,7 @@ function OverlayConfirmation() {
             </p>
           </aside>
         </article>
+
         <h2 className="countdown-title">
           {isLocked
             ? "Din order är mottagen, välkommen att hämta på Surströmmingsvägen 1, 113 51 Norrland"

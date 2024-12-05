@@ -32,7 +32,7 @@ function LoginOverlay({ onClose }: LoginOverlayProps) {
     <section className="inlog_overlay">
       <section className="loginOverlayContent">
         <button className="closeButton" onClick={onClose}>
-          <img src="/stängKnapp.svg" alt="Stäng" />
+          <img src="/img/stängKnapp.svg" alt="Stäng" />
         </button>
         <h2 className="loginTitle">Logga In</h2>
         {errorMessage && <p className="error">{errorMessage}</p>}

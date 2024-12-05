@@ -43,20 +43,20 @@ function ChangeOrderBtn({ order, onRemove, onQuantityChange }: ChangeOrderBtnPro
       <section className="changeOrder_delete">
         <img
           className="changeOrder_img"
-          src="trash.png"
+          src="img/trash.png"
           alt="Trash"
           onClick={() => handleDeleteOrder(order.orderId, order.id)}
         />
         <img
           className="changeOrder_plusMinus"
-          src="white_minus.png"
+          src="img/white_minus.png"
           alt="Minus"
           onClick={() => handleUpdateQuantity(quantity - 1)}
         />
         <span className="changeOrder_quantity">{quantity}</span>
         <img
           className="changeOrder_plusMinus"
-          src="white_plus.png"
+          src="img/white_plus.png"
           alt="Plus"
           onClick={() => handleUpdateQuantity(quantity + 1)}
         />
