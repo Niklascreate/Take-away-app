@@ -70,13 +70,13 @@ function OverlayMenyInfo({ closeOverlay, dish }: OverlayMenyInfoProps) {
 
           <section className="quantitySelector">
             <button className="quantityButton" onClick={decreaseQuantity}>
-              <img src="/img/minus.png" alt="Minus" className="quantityIcon" />
+              <img src="/img/white_minus.png" alt="Minus" className="quantityIcon" />
             </button>
 
             <span className="quantity">{quantity}</span>
 
             <button className="quantityButton" onClick={increaseQuantity}>
-              <img src="/img/plus.png" alt="Plus" className="quantityIcon" />
+              <img src="/img/white_plus.png" alt="Plus" className="quantityIcon" />
             </button>
           </section>
         </section>
