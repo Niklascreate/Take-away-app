@@ -1,10 +1,4 @@
-<div style="text-align: center;">
-  <a href="http://herringbucket.s3-website.eu-north-1.amazonaws.com">
-    <img src="./takeaway-frontend/takeAwayApp/public/img/rundLogga.svg" alt="Herring" />
-  </a>
-  <br />
-  ⬅ Testa applikationen
-</div>
+[![Herring](./takeaway-frontend/takeAwayApp/public/img/rundLogga.svg)](http://herringbucket.s3-website.eu-north-1.amazonaws.com)
 
 ## Gruppexamination
 
