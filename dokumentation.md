@@ -4,47 +4,63 @@
 
 ## URL: ``` http://herringbucket.s3-website.eu-north-1.amazonaws.com ```
 
-## Inloggsningsuppgifter:
-<br>
-``` Användarnamn: admin
-    Lösenord: admin123
-```
 
-# Guide 
+### Inloggningsuppgifter
+- **Användarnamn**: admin  
+- **Lösenord**: admin123
 
-###För att testa denna applikation är det bra att ha två vyer öppna samtidigt. Detta gör det möjligt att låsa en order från adminsidan och se när ordern skickas.
+---
 
-###Först kommer du till landningssida. För att komma vidare tryck på loggan som guppar upp och ner.
+## Guide för användning
 
-###Nu har du kommit till meny. Tryck på en maträtt eller dryck för att få mer information och lägg i varukorg.
+### Allmänt
+För att testa applikationen rekommenderas det att ha två vyer öppna samtidigt. Detta gör det möjligt att låsa en order från adminsidan och se hur orderstatus uppdateras.
 
-###Längst ner i bild har du en navbar. Nu har din varukorg uppdaterats och du kan gå in där.
+### Steg-för-steg:
+1. **Landningssidan**  
+   - Första sidan du ser är landningssidan.  
+   - För att komma vidare, tryck på loggan som guppar upp och ner.
 
-###Inne i varukorgen får man en översikt och här man kan välja att ta bort en produkt. Innan man går vidare till beställ måste man fylla i samtliga uppgifter innan man kan gå vidare. Tryck på beställ.
+2. **Menyn**  
+   - Här kan du bläddra bland maträtter och drycker.  
+   - Tryck på en maträtt eller dryck för att få mer information och lägga till i varukorgen.
 
-###Nu har du kommit till orderbekräftelsesidan och här får man en sista möjlighet att ändra sin order innan den blir låst av restaurangen. När din order är låst kommer du få ett meddelande att den är klar att hämta.
+3. **Navigeringsfältet (Navbar)**  
+   - Längst ner på skärmen finns en navbar.  
+   - När du lagt till produkter i varukorgen, kan du gå in där för att se en översikt.
 
-<br>
+4. **Varukorgen**  
+   - Här ser du alla produkter du lagt till och kan välja att ta bort dem.  
+   - Fyll i alla nödvändiga uppgifter innan du går vidare till "Beställ".  
+
+5. **Orderbekräftelse**  
+   - På denna sida får du en sista chans att ändra din order innan den låses av restaurangen.  
+   - När din order låsts får du ett meddelande om att den är klar att hämta.
+
+---
 
 ## Adminsidans funktioner
 
-## Lås en maträtt eller order.
+### Tillgängliga åtgärder
+1. **Lås en maträtt eller order.**  
+2. **Uppdatera antal.**  
+3. **Lägg till en kommentar som skickas med ordern.**  
+4. **Bekräfta en order.**  
+   - Orderstatus ändras från "inte klar" till "klar".  
+5. **Ta bort en order.**
 
-## Uppdatera antal.
+---
 
-## Lägg till en kommentar som skickas med.
+## Kända buggar
 
-## Bekräfta order och då ändras status från - inte klar till - klar.
+1. **Orderbekräftelsesidan**  
+   - Om sidan stängs ner går det inte att komma tillbaka till den, eftersom kunden inte har inloggning.
 
-## Ta bort order.
+2. **Ta bort låst order**  
+   - Om en order är låst går det inte att ta bort den.
 
+3. **Uppdatering av antal**  
+   - Om antal ändras på adminsidan uppdateras inte ändringen på orderbekräftelsesidan.
 
-# Buggar
-
-## Om man stänger ner orderbekräftelsesidan går det inte att komma tillbaka till den, eftersom vi inte har någon inloggning för kunden.
-
-## Om man har låst en order så går det inte att ta bort den sedan.
-
-## Om man ändrar antal på adminsidan uppdateras det inte på orderbekräftelsesidan.
-
-## När ordern är låst för kunden på orderbekräftelsesidan kan kunden fortfarande ändra antal, men inte ta bort.
+4. **Ändring av antal efter låsning**  
+   - När en order är låst på orderbekräftelsesidan kan kunden fortfarande ändra antal, men inte ta bort produkter.
