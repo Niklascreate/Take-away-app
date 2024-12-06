@@ -23,7 +23,6 @@ function AdminConfirmation() {
     const fetchOrders = async () => {
       try {
         const data = await adminOrders();
-        console.log("API Response:", data);
 
         const groupedOrders = data.reduce(
           (
@@ -66,7 +65,6 @@ function AdminConfirmation() {
           {}
         );
 
-        console.log("Uppdaterade Ordrar:", uppdateradeOrdrar);
         setOrders(uppdateradeOrdrar);
         setLoading(false);
       } catch (error) {
@@ -86,11 +84,6 @@ function AdminConfirmation() {
     try {
     
       await adminQuantity(orderId, itemId, newQuantity);
-
-      console.log(
-        `Kvantitet uppdaterad till ${newQuantity} för item ${itemId}`
-      );
-
       setOrders((prevOrders) => {
         const updatedOrders = { ...prevOrders };
         updatedOrders[orderId] = updatedOrders[orderId].map((order) =>
@@ -109,7 +102,6 @@ function AdminConfirmation() {
       for (const item of items) {
         await adminDeleteOrder(orderId, item.id);
       }
-      console.log(`Order med ID ${orderId} borttagen`);
 
       setOrders((prevOrders) => {
         const updatedOrders = { ...prevOrders };
@@ -154,8 +146,6 @@ function AdminConfirmation() {
 
       // Markera knappen som låst
       setLockedButtons((prev) => ({ ...prev, [id]: true }));
-
-      console.log(`Order med ID ${orderId} och post ID ${id} är nu låst!`);
     } catch (error) {
       console.error("Misslyckades med att låsa order:", error);
     }
@@ -166,7 +156,6 @@ function AdminConfirmation() {
     setLoadingComment(true);
     try {
       await addCommentToOrder(orderId, comment);
-      console.log(`Kommentar tillagd för order ${orderId}`);
       setOrders((prevOrders) => {
         const updatedOrders = { ...prevOrders };
         updatedOrders[orderId] = updatedOrders[orderId].map((order) => ({
@@ -184,6 +173,7 @@ function AdminConfirmation() {
     }
   };
 
+  //Rensa sessionstorage och logga ut admin
   const handleLogout = () => {
     sessionStorage.removeItem("username");
     navigate("/meny");
@@ -334,5 +324,5 @@ function AdminConfirmation() {
 export default AdminConfirmation;
 
 
-//Niklas
+//Niklas, Jonas
 //En adminsida som hämtar alla ordrar från databasen. Man kan lägga till/ta bort rätt, lås en order, bekräfta order, ta bort en order.
