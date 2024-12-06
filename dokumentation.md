@@ -55,14 +55,10 @@ För att testa applikationen rekommenderas det att ha två vyer öppna samtidigt
 
 ## Kända buggar
 
-1. **Orderbekräftelsesidan**  
-   - Om sidan stängs ner går det inte att komma tillbaka till den, eftersom kunden inte har inloggning.
+1. Om sidan stängs ner går det inte att komma tillbaka till den, eftersom kunden inte har inloggning.
 
-2. **Ta bort låst order**  
-   - Om en order är låst går det inte att ta bort den.
+2. Om en order är låst går det inte att ta bort den.
 
-3. **Uppdatering av antal**  
-   - Om antal ändras på adminsidan uppdateras inte ändringen på orderbekräftelsesidan.
+3. Om antal ändras på adminsidan uppdateras inte ändringen på orderbekräftelsesidan.
 
-4. **Ändring av antal efter låsning**  
-   - När en order är låst på orderbekräftelsesidan kan kunden fortfarande ändra antal, men inte ta bort produkter.
+4. När en order är låst på orderbekräftelsesidan kan kunden fortfarande ändra antal, men inte ta bort produkter.
