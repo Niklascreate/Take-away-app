@@ -1,8 +1,9 @@
-# Dokumentation av applikationen - Strömming på språng .
+# Dokumentation av applikationen - Strömming på språng
 
-## Testa gärna i mobil annars fungerar den i samtliga storlekar.
+## Beskrivning
+Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse.
 
-## URL: ``` http://herringbucket.s3-website.eu-north-1.amazonaws.com ```
+### URL: http://herringbucket.s3-website.eu-north-1.amazonaws.com
 
 
 ### Inloggningsuppgifter
