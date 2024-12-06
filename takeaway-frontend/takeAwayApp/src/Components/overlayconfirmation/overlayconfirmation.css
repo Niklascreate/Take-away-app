@@ -15,6 +15,10 @@
     margin: 0 auto;
 }
 
+.overlay-container::-webkit-scrollbar {
+    display: none;
+}
+
 .overlay-box {
     margin-top: 1.5rem;
     color: #ffffff;
@@ -35,7 +39,7 @@
     height: 42px;
     cursor: pointer;
     background-color: var(--background);
-    margin-right: 3rem;
+    margin-right: 2rem;
 }
 
 .confirmation-title {
@@ -43,7 +47,7 @@
     font-weight: 700;
     font-size: 22px;
     text-align: left;
-    margin-top: .2rem;
+    margin: 0 auto;
 }
 
 .box-wrapper {
@@ -60,6 +64,10 @@
     background-color: var(--background);
     color: #ffffff;
     height: 100vh;
+}
+
+.box-order {
+    margin: 0 auto;
 }
 
 @keyframes bounce {
@@ -126,17 +134,19 @@
 }
 
 .order-received {
-    font-weight: bold;
+    font-weight: 300;
 }
 
 .welcome-text {
+    font-weight: 300;
     font-style: italic;
 }
 
-.pickup-adress {
+.pickup-address {
     font-size: 1rem;
-    font-weight: normal;
-    color: #666;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 3rem;
 }
 
 .order_container {
