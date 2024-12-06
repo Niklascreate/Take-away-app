@@ -43,17 +43,15 @@ För att testa applikationen rekommenderas det att ha två vyer öppna samtidigt
 
 ## Adminsidans funktioner
 
-### Tillgängliga åtgärder
-1. **Lås en maträtt eller order.**  
-2. **Uppdatera antal.**  
-3. **Lägg till en kommentar som skickas med ordern.**  
-4. **Bekräfta en order.**  
-   - Orderstatus ändras från "inte klar" till "klar".  
-5. **Ta bort en order.**
+1. Lås en maträtt eller order. 
+2. Uppdatera antal. 
+3. Lägg till en kommentar som skickas med ordern.
+4. Bekräfta en order, orderstatus ändras från "inte klar" till "klar".  
+5. Ta bort en order.
 
 ---
 
-## Kända buggar
+## Buggar
 
 1. Om sidan stängs ner går det inte att komma tillbaka till den, eftersom kunden inte har inloggning.
 
