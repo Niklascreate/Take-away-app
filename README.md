@@ -1,4 +1,4 @@
-[![Herring](./takeaway-frontend/takeAwayApp/public/img/rundLogga.svg)](http://herringbucket.s3-website.eu-north-1.amazonaws.com) ⬅ Testa applikationen
+[![Herring](./takeaway-frontend/takeAwayApp/public/img/rundLogga.svg)](http://herringbucket.s3-website.eu-north-1.amazonaws.com)          ⬅ Testa applikationen
 
 ## Gruppexamination
 
