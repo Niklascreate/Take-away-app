@@ -67,10 +67,12 @@
 }
 
 .menu_dish {
+    margin-bottom: .3rem;
     font-size: 1rem;
 }
 
 .menu_desc {
+    height: 120px;
     font-size: 0.8rem;
 }
 
