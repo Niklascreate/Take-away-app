@@ -18,25 +18,26 @@ Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testa
 För att testa applikationen rekommenderas det att ha två vyer öppna samtidigt. Detta gör det möjligt att låsa en order från adminsidan och se hur orderstatus uppdateras.
 
 ### Steg-för-steg:
-1. **Landningssidan**  
-   - Första sidan du ser är landningssidan.  
-   - För att komma vidare, tryck på loggan som guppar upp och ner.
 
-2. **Menyn**  
-   - Här kan du bläddra bland maträtter och drycker.  
-   - Tryck på en maträtt eller dryck för att få mer information och lägga till i varukorgen.
+   1. Första sidan du ser är landningssidan.
+      
+   3. För att komma vidare, tryck på loggan som guppar upp och ner.
 
-3. **Navigeringsfältet (Navbar)**  
-   - Längst ner på skärmen finns en navbar.  
-   - När du lagt till produkter i varukorgen, kan du gå in där för att se en översikt.
+   4. Här kan du bläddra bland maträtter och drycker.
+      
+   5. Tryck på en maträtt eller dryck för att få mer information och lägga till i varukorgen.
 
-4. **Varukorgen**  
-   - Här ser du alla produkter du lagt till och kan välja att ta bort dem.  
-   - Fyll i alla nödvändiga uppgifter innan du går vidare till "Beställ".  
+   6. Längst ner på skärmen finns en navbar.
+      
+   7. När du lagt till produkter i varukorgen, kan du gå in där för att se en översikt.
 
-5. **Orderbekräftelse**  
-   - På denna sida får du en sista chans att ändra din order innan den låses av restaurangen.  
-   - När din order låsts får du ett meddelande om att den är klar att hämta.
+   8. Här ser du alla produkter du lagt till och kan välja att ta bort dem.
+      
+   9. Fyll i alla nödvändiga uppgifter innan du går vidare till "Beställ".
+
+   10. På denna sida får du en sista chans att ändra din order innan den låses av restaurangen.
+       
+   11. När din order låsts får du ett meddelande om att den är klar att hämta.
 
 ---
 
