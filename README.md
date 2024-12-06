@@ -9,8 +9,6 @@ Testa applikationen
 
 <br>
 <br>
-Niklas Nilsson -> https://github.com/Niklascreate 
-
+Niklas Nilsson -> https://github.com/Niklascreate
 Rindert van Dijk -> https://github.com/Rindertanijk1997
-
 Jonas Stenelind -> https://github.com/Stenelind
