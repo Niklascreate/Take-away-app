@@ -78,6 +78,11 @@
     font-size: 1rem;
 }
 
+.menu_loading, .menu_error {
+    background-color: var(--background);
+    color: var(--white);
+    height: 100vh;
+}
 
 @media (min-width: 451px) and (max-width: 600px) {
     .menu_container {
