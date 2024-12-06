@@ -18,7 +18,7 @@ const Menu = () => {
         setDishes(menuData);
         setLoading(false);
       } catch (err) {
-        setError("Failed to load menu. Please try again later.");
+        setError("Gick inte att hämta menyn.");
         setLoading(false);
       }
     };
