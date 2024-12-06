@@ -1,4 +1,4 @@
-# Take-away-app ![Herring](./takeaway-frontend/takeAwayApp/public/img/rundLogga.svg)
+ ![Herring](./takeaway-frontend/takeAwayApp/public/img/rundLogga.svg)
 
 ## Gruppexamination
 
