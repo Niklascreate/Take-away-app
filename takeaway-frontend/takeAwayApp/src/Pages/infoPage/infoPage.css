@@ -1,0 +1,176 @@
+.infoPageWrapper { 
+  max-width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background);
+  color: #ffffff;
+  overflow: hidden;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.historia,
+.kontakt {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.historiaH1 {
+  font-size: 18px; 
+  margin-bottom: 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+
+.historia img {
+  max-width: 320px;  
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+.bildText {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 13px;
+}
+
+.historiaInfoText {
+  line-height: 1.5;
+  font-size: 14px; 
+  max-width: 320px;
+  margin: 0 auto;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.kontaktH2 {
+  font-size: 20px; 
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.kontaktMailLabel,
+.kontaktTelefonLabel {
+  font-family: "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  color: #ffffff;
+}
+
+.kontaktMail,
+.kontaktTelefon {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #ffffff;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+}
+
+
+@media screen and (max-width: 600px) {
+  .historiaH1 {
+    font-size: 18px;
+  }
+
+  .bildText {
+    font-size: 12px;
+  }
+
+  .historiaInfoText {
+    font-size: 14px;
+  }
+
+  .kontaktH2 {
+    font-size: 20px;
+  }
+
+  .kontaktMailLabel,
+  .kontaktTelefonLabel {
+    font-size: 14px;
+  }
+
+  .kontaktMail,
+  .kontaktTelefon {
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+}
+
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .historiaH1 {
+    font-size: 22px; 
+  }
+
+  .bildText {
+    font-size: 14px; 
+  }
+
+  .historiaInfoText {
+    font-size: 16px; 
+    max-width: 70%;
+  }
+
+  .kontaktH2 {
+    font-size: 24px; 
+  }
+
+  .kontaktMailLabel,
+  .kontaktTelefonLabel {
+    font-size: 15px; 
+  }
+
+  .kontaktMail,
+  .kontaktTelefon {
+    font-size: 18px; 
+    max-width: 80%;
+  }
+
+}
+
+
+@media screen and (min-width: 1025px) {
+  .historiaH1 {
+    font-size: 26px; 
+  }
+
+  .bildText {
+    font-size: 16px; 
+  }
+
+  .historiaInfoText {
+    font-size: 18px; 
+    max-width: 70%;
+  }
+
+  .kontaktH2 {
+    font-size: 28px; 
+  }
+
+  .kontaktMailLabel,
+  .kontaktTelefonLabel {
+    font-size: 18px; 
+  }
+
+  .kontaktMail,
+  .kontaktTelefon {
+    font-size: 18px; 
+    max-width: 70%;
+  }
+}

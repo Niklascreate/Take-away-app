@@ -1,0 +1,262 @@
+.menu_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--background);
+    padding: 1rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.menu_header {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border-bottom: 4px solid black;
+    padding-bottom: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dishes_section, .drinks_section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    align-items: center;
+    background-color: var(--darkBlue);
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 4px 2px rgba(0, 0, 0, 0.5);
+}
+
+.menu:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25), 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu_img {
+    height: 120px;
+    width: 120px;
+    border-radius: .2rem;
+    object-fit: cover;
+}
+
+.menu_descText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-family: "Roboto", sans-serif;
+    height: 120px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.menu_dish {
+    margin-bottom: .3rem;
+    font-size: 1rem;
+}
+
+.menu_desc {
+    height: 120px;
+    font-size: 0.8rem;
+}
+
+.menu_price {
+    font-size: 1rem;
+}
+
+.menu_loading, .menu_error {
+    background-color: var(--background);
+    color: var(--white);
+    height: 100vh;
+}
+
+@media (min-width: 451px) and (max-width: 600px) {
+    .menu_container {
+        padding: 1.2rem;
+        gap: 1.5rem;
+    }
+
+    .menu_header {
+        font-size: 1.2rem;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .menu_img {
+        height: 110px;
+        width: 110px;
+    }
+
+    .menu_descText {
+        height: auto;
+    }
+
+    .menu_dish {
+        font-size: 1.1rem;
+    }
+
+    .menu_desc {
+        font-size: 0.85rem;
+    }
+
+    .menu_price {
+        font-size: 1.1rem;
+    }
+
+    .dishes_section, .drinks_section {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+}
+
+
+@media (min-width: 601px) and (max-width: 829px) {
+    .menu_container {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .menu_header {
+        font-size: 1.3rem;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 1.6rem;
+        padding: 1rem;
+    }
+
+    .menu_img {
+        height: 120px;
+        width: 120px;
+    }
+
+    .menu_descText {
+        height: auto;
+    }
+
+    .menu_dish {
+        font-size: 1.2rem;
+    }
+
+    .menu_desc {
+        font-size: 0.9rem;
+    }
+
+    .menu_price {
+        font-size: 1.2rem;
+    }
+
+    .dishes_section, .drinks_section {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.6rem;
+    }
+}
+
+@media (min-width: 830px) {
+    .menu_container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .menu {
+        grid-template-columns: 1fr 2fr; 
+        gap: 2rem;
+    }
+
+    .menu_img {
+        height: 130px;
+        width: 130px;
+    }
+
+    .menu_descText {
+        height: auto;
+        text-align: left;
+    }
+
+    .menu_dish {
+        font-size: 1.2rem;
+    }
+
+    .menu_desc {
+        font-size: 0.9rem;
+    }
+
+    .menu_price {
+        font-size: 1.1rem;
+    }
+
+    .dishes_section, .drinks_section {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1200px) {
+    .menu_container {
+        grid-template-columns: 1fr;
+    }
+
+    .menu_header {
+        text-align: left;
+    }
+
+    .menu {
+        grid-template-columns: 1fr 2fr;
+        gap: 2rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu_img {
+        height: 150px;
+        width: 150px;
+    }
+
+    .menu_descText {
+        height: auto;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .menu_dish {
+        font-size: 1.3rem;
+    }
+
+    .menu_desc {
+        font-size: 1rem;
+    }
+
+    .menu_price {
+        font-size: 1.2rem;
+    }
+
+    .menu:hover {
+        transform: scale(1.1);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.35), 0 12px 18px rgba(0, 0, 0, 0.3);
+    }
+}
+
+
+/* Niklas, Jonas, Rindert */

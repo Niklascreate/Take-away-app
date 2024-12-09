@@ -1,0 +1,35 @@
+.changeOrder_container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  height: 40px;
+  margin-top: 1rem;
+  border-bottom: 2px solid white; 
+  margin: 0 auto;
+}
+
+.changeOrder_delete {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: .5rem;
+}
+
+.changeOrder_img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: .5rem;
+  cursor: pointer;
+}
+
+.changeOrder_plusMinus {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 .5rem 0 .5rem;
+  cursor: pointer;
+}
+
+
+/* Niklas, Jonas, Rindert */

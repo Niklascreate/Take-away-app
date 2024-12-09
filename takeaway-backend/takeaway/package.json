@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@middy/core": "^2.5.0",
+    "@middy/http-json-body-parser": "^5.5.1",
+    "aws-sdk": "^2.1692.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^11.0.3"
+  },
+  "type": "module"
+}
