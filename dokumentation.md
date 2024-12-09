@@ -53,7 +53,7 @@ För att testa applikationen rekommenderas det att ha två vyer öppna samtidigt
 
 ## Buggar
 
-1. Om sidan stängs ner går det inte att komma tillbaka till den, eftersom kunden inte har inloggning.
+1. Om orderbekräftelsesidan stängs ner går det inte att komma tillbaka till den, eftersom kunden inte har inloggning (Ha två vyer öppna).
 
 2. Om en order är låst går det inte att ta bort den.
 
